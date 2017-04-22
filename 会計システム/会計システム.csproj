@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Domain\PrimitiveObject\名称.cs" />
+    <Compile Include="Domain\PrimitiveObject\日付.cs" />
     <Compile Include="frmスタート画面.cs">
       <SubType>Form</SubType>
     </Compile>
