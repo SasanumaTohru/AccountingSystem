@@ -48,6 +48,10 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\PrimitiveObject\文字列クラステスト.cs" />
+    <Compile Include="Domain\PrimitiveObject\整数クラステスト.cs" />
+    <Compile Include="Domain\PrimitiveObject\金額クラステスト.cs" />
+    <Compile Include="Domain\PrimitiveObject\日付クラステスト.cs" />
     <Compile Include="Domain\PrimitiveObject\名称クラステスト.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

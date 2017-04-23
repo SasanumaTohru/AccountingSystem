@@ -20,8 +20,9 @@ namespace 会計システム
 
         private void button1_Click(object sender, EventArgs e)
         {
-            名称 氏名 = new 名称("Sasanuma");
-            MessageBox.Show(氏名.値());
+            DateTime foo = new DateTime(2017, 1, 1);
+            MessageBox.Show(foo.ToShortDateString());
+            
         }
     }
 }
