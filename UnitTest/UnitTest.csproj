@@ -48,6 +48,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\FoundationObject\消費税課税金額クラステスト.cs" />
+    <Compile Include="Domain\PrimitiveObject\自然数クラステスト.cs" />
     <Compile Include="Domain\PrimitiveObject\文字列クラステスト.cs" />
     <Compile Include="Domain\PrimitiveObject\整数クラステスト.cs" />
     <Compile Include="Domain\PrimitiveObject\金額クラステスト.cs" />

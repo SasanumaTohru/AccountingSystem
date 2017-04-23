@@ -45,11 +45,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\FoundationObject\消費税率.cs" />
     <Compile Include="Domain\PrimitiveObject\名称.cs" />
     <Compile Include="Domain\PrimitiveObject\整数.cs" />
     <Compile Include="Domain\PrimitiveObject\文字列.cs" />
     <Compile Include="Domain\PrimitiveObject\日付.cs" />
+    <Compile Include="Domain\PrimitiveObject\自然数.cs" />
     <Compile Include="Domain\PrimitiveObject\金額.cs" />
+    <Compile Include="Domain\FoundationObject\消費税課税金額.cs" />
     <Compile Include="frmスタート画面.cs">
       <SubType>Form</SubType>
     </Compile>
