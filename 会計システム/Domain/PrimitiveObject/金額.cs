@@ -9,14 +9,20 @@
             m_値 = 値;
         }
 
-        public decimal 値()
+        public decimal 値
         {
+            get
+            {
             return m_値;
+            }
         }
 
-        public string 桁区切り値()
+        public string 桁区切り値
         {
+            get
+            {
             return m_値.ToString("#,##0;△#,##0;");
+            }
         }
     }
 }

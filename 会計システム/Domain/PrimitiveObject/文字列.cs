@@ -25,9 +25,12 @@ namespace 会計システム.Domain.PrimitiveObject
             }
         }
 
-        public string 値()
+        public string 値
         {
+            get
+            {
             return m_値;
+            }
         }
     }
 }

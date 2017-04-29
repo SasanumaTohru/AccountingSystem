@@ -45,6 +45,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\BusinessObject\伝票\仕訳.cs" />
+    <Compile Include="Domain\BusinessObject\勘定科目\科目.cs" />
+    <Compile Include="Domain\BusinessObject\勘定科目\コード.cs" />
+    <Compile Include="Domain\BusinessObject\勘定科目\科目体系.cs" />
     <Compile Include="Domain\FoundationObject\消費税率.cs" />
     <Compile Include="Domain\PrimitiveObject\名称.cs" />
     <Compile Include="Domain\PrimitiveObject\整数.cs" />

@@ -9,14 +9,20 @@
             m_値 = 0.08m;    //ToDo:仮実装
         }
 
-        public decimal 値()
+        public decimal 値
         {
+            get
+            {
             return m_値;
+            }
         }
 
-        public decimal 課税対象金額を求める除数()
+        public decimal 課税対象金額を求める除数
         {
+            get
+            {
             return 1 + m_値; 
+            }
         }
     }
 }
