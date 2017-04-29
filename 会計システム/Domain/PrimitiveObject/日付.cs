@@ -55,5 +55,13 @@ namespace 会計システム.Domain.PrimitiveObject
             }
             return レスポンス;
         }
+
+        public string 西暦文字列 => m_値.Year.ToString();
+
+        public string 月文字列2桁 => m_値.Month.ToString("00");
+
+        public string 西暦年月文字列6桁 => 西暦文字列 + 月文字列2桁;
+
+
     }
 }

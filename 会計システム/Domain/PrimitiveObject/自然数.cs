@@ -21,5 +21,10 @@ namespace 会計システム.Domain.PrimitiveObject
         }
 
         public int 値 => m_値;
+
+        public string 指定桁0埋め文字列を取得する(int 桁数)
+        {
+            return String.Format("{0:D" + 桁数.ToString() + "}", m_値); 
+        }
     }
 }
