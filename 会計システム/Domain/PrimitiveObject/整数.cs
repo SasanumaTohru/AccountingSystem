@@ -9,12 +9,6 @@
             m_値 = 値;
         }
 
-        public int 値
-        {
-            get
-            {
-            return m_値;
-            }
-        }
+        public int 値 => m_値;
     }
 }

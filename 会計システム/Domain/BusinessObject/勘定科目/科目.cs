@@ -25,30 +25,11 @@ namespace 会計システム.Domain.BusinessObject.勘定科目
             m_名称 = 名称;
             m_集計科目 = 集計科目;
         }
+        
+        public コード コード => m_コード;
 
+        public PrimitiveObject.名称 名称 => m_名称;
 
-        public コード コード
-        {
-            get
-            {
-                return m_コード;
-            }
-        }
-
-        public PrimitiveObject.名称 名称
-        {
-            get
-            {
-                return m_名称;
-            }
-        }
-
-        public 科目 集計科目
-        {
-            get
-            {
-                return m_集計科目;
-            }
-        }
+        public 科目 集計科目 => m_集計科目;
     }
 }

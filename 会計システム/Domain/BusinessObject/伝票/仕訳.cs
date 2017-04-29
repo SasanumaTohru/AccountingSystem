@@ -25,28 +25,10 @@ namespace 会計システム.Domain.BusinessObject.伝票
             m_貸借区分 = 貸借;
         }
 
-        public 勘定科目.科目 勘定科目
-        {
-            get
-            {
-                return m_勘定科目;
-            }
-        }
+        public 勘定科目.科目 勘定科目 => m_勘定科目;
 
-        public PrimitiveObject.金額 金額
-        {
-            get
-            {
-                return m_金額;
-            }
-        }
+        public PrimitiveObject.金額 金額 => m_金額;
 
-        public 貸借区分 貸借
-        {
-            get
-            {
-                return m_貸借区分;
-            }
-        }
+        public 貸借区分 貸借 => m_貸借区分;
     }
 }
