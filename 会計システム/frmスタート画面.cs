@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows.Forms;
-using 会計システム.Domain.PrimitiveObject;
 
 namespace 会計システム
 {
@@ -17,12 +9,40 @@ namespace 会計システム
         {
             InitializeComponent();
         }
-
-        private void button1_Click(object sender, EventArgs e)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cmd取引勘定科目の一覧を表示する_Click(object sender, System.EventArgs e)
         {
-            DateTime foo = new DateTime(2017, 1, 1);
-            MessageBox.Show(foo.ToShortDateString());
-            
+            ApplicationService.勘定科目提供サービス 科目一覧 = new ApplicationService.勘定科目提供サービス();
+            リストの表示を更新する(科目一覧.取引科目リスト);
         }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cmdすべての勘定科目の一覧を表示する_Click(object sender, System.EventArgs e)
+        {
+            ApplicationService.勘定科目提供サービス 科目一覧 = new ApplicationService.勘定科目提供サービス();
+            リストの表示を更新する(科目一覧.すべての勘定科目リスト);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="科目一覧"></param>
+        private void リストの表示を更新する(List<Domain.BusinessObject.勘定科目.科目> 科目一覧)
+        {
+            lst一覧表示.Items.Clear();
+            foreach (Domain.BusinessObject.勘定科目.科目 取引科目 in 科目一覧)
+            {
+                lst一覧表示.Items.Add(取引科目.コードと名称.値);
+            }
+        }
+
     }
 }
