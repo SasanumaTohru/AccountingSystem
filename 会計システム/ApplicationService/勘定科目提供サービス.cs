@@ -10,7 +10,7 @@ namespace 会計システム.ApplicationService
         /// <summary>
         /// 
         /// </summary>
-        public List<科目> m_勘定科目リスト = new List<科目>();
+        private List<科目> m_勘定科目リスト = new List<科目>();
 
         /// <summary>
         /// 
