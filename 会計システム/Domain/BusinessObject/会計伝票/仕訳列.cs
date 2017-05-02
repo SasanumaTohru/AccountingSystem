@@ -12,13 +12,7 @@ namespace 会計システム.Domain.BusinessObject.会計伝票
           m_仕訳列.Add(仕訳);
         }
 
-        public List<仕訳> リスト
-        {
-            get
-            {
-                return m_仕訳列;
-            }
-        }
+        public List<仕訳> リスト => m_仕訳列;
 
         public PrimitiveObject.金額 合計金額
         {

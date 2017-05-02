@@ -5,7 +5,7 @@ using 会計システム.Domain.PrimitiveObject;
 
 namespace 会計システム.ApplicationService
 {
-    class 勘定科目提供サービス
+    class 勘定科目情報サービス
     {
         /// <summary>
         /// 
@@ -57,6 +57,15 @@ namespace 会計システム.ApplicationService
                 コード 集計科目コード = new コード(レコード.集計科目コード);
                 科目 勘定科目 = new 科目(科目コード, new 名称(レコード.勘定科目名), 集計科目コード);
                 m_勘定科目リスト.Add(勘定科目);
+            }
+        }
+
+        public 名称 勘定科目名を照会する(コード 勘定科目コード)
+        {
+            using (var MyDB = new Infrastructure.AccountingDBEntities())
+            {
+                var rs = from o in MyDB.M_勘定科目 where o.勘定科目コード == 勘定科目コード.値  select o;
+                return new 名称(rs.First().勘定科目名);
             }
         }
     }

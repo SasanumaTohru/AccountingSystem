@@ -18,6 +18,11 @@ namespace 会計システム.Domain.PrimitiveObject
             m_値 = new DateTime(年, 月, 日);
         }
 
+        public 日付(DateTime 日付)
+        {
+            m_値 = 日付;
+        }
+
         public DateTime 値 => m_値;
 
         public string 西暦年月日(曜日表示 曜日表示 =曜日表示.なし)

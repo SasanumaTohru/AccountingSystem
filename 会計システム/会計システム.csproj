@@ -69,7 +69,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationService\勘定科目提供サービス.cs" />
+    <Compile Include="ApplicationService\仕訳構築サービス.cs" />
+    <Compile Include="ApplicationService\会計伝票作成サービス.cs" />
+    <Compile Include="ApplicationService\勘定科目情報サービス.cs" />
     <Compile Include="Domain\BusinessObject\会計伝票\仕訳.cs" />
     <Compile Include="Domain\BusinessObject\会計伝票\仕訳列.cs" />
     <Compile Include="Domain\BusinessObject\会計伝票\伝票.cs" />

@@ -31,5 +31,6 @@
         public PrimitiveObject.文字列 コードと名称 => new PrimitiveObject.文字列( m_コード.値.ToString() + " : " + m_名称.値);
 
         public コード 集計科目コード => m_集計科目コード;
+
     }
 }
