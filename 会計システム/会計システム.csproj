@@ -78,7 +78,6 @@
     <Compile Include="Domain\BusinessObject\会計伝票\番号.cs" />
     <Compile Include="Domain\BusinessObject\勘定科目\科目.cs" />
     <Compile Include="Domain\BusinessObject\勘定科目\コード.cs" />
-    <Compile Include="Domain\BusinessObject\勘定科目\科目体系.cs" />
     <Compile Include="Domain\BusinessObject\財務諸表\損益計算書.cs" />
     <Compile Include="Domain\BusinessObject\財務諸表\貸借対照表.cs" />
     <Compile Include="Domain\FoundationObject\消費税率.cs" />
@@ -149,7 +148,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
       <Visible>False</Visible>
@@ -176,6 +174,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WindowsFormsControlLibrary\WindowsFormsControlLibrary.csproj">
+      <Project>{97f5631b-14a0-4c31-942c-d1360c75dbe4}</Project>
+      <Name>WindowsFormsControlLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

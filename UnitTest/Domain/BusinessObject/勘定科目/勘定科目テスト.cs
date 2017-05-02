@@ -28,6 +28,7 @@ namespace UnitTest.Domain.BusinessObject.勘定科目
 
             Assert.AreEqual(100003, 普通預金.コード.値);
             Assert.AreEqual("普通預金", 普通預金.名称.値);
+            Assert.AreEqual("100003 : 普通預金", 普通預金.コードと名称.値);
             Assert.AreEqual(100002, 普通預金.集計科目コード.値);
 
             //仕訳

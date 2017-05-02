@@ -34,5 +34,6 @@
 
         public 仕訳列 貸方 => m_貸方仕訳;
 
+        public PrimitiveObject.金額 貸借金額差額 => new PrimitiveObject.金額(m_借方仕訳.合計金額.値 - m_貸方仕訳.合計金額.値);
     }
 }

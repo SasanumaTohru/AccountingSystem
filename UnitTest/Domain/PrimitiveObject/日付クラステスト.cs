@@ -21,6 +21,10 @@ namespace UnitTest.Domain.PrimitiveObject
             Assert.AreEqual("平成29年1月1日", 元旦.和暦年月日());
             Assert.AreEqual("平成29年1月1日", 元旦.和暦年月日(日付.曜日表示.なし));
             Assert.AreEqual("平成29年1月1日(日)", 元旦.和暦年月日(日付.曜日表示.あり ));
+
+            DateTime 今年の大晦日 = new DateTime(2017, 12, 31);
+            日付 大晦日 = new 日付(今年の大晦日);
+            Assert.AreEqual("2017年12月31日", 大晦日.西暦年月日());
         }
     }
 }
