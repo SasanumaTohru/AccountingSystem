@@ -45,6 +45,7 @@ namespace UnitTest.Domain.BusinessObject.勘定科目
             伝票 伝票 = new 伝票(月内連番, 計上日);
             Assert.AreEqual("201704-00001", 伝票.番号.値);
             Assert.AreEqual("2017年4月1日", 伝票.計上日.西暦年月日());
+            Assert.AreEqual("2017年度", 伝票.帰属会計年度);
             伝票.追加する(借方仕訳1);
             伝票.追加する(借方仕訳2);
             伝票.追加する(貸方仕訳);
@@ -59,6 +60,8 @@ namespace UnitTest.Domain.BusinessObject.勘定科目
             Assert.AreEqual("1,080", 伝票.貸方.リスト[0].金額.桁区切り値);
             Assert.AreEqual(1080, 伝票.借方.合計金額.値);
             Assert.AreEqual(1080, 伝票.貸方.合計金額.値);
+            Assert.AreEqual(false, 伝票.貸借金額不一致);
+            Assert.AreEqual(0, 伝票.貸借金額差額.値);
 
         }
     }

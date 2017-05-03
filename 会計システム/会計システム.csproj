@@ -113,6 +113,9 @@
     <Compile Include="Infrastructure\M_勘定科目.cs">
       <DependentUpon>AccountingEDM.tt</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\T_仕訳.cs">
+      <DependentUpon>AccountingEDM.tt</DependentUpon>
+    </Compile>
     <Compile Include="Infrastructure\T_会計伝票.cs">
       <DependentUpon>AccountingEDM.tt</DependentUpon>
     </Compile>

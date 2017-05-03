@@ -25,9 +25,22 @@
           <Property Name="伝票番号" Type="nchar" MaxLength="12" Nullable="false" />
           <Property Name="計上日" Type="date" Nullable="false" />
         </EntityType>
+        <EntityType Name="T_仕訳">
+          <Key>
+            <PropertyRef Name="伝票番号" />
+            <PropertyRef Name="仕訳番号" />
+          </Key>
+          <Property Name="伝票番号" Type="nchar" MaxLength="12" Nullable="false" />
+          <Property Name="仕訳番号" Type="int" Nullable="false" />
+          <Property Name="勘定科目コード" Type="int" Nullable="false" />
+          <Property Name="金額" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="摘要" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="貸借" Type="int" Nullable="false" />
+        </EntityType>
         <EntityContainer Name="AccountingDBModelStoreContainer">
           <EntitySet Name="M_勘定科目" EntityType="Self.M_勘定科目" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_会計伝票" EntityType="Self.T_会計伝票" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_仕訳" EntityType="Self.T_仕訳" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -49,6 +62,7 @@
         <EntityContainer Name="AccountingDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="M_勘定科目" EntityType="Self.M_勘定科目" />
           <EntitySet Name="T_会計伝票" EntityType="AccountingDBModel.T_会計伝票" />
+          <EntitySet Name="T_仕訳" EntityType="AccountingDBModel.T_仕訳" />
         </EntityContainer>
         <EntityType Name="T_会計伝票">
           <Key>
@@ -56,6 +70,18 @@
           </Key>
           <Property Name="伝票番号" Type="String" Nullable="false" MaxLength="12" FixedLength="true" Unicode="true" />
           <Property Name="計上日" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <EntityType Name="T_仕訳">
+          <Key>
+            <PropertyRef Name="伝票番号" />
+            <PropertyRef Name="仕訳番号" />
+          </Key>
+          <Property Name="伝票番号" Type="String" Nullable="false" MaxLength="12" FixedLength="true" Unicode="true" />
+          <Property Name="仕訳番号" Type="Int32" Nullable="false" />
+          <Property Name="勘定科目コード" Type="Int32" Nullable="false" />
+          <Property Name="金額" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="摘要" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="貸借" Type="Int32" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -81,6 +107,18 @@
             <EntityTypeMapping TypeName="AccountingDBModel.T_会計伝票">
               <MappingFragment StoreEntitySet="T_会計伝票">
                 <ScalarProperty Name="計上日" ColumnName="計上日" />
+                <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_仕訳">
+            <EntityTypeMapping TypeName="AccountingDBModel.T_仕訳">
+              <MappingFragment StoreEntitySet="T_仕訳">
+                <ScalarProperty Name="貸借" ColumnName="貸借" />
+                <ScalarProperty Name="摘要" ColumnName="摘要" />
+                <ScalarProperty Name="金額" ColumnName="金額" />
+                <ScalarProperty Name="勘定科目コード" ColumnName="勘定科目コード" />
+                <ScalarProperty Name="仕訳番号" ColumnName="仕訳番号" />
                 <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
               </MappingFragment>
             </EntityTypeMapping>

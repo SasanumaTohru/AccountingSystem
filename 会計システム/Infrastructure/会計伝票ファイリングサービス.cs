@@ -1,21 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using 会計システム.Domain.PrimitiveObject;
 using 会計システム.Domain.BusinessObject.会計伝票;
+using 会計システム.Domain.PrimitiveObject;
 
 namespace 会計システム.Infrastructure
 {
     class 会計伝票ファイリングサービス
     {
+       
+        private 伝票 新しい会計伝票;
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="計上日"></param>
         /// <returns></returns>
-        public 伝票 記帳した伝票を取得する(日付 計上日)
+        public 伝票 伝票番号が採番された伝票を取得する(日付 計上日)
         {
             using (var MyDB =new AccountingDBEntities())
             {
@@ -24,20 +24,7 @@ namespace 会計システム.Infrastructure
 
                 番号 新しい伝票番号 = 伝票番号を採番する(計上日, 既存伝票番号の最大値);
 
-                伝票 新しい会計伝票 = new 伝票(新しい伝票番号, 計上日);
-                if (新しい会計伝票.貸借金額不一致)
-                {
-                    throw new Exception("貸借の金額が一致していないため、伝票の登録を中止します。");
-                }
-
-                T_会計伝票 会計伝票ファイル = new T_会計伝票()
-                {
-                    伝票番号 = 新しい会計伝票.番号.値,
-                    計上日 = 新しい会計伝票.計上日.値
-                };
-                MyDB.T_会計伝票.Add(会計伝票ファイル);
-                MyDB.SaveChanges();
-
+                新しい会計伝票 = new 伝票(新しい伝票番号, 計上日);
                 return 新しい会計伝票;
             }
         }
@@ -68,6 +55,34 @@ namespace 会計システム.Infrastructure
         {
             int 年月内伝票番号 = int.Parse(既存伝票番号の最大値.Substring(7, 5));
             return 年月内伝票番号 + 1;
+        }
+
+        public void 伝票を保存する(List<仕訳> 仕訳リスト)
+        {
+            using(var MyDB = new AccountingDBEntities())
+            {
+                int 仕訳番号 = 0;
+                foreach (仕訳 p in 仕訳リスト)
+                {
+                    T_仕訳 仕訳 = new T_仕訳()
+                    {
+                        伝票番号 = 新しい会計伝票.番号.値,
+                        仕訳番号 = ++仕訳番号,
+                        勘定科目コード = p.勘定科目.コード.値,
+                        金額 = p.金額.値,
+                        摘要 = p.摘要.値,
+                        貸借 = (int)p.貸借,
+                    };
+                    MyDB.T_仕訳.Add(仕訳);
+                }
+                T_会計伝票 会計伝票ファイル = new T_会計伝票()
+                {
+                    伝票番号 = 新しい会計伝票.番号.値,
+                    計上日 = 新しい会計伝票.計上日.値
+                };
+                MyDB.T_会計伝票.Add(会計伝票ファイル);
+                MyDB.SaveChanges();
+            }
         }
     }
 }

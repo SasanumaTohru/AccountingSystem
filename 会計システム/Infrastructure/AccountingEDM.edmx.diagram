@@ -7,6 +7,7 @@
       <Diagram DiagramId="de8da45ead7345638228370e27ac34a9" Name="Diagram1">
         <EntityTypeShape EntityType="AccountingDBModel.M_勘定科目" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="AccountingDBModel.T_会計伝票" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="AccountingDBModel.T_仕訳" Width="1.5" PointX="3.375" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
