@@ -4,13 +4,21 @@
     {
         private decimal m_値;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public 消費税率()
         {
             m_値 = 0.08m;    //ToDo:仮実装
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
         public decimal 値 => m_値;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public decimal 課税対象金額を求める除数 => 1m + m_値;
     }
 }

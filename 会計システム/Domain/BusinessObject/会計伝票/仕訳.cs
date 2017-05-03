@@ -13,6 +13,13 @@
         private PrimitiveObject.金額 m_金額;
         private 貸借区分 m_貸借区分;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="勘定科目"></param>
+        /// <param name="摘要"></param>
+        /// <param name="金額"></param>
+        /// <param name="貸借"></param>
         public 仕訳(勘定科目.科目 勘定科目,PrimitiveObject.文字列 摘要, PrimitiveObject.金額 金額,貸借区分 貸借)
         {
             m_勘定科目 = 勘定科目;
@@ -21,12 +28,24 @@
             m_貸借区分 = 貸借;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public 勘定科目.科目 勘定科目 => m_勘定科目;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public PrimitiveObject.文字列 摘要 => m_摘要;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public PrimitiveObject.金額 金額 => m_金額;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public 貸借区分 貸借 => m_貸借区分;
     }
 }

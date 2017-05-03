@@ -13,18 +13,36 @@ namespace 会計システム.Domain.PrimitiveObject
             なし=2,
         }
           
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="年"></param>
+        /// <param name="月"></param>
+        /// <param name="日"></param>
         public 日付(int 年, int 月, int 日)
         {
             m_値 = new DateTime(年, 月, 日);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="日付"></param>
         public 日付(DateTime 日付)
         {
             m_値 = 日付;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public DateTime 値 => m_値;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="曜日表示"></param>
+        /// <returns></returns>
         public string 西暦年月日(曜日表示 曜日表示 =曜日表示.なし)
         {
             string レスポンス;
@@ -42,6 +60,11 @@ namespace 会計システム.Domain.PrimitiveObject
             return レスポンス;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="曜日表示"></param>
+        /// <returns></returns>
         public string 和暦年月日(曜日表示 曜日表示 = 曜日表示.なし)
         {
             CultureInfo 日本のカルチャー = new CultureInfo("ja-JP", true);
@@ -61,12 +84,33 @@ namespace 会計システム.Domain.PrimitiveObject
             return レスポンス;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public string 和暦年
+        {
+            get
+            {
+                CultureInfo 日本のカルチャー = new CultureInfo("ja-JP", true);
+                日本のカルチャー.DateTimeFormat.Calendar = new JapaneseCalendar();
+                return m_値.ToString("ggyy年", 日本のカルチャー); ;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string 西暦文字列 => m_値.Year.ToString();
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string 月文字列2桁 => m_値.Month.ToString("00");
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string 西暦年月文字列6桁 => 西暦文字列 + 月文字列2桁;
-
 
     }
 }

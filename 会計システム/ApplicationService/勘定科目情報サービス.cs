@@ -7,9 +7,7 @@ namespace 会計システム.ApplicationService
 {
     class 勘定科目情報サービス
     {
-        /// <summary>
-        /// 
-        /// </summary>
+
         private List<科目> m_勘定科目リスト = new List<科目>();
 
         /// <summary>
@@ -60,6 +58,11 @@ namespace 会計システム.ApplicationService
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="勘定科目コード"></param>
+        /// <returns></returns>
         public 名称 勘定科目名を照会する(コード 勘定科目コード)
         {
             using (var MyDB = new Infrastructure.AccountingDBEntities())

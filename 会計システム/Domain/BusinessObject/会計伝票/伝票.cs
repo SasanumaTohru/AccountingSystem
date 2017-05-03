@@ -7,16 +7,31 @@
         private 仕訳列 m_借方仕訳 = new 仕訳列();
         private 仕訳列 m_貸方仕訳 = new 仕訳列();
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="伝票番号"></param>
+        /// <param name="計上日"></param>
         public 伝票(番号 伝票番号,PrimitiveObject.日付 計上日)
         {
             m_番号 = 伝票番号;
             m_計上日 = 計上日;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public 番号 番号 => m_番号;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public PrimitiveObject.日付 計上日 => m_計上日;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="仕訳"></param>
         public void 追加する(仕訳 仕訳)
         {
             switch (仕訳.貸借)
@@ -30,10 +45,52 @@
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public 仕訳列 借方 => m_借方仕訳;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public 仕訳列 貸方 => m_貸方仕訳;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public PrimitiveObject.金額 貸借金額差額 => new PrimitiveObject.金額(m_借方仕訳.合計金額.値 - m_貸方仕訳.合計金額.値);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public bool 貸借金額不一致
+        {
+            get
+            {
+                bool 判定 = false;
+                if(m_借方仕訳.合計金額.値 == m_貸方仕訳.合計金額.値)
+                {
+                    判定 = true;
+                }
+                return 判定;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int 帰属会計年度
+        {
+            get
+            {
+                int 帰属年 = m_計上日.値.Year;
+                int 計上月 = m_計上日.値.Month;
+                if(1 <= 帰属年 && 帰属年 <= 3)
+                {
+                    ++帰属年;
+                }
+                return 帰属年;
+            }
+        }
     }
 }

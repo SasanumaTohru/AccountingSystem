@@ -4,11 +4,19 @@
     {
         private string m_値;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="番号"></param>
+        /// <param name="計上日"></param>
         public 番号(PrimitiveObject.自然数 番号,PrimitiveObject.日付 計上日)
         {
             m_値 = 計上日.西暦年月文字列6桁 + "-" + 番号.指定桁0埋め文字列を取得する(5);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string 値 => m_値;
 
     }

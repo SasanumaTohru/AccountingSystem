@@ -10,6 +10,13 @@ namespace 会計システム.ApplicationService
         private List<仕訳> m_仕訳リスト = new List<仕訳>();
         private 勘定科目情報サービス 勘定科目情報 = new 勘定科目情報サービス();
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="勘定科目コード"></param>
+        /// <param name="金額"></param>
+        /// <param name="摘要"></param>
+        /// <param name="貸借区分番号"></param>
         public void 追加する(int 勘定科目コード, decimal 金額, string 摘要, int 貸借区分番号)
         {
             コード _勘定科目コード = new コード(勘定科目コード);
@@ -20,6 +27,9 @@ namespace 会計システム.ApplicationService
             m_仕訳リスト.Add(new 仕訳(_勘定科目, _摘要, _金額, (仕訳.貸借区分)貸借区分番号));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public List<仕訳> リスト => m_仕訳リスト;
 
     }

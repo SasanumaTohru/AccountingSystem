@@ -5,6 +5,9 @@ namespace 会計システム
 {
     public partial class frmスタート画面 : Form
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public frmスタート画面()
         {
             InitializeComponent();
@@ -25,9 +28,16 @@ namespace 会計システム
         /// <param name="e"></param>
         private void cmd伝票を登録する_Click(object sender, System.EventArgs e)
         {
-            ApplicationService.仕訳構築サービス 伝票仕訳 = 伝票仕訳を構築する();
-            ApplicationService.会計伝票記帳サービス 会計伝票 = new ApplicationService.会計伝票記帳サービス(dtp計上日.Value, 伝票仕訳.リスト);
-            画面を更新する(会計伝票);
+            try
+            {
+                ApplicationService.仕訳構築サービス 伝票仕訳 = 伝票仕訳を構築する();
+                ApplicationService.会計伝票記帳サービス 会計伝票 = new ApplicationService.会計伝票記帳サービス(dtp計上日.Value, 伝票仕訳.リスト);
+                画面を更新する(会計伝票);
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show(ex.Message, "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         /// <summary>

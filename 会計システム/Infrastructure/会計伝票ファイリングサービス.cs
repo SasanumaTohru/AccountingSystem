@@ -10,6 +10,11 @@ namespace 会計システム.Infrastructure
 {
     class 会計伝票ファイリングサービス
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="計上日"></param>
+        /// <returns></returns>
         public 伝票 記帳した伝票を取得する(日付 計上日)
         {
             using (var MyDB =new AccountingDBEntities())
@@ -20,6 +25,11 @@ namespace 会計システム.Infrastructure
                 番号 新しい伝票番号 = 伝票番号を採番する(計上日, 既存伝票番号の最大値);
 
                 伝票 新しい会計伝票 = new 伝票(新しい伝票番号, 計上日);
+                if (新しい会計伝票.貸借金額不一致)
+                {
+                    throw new Exception("貸借の金額が一致していないため、伝票の登録を中止します。");
+                }
+
                 T_会計伝票 会計伝票ファイル = new T_会計伝票()
                 {
                     伝票番号 = 新しい会計伝票.番号.値,
@@ -32,6 +42,12 @@ namespace 会計システム.Infrastructure
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="計上日"></param>
+        /// <param name="既存伝票番号の最大値"></param>
+        /// <returns></returns>
         private static 番号 伝票番号を採番する(日付 計上日, string 既存伝票番号の最大値)
         {
             自然数 新しい年月内伝票番号 = new 自然数(1);
@@ -43,6 +59,11 @@ namespace 会計システム.Infrastructure
             return 新しい伝票番号;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="既存伝票番号の最大値"></param>
+        /// <returns></returns>
         private static int 年月内伝票番号をインクリメントする(string 既存伝票番号の最大値)
         {
             int 年月内伝票番号 = int.Parse(既存伝票番号の最大値.Substring(7, 5));
