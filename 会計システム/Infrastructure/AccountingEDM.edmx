@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="AccountingDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="AccountingDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="M_勘定科目">
           <Key>
             <PropertyRef Name="勘定科目コード" />
@@ -18,11 +18,18 @@
           <Property Name="集計科目" Type="bit" Nullable="false" />
           <Property Name="集計科目コード" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="T_会計伝票">
+          <Key>
+            <PropertyRef Name="伝票番号" />
+          </Key>
+          <Property Name="伝票番号" Type="nchar" MaxLength="12" Nullable="false" />
+          <Property Name="計上日" Type="date" Nullable="false" />
+        </EntityType>
         <EntityContainer Name="AccountingDBModelStoreContainer">
           <EntitySet Name="M_勘定科目" EntityType="Self.M_勘定科目" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_会計伝票" EntityType="Self.T_会計伝票" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AccountingDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -41,7 +48,15 @@
         </EntityType>
         <EntityContainer Name="AccountingDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="M_勘定科目" EntityType="Self.M_勘定科目" />
+          <EntitySet Name="T_会計伝票" EntityType="AccountingDBModel.T_会計伝票" />
         </EntityContainer>
+        <EntityType Name="T_会計伝票">
+          <Key>
+            <PropertyRef Name="伝票番号" />
+          </Key>
+          <Property Name="伝票番号" Type="String" Nullable="false" MaxLength="12" FixedLength="true" Unicode="true" />
+          <Property Name="計上日" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -59,6 +74,14 @@
                 <ScalarProperty Name="管理番号" ColumnName="管理番号" />
                 <ScalarProperty Name="集計科目" ColumnName="集計科目" />
                 <ScalarProperty Name="集計科目コード" ColumnName="集計科目コード" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_会計伝票">
+            <EntityTypeMapping TypeName="AccountingDBModel.T_会計伝票">
+              <MappingFragment StoreEntitySet="T_会計伝票">
+                <ScalarProperty Name="計上日" ColumnName="計上日" />
+                <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

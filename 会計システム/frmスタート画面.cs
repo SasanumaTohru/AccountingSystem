@@ -26,7 +26,7 @@ namespace 会計システム
         private void cmd伝票を登録する_Click(object sender, System.EventArgs e)
         {
             ApplicationService.仕訳構築サービス 伝票仕訳 = 伝票仕訳を構築する();
-            ApplicationService.会計伝票作成サービス 会計伝票 = new ApplicationService.会計伝票作成サービス(dtp計上日.Value, 伝票仕訳.リスト);
+            ApplicationService.会計伝票記帳サービス 会計伝票 = new ApplicationService.会計伝票記帳サービス(dtp計上日.Value, 伝票仕訳.リスト);
             画面を更新する(会計伝票);
         }
 
@@ -58,7 +58,7 @@ namespace 会計システム
         /// 
         /// </summary>
         /// <param name="会計伝票"></param>
-        private void 画面を更新する(ApplicationService.会計伝票作成サービス 会計伝票)
+        private void 画面を更新する(ApplicationService.会計伝票記帳サービス 会計伝票)
         {
             txt伝票番号.Text = 会計伝票.内容.番号.値;
             txt借方合計金額.Text = 会計伝票.内容.借方.合計金額.桁区切り値;
@@ -70,7 +70,8 @@ namespace 会計システム
             }
         }
 
-        private static int 借方仕訳追加位置 = 0;
+        private const int 仕訳コントロールの追加時位置補正 = 100;
+        private static int 借方仕訳コントロールの追加位置 = 0;
         /// <summary>
         /// 
         /// </summary>
@@ -79,8 +80,8 @@ namespace 会計システム
         private void cmd借方仕訳要素追加_Click(object sender, System.EventArgs e)
         {
             ctrl仕訳 新し仕訳 = new ctrl仕訳();
-            借方仕訳追加位置 = 借方仕訳追加位置 + 100;
-            新し仕訳.Location = new System.Drawing.Point(ctrl借方仕訳.Location.X, ctrl借方仕訳.Location.Y + 借方仕訳追加位置);
+            借方仕訳コントロールの追加位置 = 借方仕訳コントロールの追加位置 + 仕訳コントロールの追加時位置補正;
+            新し仕訳.Location = new System.Drawing.Point(ctrl借方仕訳.Location.X, ctrl借方仕訳.Location.Y + 借方仕訳コントロールの追加位置);
             コンボボックスに勘定科目を設定する(新し仕訳);
             新し仕訳.貸借区分 = ctrl仕訳.貸借.借方;
             this.Controls.Add(新し仕訳);
@@ -99,7 +100,7 @@ namespace 会計システム
             }
         }
 
-        private static int 貸方仕訳追加位置 = 0;
+        private static int 貸方仕訳コントロールの追加位置 = 0;
         /// <summary>
         /// 
         /// </summary>
@@ -108,8 +109,8 @@ namespace 会計システム
         private void cmd貸方仕訳要素追加_Click(object sender, System.EventArgs e)
         {
             ctrl仕訳 新し仕訳 = new ctrl仕訳();
-            貸方仕訳追加位置 = 貸方仕訳追加位置 + 100;
-            新し仕訳.Location = new System.Drawing.Point(ctrl貸方仕訳.Location.X, ctrl貸方仕訳.Location.Y + 貸方仕訳追加位置);
+            貸方仕訳コントロールの追加位置 = 貸方仕訳コントロールの追加位置 + 仕訳コントロールの追加時位置補正;
+            新し仕訳.Location = new System.Drawing.Point(ctrl貸方仕訳.Location.X, ctrl貸方仕訳.Location.Y + 貸方仕訳コントロールの追加位置);
             コンボボックスに勘定科目を設定する(新し仕訳);
             新し仕訳.貸借区分 = ctrl仕訳.貸借.貸方;
             this.Controls.Add(新し仕訳);
