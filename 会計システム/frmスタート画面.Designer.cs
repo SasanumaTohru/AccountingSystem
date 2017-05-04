@@ -135,17 +135,17 @@
             this.dtp計上日.Size = new System.Drawing.Size(301, 43);
             this.dtp計上日.TabIndex = 35;
             // 
-            // ctrl仕訳1
+            // ctrl借方仕訳
             // 
             this.ctrl借方仕訳.Location = new System.Drawing.Point(73, 271);
-            this.ctrl借方仕訳.Name = "ctrl仕訳1";
+            this.ctrl借方仕訳.Name = "ctrl借方仕訳";
             this.ctrl借方仕訳.Size = new System.Drawing.Size(620, 210);
             this.ctrl借方仕訳.TabIndex = 36;
             // 
-            // ctrl仕訳2
+            // ctrl貸方仕訳
             // 
             this.ctrl貸方仕訳.Location = new System.Drawing.Point(715, 271);
-            this.ctrl貸方仕訳.Name = "ctrl仕訳2";
+            this.ctrl貸方仕訳.Name = "ctrl貸方仕訳";
             this.ctrl貸方仕訳.Size = new System.Drawing.Size(620, 210);
             this.ctrl貸方仕訳.TabIndex = 37;
             // 
