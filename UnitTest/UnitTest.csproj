@@ -48,7 +48,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationService\入力検査クラステスト.cs" />
+    <Compile Include="ApplicationService\型変換サービスクラステスト.cs" />
     <Compile Include="Domain\BusinessObject\会計年度クラステスト.cs" />
     <Compile Include="Domain\BusinessObject\勘定科目\勘定科目テスト.cs" />
     <Compile Include="Domain\FoundationObject\消費税課税金額クラステスト.cs" />
@@ -59,6 +59,7 @@
     <Compile Include="Domain\PrimitiveObject\日付クラステスト.cs" />
     <Compile Include="Domain\PrimitiveObject\名称クラステスト.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="検討用.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

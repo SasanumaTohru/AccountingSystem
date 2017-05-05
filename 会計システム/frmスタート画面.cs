@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
 using WindowsFormsControlLibrary;
+using 会計システム.Domain.BusinessObject.勘定科目;
+using 会計システム.Domain.PrimitiveObject;
 
 namespace 会計システム
 {
@@ -13,13 +15,13 @@ namespace 会計システム
         {
             InitializeComponent();
             ApplicationService.勘定科目情報サービス 科目一覧 = new ApplicationService.勘定科目情報サービス();
-            foreach (Domain.BusinessObject.勘定科目.科目 取引科目 in 科目一覧.取引科目リスト)
+            foreach (科目 取引科目 in 科目一覧.取引科目リスト)
             {
                 ctrl借方仕訳.cmb勘定科目.Items.Add(取引科目.コードと名称.値);
-                ctrl借方仕訳.貸借区分 = ctrl仕訳.貸借.借方;
                 ctrl貸方仕訳.cmb勘定科目.Items.Add(取引科目.コードと名称.値);
-                ctrl貸方仕訳.貸借区分 = ctrl仕訳.貸借.貸方;
-            }  
+            }
+            ctrl借方仕訳.貸借区分 = ctrl仕訳.貸借.借方;
+            ctrl貸方仕訳.貸借区分 = ctrl仕訳.貸借.貸方;
         }
         
         /// <summary>
@@ -58,15 +60,15 @@ namespace 会計システム
                         }
                     }
                 }
-                txt借方合計金額.Text = new Domain.PrimitiveObject.金額(借方合計金額).桁区切り値;
-                txt貸方合計金額.Text = new Domain.PrimitiveObject.金額(貸方合計金額).桁区切り値;
-                txt貸借差額.Text = new Domain.PrimitiveObject.金額(借方合計金額 - 貸方合計金額).桁区切り値;
+                txt借方合計金額.Text = new 金額(借方合計金額).桁区切り値;
+                txt貸方合計金額.Text = new 金額(貸方合計金額).桁区切り値;
+                txt貸借差額.Text = new 金額(借方合計金額 - 貸方合計金額).桁区切り値;
             }
         }
 
         private static void 入力金額値の制御(ctrl仕訳 画面の仕訳要素)
         {
-            if (ApplicationService.入力検査.金額に変換できない(画面の仕訳要素.txt金額.Text))
+            if (ApplicationService.型変換サービス.金額に変換できる(画面の仕訳要素.txt金額.Text) == false)
             {
                 画面の仕訳要素.txt金額.Text = "0";
             }
@@ -79,43 +81,21 @@ namespace 会計システム
         private ApplicationService.仕訳構築サービス 伝票仕訳を構築する()
         {
             ApplicationService.仕訳構築サービス 伝票仕訳 = new ApplicationService.仕訳構築サービス();
-
+            
             ctrl仕訳 画面の仕訳要素 = new ctrl仕訳();
             foreach (var 仕訳コントロール in Controls)
             {
                 if (仕訳コントロール is ctrl仕訳)
                 {
                     画面の仕訳要素 = (ctrl仕訳)仕訳コントロール;
-                    勘定科目のバリデーション(画面の仕訳要素);
-                    金額のバリデーション(画面の仕訳要素);
                     伝票仕訳.追加する(
-                        int.Parse(画面の仕訳要素.cmb勘定科目.Text.Substring(0, 6)),
-                        decimal.Parse(画面の仕訳要素.txt金額.Text),
+                        ApplicationService.型変換サービス.コードと名称から勘定科目コードを抽出する(画面の仕訳要素.cmb勘定科目.Text),
+                        ApplicationService.型変換サービス.文字列を金額に変換する(画面の仕訳要素.txt金額.Text),
                         画面の仕訳要素.txt摘要.Text,
                         画面の仕訳要素.貸借区分番号);
                 }
             }
             return 伝票仕訳;
-        }
-
-        private static void 金額のバリデーション(ctrl仕訳 画面の仕訳要素)
-        {
-            if (ApplicationService.入力検査.金額に変換できない(画面の仕訳要素.txt金額.Text))
-            {
-                throw new Exception("金額が正しく入力されていません。");
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="画面の仕訳要素"></param>
-        private static void 勘定科目のバリデーション(ctrl仕訳 画面の仕訳要素)
-        {
-            if (string.IsNullOrWhiteSpace(画面の仕訳要素.cmb勘定科目.Text))
-            {
-                throw new Exception("勘定科目が選択されていません。");
-            }
         }
 
         /// <summary>
@@ -133,7 +113,7 @@ namespace 会計システム
         private const int 仕訳コントロールの追加時位置補正 = 100;
         private static int 借方仕訳コントロールの追加位置 = 0;
         /// <summary>
-        /// 
+        /// 借方の仕訳コントロールを追加する
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -144,6 +124,15 @@ namespace 会計システム
             新しい仕訳.Location = new System.Drawing.Point(ctrl借方仕訳.Location.X, ctrl借方仕訳.Location.Y + 借方仕訳コントロールの追加位置);
             コンボボックスに勘定科目を設定する(新しい仕訳);
             新しい仕訳.貸借区分 = ctrl仕訳.貸借.借方;
+            画面に追加する(新しい仕訳);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="新しい仕訳"></param>
+        private void 画面に追加する(ctrl仕訳 新しい仕訳)
+        {
             this.Controls.Add(新しい仕訳);
         }
 
@@ -154,7 +143,7 @@ namespace 会計システム
         private static void コンボボックスに勘定科目を設定する(ctrl仕訳 新し仕訳)
         {
             ApplicationService.勘定科目情報サービス 科目一覧 = new ApplicationService.勘定科目情報サービス();
-            foreach (Domain.BusinessObject.勘定科目.科目 取引科目 in 科目一覧.取引科目リスト)
+            foreach (科目 取引科目 in 科目一覧.取引科目リスト)
             {
                 新し仕訳.cmb勘定科目.Items.Add(取引科目.コードと名称.値);
             }
@@ -162,7 +151,7 @@ namespace 会計システム
 
         private static int 貸方仕訳コントロールの追加位置 = 0;
         /// <summary>
-        /// 
+        /// 貸方の仕訳コントロールを追加する
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -173,7 +162,7 @@ namespace 会計システム
             新しい仕訳.Location = new System.Drawing.Point(ctrl貸方仕訳.Location.X, ctrl貸方仕訳.Location.Y + 貸方仕訳コントロールの追加位置);
             コンボボックスに勘定科目を設定する(新しい仕訳);
             新しい仕訳.貸借区分 = ctrl仕訳.貸借.貸方;
-            this.Controls.Add(新しい仕訳);
+            画面に追加する(新しい仕訳);
         }
     }
 }

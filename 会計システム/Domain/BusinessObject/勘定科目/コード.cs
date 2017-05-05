@@ -13,10 +13,11 @@
         {
             m_値 = 値;
         }
-
+        
         /// <summary>
         /// 
         /// </summary>
         public int 値 => m_値;
+
     }
 }
