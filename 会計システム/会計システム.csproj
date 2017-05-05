@@ -170,6 +170,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DB定義\dbo.M_勘定科目.sql" />
+    <Content Include="DB定義\dbo.T_仕訳.sql" />
+    <Content Include="DB定義\dbo.T_会計伝票.sql" />
     <Content Include="Infrastructure\AccountingEDM.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>AccountingEDM.Context.cs</LastGenOutput>
