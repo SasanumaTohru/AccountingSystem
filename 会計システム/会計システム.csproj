@@ -70,9 +70,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationService\仕訳構築サービス.cs" />
+    <Compile Include="ApplicationService\会計伝票検索サービス.cs" />
+    <Compile Include="ApplicationService\会計伝票構築サービス.cs" />
     <Compile Include="ApplicationService\会計伝票記帳サービス.cs" />
+    <Compile Include="ApplicationService\動作記録サービス.cs" />
     <Compile Include="ApplicationService\型変換サービス.cs" />
     <Compile Include="ApplicationService\勘定科目情報サービス.cs" />
+    <Compile Include="ApplicationService\識別子作成サービス.cs" />
     <Compile Include="Domain\BusinessObject\会計伝票\仕訳.cs" />
     <Compile Include="Domain\BusinessObject\会計伝票\仕訳列.cs" />
     <Compile Include="Domain\BusinessObject\会計伝票\伝票.cs" />
@@ -121,6 +125,7 @@
       <DependentUpon>AccountingEDM.tt</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\会計伝票ファイリングサービス.cs" />
+    <Compile Include="Infrastructure\画面画像保存サービス.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmスタート画面.resx">

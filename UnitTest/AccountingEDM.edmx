@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="AccountingDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="M_勘定科目">
+          <Key>
+            <PropertyRef Name="勘定科目コード" />
+          </Key>
+          <Property Name="勘定科目コード" Type="int" Nullable="false" />
+          <Property Name="勘定科目名" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="勘定区分" Type="int" Nullable="false" />
+          <Property Name="流動損益区分" Type="int" Nullable="false" />
+          <Property Name="集計区分" Type="int" Nullable="false" />
+          <Property Name="管理番号" Type="int" Nullable="false" />
+          <Property Name="集計科目" Type="bit" Nullable="false" />
+          <Property Name="集計科目コード" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_会計伝票">
+          <Key>
+            <PropertyRef Name="伝票番号" />
+          </Key>
+          <Property Name="伝票番号" Type="nchar" MaxLength="12" Nullable="false" />
+          <Property Name="計上日" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_仕訳">
+          <Key>
+            <PropertyRef Name="伝票番号" />
+            <PropertyRef Name="仕訳番号" />
+          </Key>
+          <Property Name="伝票番号" Type="nchar" MaxLength="12" Nullable="false" />
+          <Property Name="仕訳番号" Type="int" Nullable="false" />
+          <Property Name="勘定科目コード" Type="int" Nullable="false" />
+          <Property Name="金額" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="摘要" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="貸借" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="AccountingDBModelStoreContainer">
+          <EntitySet Name="M_勘定科目" EntityType="Self.M_勘定科目" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_会計伝票" EntityType="Self.T_会計伝票" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_仕訳" EntityType="Self.T_仕訳" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AccountingDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="M_勘定科目">
+          <Key>
+            <PropertyRef Name="勘定科目コード" />
+          </Key>
+          <Property Name="勘定科目コード" Type="Int32" Nullable="false" />
+          <Property Name="勘定科目名" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="勘定区分" Type="Int32" Nullable="false" />
+          <Property Name="流動損益区分" Type="Int32" Nullable="false" />
+          <Property Name="集計区分" Type="Int32" Nullable="false" />
+          <Property Name="管理番号" Type="Int32" Nullable="false" />
+          <Property Name="集計科目" Type="Boolean" Nullable="false" />
+          <Property Name="集計科目コード" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_会計伝票">
+          <Key>
+            <PropertyRef Name="伝票番号" />
+          </Key>
+          <Property Name="伝票番号" Type="String" MaxLength="12" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="計上日" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <EntityType Name="T_仕訳">
+          <Key>
+            <PropertyRef Name="伝票番号" />
+            <PropertyRef Name="仕訳番号" />
+          </Key>
+          <Property Name="伝票番号" Type="String" MaxLength="12" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="仕訳番号" Type="Int32" Nullable="false" />
+          <Property Name="勘定科目コード" Type="Int32" Nullable="false" />
+          <Property Name="金額" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="摘要" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="貸借" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="AccountingDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="M_勘定科目" EntityType="Self.M_勘定科目" />
+          <EntitySet Name="T_会計伝票" EntityType="Self.T_会計伝票" />
+          <EntitySet Name="T_仕訳" EntityType="Self.T_仕訳" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AccountingDBModelStoreContainer" CdmEntityContainer="AccountingDBEntities">
+          <EntitySetMapping Name="M_勘定科目">
+            <EntityTypeMapping TypeName="AccountingDBModel.M_勘定科目">
+              <MappingFragment StoreEntitySet="M_勘定科目">
+                <ScalarProperty Name="勘定科目コード" ColumnName="勘定科目コード" />
+                <ScalarProperty Name="勘定科目名" ColumnName="勘定科目名" />
+                <ScalarProperty Name="勘定区分" ColumnName="勘定区分" />
+                <ScalarProperty Name="流動損益区分" ColumnName="流動損益区分" />
+                <ScalarProperty Name="集計区分" ColumnName="集計区分" />
+                <ScalarProperty Name="管理番号" ColumnName="管理番号" />
+                <ScalarProperty Name="集計科目" ColumnName="集計科目" />
+                <ScalarProperty Name="集計科目コード" ColumnName="集計科目コード" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_会計伝票">
+            <EntityTypeMapping TypeName="AccountingDBModel.T_会計伝票">
+              <MappingFragment StoreEntitySet="T_会計伝票">
+                <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
+                <ScalarProperty Name="計上日" ColumnName="計上日" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_仕訳">
+            <EntityTypeMapping TypeName="AccountingDBModel.T_仕訳">
+              <MappingFragment StoreEntitySet="T_仕訳">
+                <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
+                <ScalarProperty Name="仕訳番号" ColumnName="仕訳番号" />
+                <ScalarProperty Name="勘定科目コード" ColumnName="勘定科目コード" />
+                <ScalarProperty Name="金額" ColumnName="金額" />
+                <ScalarProperty Name="摘要" ColumnName="摘要" />
+                <ScalarProperty Name="貸借" ColumnName="貸借" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="なし" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

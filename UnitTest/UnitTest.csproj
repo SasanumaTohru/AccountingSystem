@@ -38,6 +38,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.TestPlatform.TestFramework, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\MSTest.TestFramework.1.1.11\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.dll</HintPath>
     </Reference>
@@ -45,9 +51,30 @@
       <HintPath>..\packages\MSTest.TestFramework.1.1.11\lib\net45\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountingEDM.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AccountingEDM.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AccountingEDM.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AccountingEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AccountingEDM.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AccountingEDM.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="ApplicationService\会計伝票検索サービスクラステスト.cs" />
     <Compile Include="ApplicationService\型変換サービスクラステスト.cs" />
     <Compile Include="Domain\BusinessObject\会計年度クラステスト.cs" />
     <Compile Include="Domain\BusinessObject\勘定科目\勘定科目テスト.cs" />
@@ -58,10 +85,27 @@
     <Compile Include="Domain\PrimitiveObject\金額クラステスト.cs" />
     <Compile Include="Domain\PrimitiveObject\日付クラステスト.cs" />
     <Compile Include="Domain\PrimitiveObject\名称クラステスト.cs" />
+    <Compile Include="M_勘定科目.cs">
+      <DependentUpon>AccountingEDM.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="T_仕訳.cs">
+      <DependentUpon>AccountingEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="T_会計伝票.cs">
+      <DependentUpon>AccountingEDM.tt</DependentUpon>
+    </Compile>
     <Compile Include="検討用.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EntityDeploy Include="AccountingEDM.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>AccountingEDM.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="AccountingEDM.edmx.diagram">
+      <DependentUpon>AccountingEDM.edmx</DependentUpon>
+    </None>
+    <None Include="App.Config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -70,7 +114,21 @@
       <Name>会計システム</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="AccountingEDM.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AccountingEDM.Context.cs</LastGenOutput>
+      <DependentUpon>AccountingEDM.edmx</DependentUpon>
+    </Content>
+    <Content Include="AccountingEDM.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>AccountingEDM.edmx</DependentUpon>
+      <LastGenOutput>AccountingEDM.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

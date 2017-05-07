@@ -112,5 +112,6 @@ namespace 会計システム.Domain.PrimitiveObject
         /// </summary>
         public string 西暦年月文字列6桁 => 西暦文字列 + 月文字列2桁;
 
+        public string 数値文字列 => 西暦年月文字列6桁 + m_値.Day.ToString("00");
     }
 }

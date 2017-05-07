@@ -22,7 +22,7 @@ namespace 会計システム.Domain.BusinessObject
         /// <returns></returns>
         public string 指定した日付の会計年度(PrimitiveObject.日付 基準日)
         {
-            return 帰属年度を取得する(基準日).ToString() + "年度";
+            return $"{帰属年度を取得する(基準日).ToString()}年度";
         }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace 会計システム.Domain.BusinessObject
         {
             get
             {
-                return 帰属年度を取得する(new PrimitiveObject.日付(DateTime.Today)).ToString() + "年度";
+                return $"{帰属年度を取得する(new PrimitiveObject.日付(DateTime.Today)).ToString()}年度";
             }
         }
 
