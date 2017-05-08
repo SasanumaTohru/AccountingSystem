@@ -20,12 +20,12 @@ namespace 会計システム
             InitializeComponent();
             
             勘定科目コンボボックスとデフォルト仕訳コントロールを設定する();
-            DataGridviewを設定する();
+            伝票検索結果ビューを設定する();
         }
 
         private void 勘定科目コンボボックスとデフォルト仕訳コントロールを設定する()
         {
-            ApplicationService.勘定科目情報サービス 科目一覧 = new ApplicationService.勘定科目情報サービス();
+            var 科目一覧 = new ApplicationService.勘定科目情報サービス();
             foreach (科目 取引科目 in 科目一覧.取引科目リスト)
             {
                 ctrl借方仕訳.cmb勘定科目.Items.Add(取引科目.コードと名称.値);
@@ -37,28 +37,29 @@ namespace 会計システム
             ctrl貸方仕訳.貸借区分 = ctrl仕訳.貸借.貸方;
         }
 
-        private void DataGridviewを設定する()
+        private void 伝票検索結果ビューを設定する()
         {
-            DataGridViewTextBoxColumn dgv項目伝票番号 = new DataGridViewTextBoxColumn()
+            var dgv列伝票番号 = new DataGridViewTextBoxColumn()
             {
                 Name = "伝票番号",
                 HeaderText = "伝票番号",
                 Width = 110
             };
-            dgv項目伝票番号.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            DataGridViewTextBoxColumn dgv項目計上日 = new DataGridViewTextBoxColumn()
+            dgv列伝票番号.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            var dgv列計上日 = new DataGridViewTextBoxColumn()
             {
                 Name = "計上日",
                 HeaderText = "計上日",
                 Width = 130
             };
-            dgv項目計上日.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgv列計上日.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-            dgv会計伝票.Columns.Add(dgv項目伝票番号);
-            dgv会計伝票.Columns.Add(dgv項目計上日);
+            dgv伝票検索結果ビュー.Columns.Add(dgv列伝票番号);
+            dgv伝票検索結果ビュー.Columns.Add(dgv列計上日);
 
-            dgv会計伝票.Font = new System.Drawing.Font("メイリオ", 9);
-            dgv会計伝票.AlternatingRowsDefaultCellStyle.BackColor = System.Drawing.Color.AliceBlue;
+            dgv伝票検索結果ビュー.Font = new Font("メイリオ", 9);
+            dgv伝票検索結果ビュー.AlternatingRowsDefaultCellStyle.BackColor = System.Drawing.Color.AliceBlue;
         }
 
         /// <summary>
@@ -71,7 +72,7 @@ namespace 会計システム
             try
             {
                 ApplicationService.仕訳構築サービス 伝票仕訳 = 伝票仕訳を構築する();
-                ApplicationService.会計伝票記帳サービス 登録した会計伝票 = new ApplicationService.会計伝票記帳サービス(dtp計上日.Value.Date, 伝票仕訳.リスト);
+                var 登録した会計伝票 = new ApplicationService.会計伝票記帳サービス(dtp計上日.Value.Date, 伝票仕訳.リスト);
                 画面を更新する(登録した会計伝票);
             }
             catch (Exception ex)
@@ -79,7 +80,7 @@ namespace 会計システム
                 MessageBox.Show(ex.Message, "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 decimal 借方合計金額 = 0;
                 decimal 貸方合計金額 = 0;
-                ctrl仕訳 画面の仕訳要素 = new ctrl仕訳();
+                var 画面の仕訳要素 = new ctrl仕訳();
                 foreach (var item in Controls)
                 {
                     if (item is ctrl仕訳)
@@ -117,14 +118,14 @@ namespace 会計システム
         /// <returns></returns>
         private ApplicationService.仕訳構築サービス 伝票仕訳を構築する()
         {
-            ApplicationService.仕訳構築サービス 伝票仕訳 = new ApplicationService.仕訳構築サービス();
+            var 伝票仕訳 = new ApplicationService.仕訳構築サービス();
             
-            ctrl仕訳 画面の仕訳要素 = new ctrl仕訳();
-            foreach (var 仕訳コントロール in Controls)
+            var 画面の仕訳要素 = new ctrl仕訳();
+            foreach (var item in Controls)
             {
-                if (仕訳コントロール is ctrl仕訳)
+                if (item is ctrl仕訳)
                 {
-                    画面の仕訳要素 = (ctrl仕訳)仕訳コントロール;
+                    画面の仕訳要素 = (ctrl仕訳)item;
                     伝票仕訳.追加する(
                         ApplicationService.型変換サービス.コードと名称から勘定科目コードを抽出する(画面の仕訳要素.cmb勘定科目.Text),
                         ApplicationService.型変換サービス.文字列を金額に変換する(画面の仕訳要素.txt金額.Text),
@@ -161,9 +162,9 @@ namespace 会計システム
 
         private void 借方仕訳要素を追加する()
         {
-            ctrl仕訳 新しい仕訳 = new ctrl仕訳();
+            var 新しい仕訳 = new ctrl仕訳();
             借方仕訳コントロールの追加位置 = 借方仕訳コントロールの追加位置 + 仕訳コントロールの追加時位置補正;
-            新しい仕訳.Location = new System.Drawing.Point(ctrl借方仕訳.Location.X, ctrl借方仕訳.Location.Y + 借方仕訳コントロールの追加位置);
+            新しい仕訳.Location = new Point(ctrl借方仕訳.Location.X, ctrl借方仕訳.Location.Y + 借方仕訳コントロールの追加位置);
             コンボボックスに勘定科目を設定する(新しい仕訳);
             新しい仕訳.貸借区分 = ctrl仕訳.貸借.借方;
             画面に追加する(新しい仕訳);
@@ -184,8 +185,8 @@ namespace 会計システム
         /// <param name="新し仕訳"></param>
         private static void コンボボックスに勘定科目を設定する(ctrl仕訳 新し仕訳)
         {
-            ApplicationService.勘定科目情報サービス 科目一覧 = new ApplicationService.勘定科目情報サービス();
-            foreach (科目 取引科目 in 科目一覧.取引科目リスト)
+            var 科目一覧 = new ApplicationService.勘定科目情報サービス();
+            foreach (var 取引科目 in 科目一覧.取引科目リスト)
             {
                 新し仕訳.cmb勘定科目.Items.Add(取引科目.コードと名称.値);
             }
@@ -204,9 +205,9 @@ namespace 会計システム
 
         private void 貸方仕訳要素を追加する()
         {
-            ctrl仕訳 新しい仕訳 = new ctrl仕訳();
+            var 新しい仕訳 = new ctrl仕訳();
             貸方仕訳コントロールの追加位置 = 貸方仕訳コントロールの追加位置 + 仕訳コントロールの追加時位置補正;
-            新しい仕訳.Location = new System.Drawing.Point(ctrl貸方仕訳.Location.X, ctrl貸方仕訳.Location.Y + 貸方仕訳コントロールの追加位置);
+            新しい仕訳.Location = new Point(ctrl貸方仕訳.Location.X, ctrl貸方仕訳.Location.Y + 貸方仕訳コントロールの追加位置);
             コンボボックスに勘定科目を設定する(新しい仕訳);
             新しい仕訳.貸借区分 = ctrl仕訳.貸借.貸方;
             画面に追加する(新しい仕訳);
@@ -219,6 +220,14 @@ namespace 会計システム
         /// <param name="e"></param>
         private void cmd伝票番号検索_Click(object sender, EventArgs e)
         {
+            伝票番号で検索する();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void 伝票番号で検索する()
+        {
             if (txt伝票番号.Text == string.Empty)
             {
                 MessageBox.Show("伝票番号が入力されていません。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -226,7 +235,7 @@ namespace 会計システム
             }
             try
             {
-                ApplicationService.会計伝票検索サービス 伝票検索 = new ApplicationService.会計伝票検索サービス();
+                var 伝票検索 = new ApplicationService.会計伝票検索サービス();
                 伝票 検索した伝票 = 伝票検索.伝票番号で検索する(txt伝票番号.Text);
                 指定した伝票を画面に表示する(検索した伝票);
             }
@@ -243,7 +252,7 @@ namespace 会計システム
         /// <param name="e"></param>
         private void cmd計上日検索_Click(object sender, EventArgs e)
         {
-            ApplicationService.会計伝票検索サービス 伝票検索 = new ApplicationService.会計伝票検索サービス();
+            var 伝票検索 = new ApplicationService.会計伝票検索サービス();
             List<伝票> 伝票ヒットリスト = 伝票検索.計上日で検索する(dtp計上日.Value.Date);
             if (伝票ヒットリスト.Count() == 0)
             {
@@ -255,10 +264,10 @@ namespace 会計システム
 
         private void 検索結果を表示する(List<伝票> 伝票ヒットリスト)
         {
-            dgv会計伝票.Rows.Clear();
+            dgv伝票検索結果ビュー.Rows.Clear();
             foreach (伝票 item in 伝票ヒットリスト)
             {
-                dgv会計伝票.Rows.Add(item.番号.値, item.計上日.西暦年月日(日付.曜日表示.あり));
+                dgv伝票検索結果ビュー.Rows.Add(item.番号.値, item.計上日.西暦年月日(日付.曜日表示.あり));
             }
         }
 
@@ -274,7 +283,7 @@ namespace 会計システム
                 MessageBox.Show("勘定科目が選択されていません。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            ApplicationService.会計伝票検索サービス 伝票検索 = new ApplicationService.会計伝票検索サービス();
+            var 伝票検索 = new ApplicationService.会計伝票検索サービス();
             int 検索する勘定科目 = ApplicationService.型変換サービス.コードと名称から勘定科目コードを抽出する(cmb検索する勘定科目.Text);
             List<伝票> 伝票ヒットリスト = 伝票検索.勘定科目で検索する(検索する勘定科目);
             if(伝票ヒットリスト.Count() == 0)
@@ -348,8 +357,6 @@ namespace 会計システム
         /// <param name="表示する伝票"></param>
         private void 仕訳コントロールを追加する(伝票 表示する伝票)
         {
-            //借方仕訳コントロールの追加位置 = 0;
-            //貸方仕訳コントロールの追加位置 = 0;
             int 借方仕訳数 = 表示する伝票.借方.リスト.Count();
             for (int i = 1; i < 借方仕訳数; i++)
             {
@@ -367,21 +374,18 @@ namespace 会計システム
         /// </summary>
         private void 仕訳コントロールの2行目以降を削除する()
         {
-
             /*
              * 　仕訳コントロールをリムーブすることによって、foreachの順番が詰まってしまう。
              * 　□□□□□   5つのオブジェクト
              * 　□■□□□　2番目を削除すると、□□□□になるので、ループの回数が5を期待するのに対して4になる。
              * 　下のロジックは、forで何度も回すことで無理矢理この問題に対処したが、正しいやり方があるはず。
              */
-           
             for (int i=1; i < 30; i++)
             {
                 foreach (var 画面上のコントロール in Controls)
                 {
                     if (画面上のコントロール is ctrl仕訳)
                     {
-                        //txt検索モニター.Text = txt検索モニター.Text + 画面上のコントロール.ToString() + Environment.NewLine;
                         ctrl仕訳 仕訳コントロール = (ctrl仕訳)画面上のコントロール;
                         if ((仕訳コントロール.Name != "ctrl借方仕訳" && 仕訳コントロール.Name != "ctrl貸方仕訳"))
                         {
@@ -399,10 +403,10 @@ namespace 会計システム
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void dgv会計伝票_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dgv伝票検索結果ビュー_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            txt伝票番号.Text = dgv会計伝票.SelectedCells[0].Value.ToString();
-            cmd伝票番号検索_Click(sender, e);
+            txt伝票番号.Text = dgv伝票検索結果ビュー.SelectedCells[0].Value.ToString();
+            伝票番号で検索する();
         }
 
         /// <summary>
@@ -413,11 +417,9 @@ namespace 会計システム
         private void cmd画面キャプチャ_Click(object sender, EventArgs e)
         {
             Cursor = Cursors.WaitCursor;
-            ApplicationService.動作記録サービス 記録 = new ApplicationService.動作記録サービス();
+            var 記録 = new ApplicationService.動作記録サービス();
             記録.表示画面をファイルに保存する(this);
             Cursor = Cursors.Default;
         }
-
-        
     }
 }

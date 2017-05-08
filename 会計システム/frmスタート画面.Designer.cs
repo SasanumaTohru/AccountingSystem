@@ -43,7 +43,7 @@
             this.cmd貸方仕訳要素追加 = new System.Windows.Forms.Button();
             this.txt貸借差額 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.dgv会計伝票 = new System.Windows.Forms.DataGridView();
+            this.dgv伝票検索結果ビュー = new System.Windows.Forms.DataGridView();
             this.cmd伝票番号検索 = new System.Windows.Forms.Button();
             this.cmd計上日検索 = new System.Windows.Forms.Button();
             this.cmd勘定科目検索 = new System.Windows.Forms.Button();
@@ -51,7 +51,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.cmd画面キャプチャ = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv会計伝票)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv伝票検索結果ビュー)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -202,16 +202,16 @@
             // 
             // dgv会計伝票
             // 
-            this.dgv会計伝票.AllowUserToAddRows = false;
-            this.dgv会計伝票.AllowUserToDeleteRows = false;
-            this.dgv会計伝票.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv会計伝票.Location = new System.Drawing.Point(1373, 243);
-            this.dgv会計伝票.Name = "dgv会計伝票";
-            this.dgv会計伝票.ReadOnly = true;
-            this.dgv会計伝票.RowTemplate.Height = 33;
-            this.dgv会計伝票.Size = new System.Drawing.Size(786, 1165);
-            this.dgv会計伝票.TabIndex = 44;
-            this.dgv会計伝票.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv会計伝票_CellContentDoubleClick);
+            this.dgv伝票検索結果ビュー.AllowUserToAddRows = false;
+            this.dgv伝票検索結果ビュー.AllowUserToDeleteRows = false;
+            this.dgv伝票検索結果ビュー.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv伝票検索結果ビュー.Location = new System.Drawing.Point(1373, 243);
+            this.dgv伝票検索結果ビュー.Name = "dgv会計伝票";
+            this.dgv伝票検索結果ビュー.ReadOnly = true;
+            this.dgv伝票検索結果ビュー.RowTemplate.Height = 33;
+            this.dgv伝票検索結果ビュー.Size = new System.Drawing.Size(786, 1165);
+            this.dgv伝票検索結果ビュー.TabIndex = 44;
+            this.dgv伝票検索結果ビュー.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv伝票検索結果ビュー_CellContentDoubleClick);
             // 
             // cmd伝票番号検索
             // 
@@ -300,7 +300,7 @@
             this.Controls.Add(this.cmd勘定科目検索);
             this.Controls.Add(this.cmd計上日検索);
             this.Controls.Add(this.cmd伝票番号検索);
-            this.Controls.Add(this.dgv会計伝票);
+            this.Controls.Add(this.dgv伝票検索結果ビュー);
             this.Controls.Add(this.txt貸借差額);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.ctrl貸方仕訳);
@@ -320,7 +320,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "プロトタイプ";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            ((System.ComponentModel.ISupportInitialize)(this.dgv会計伝票)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv伝票検索結果ビュー)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -342,7 +342,7 @@
         private System.Windows.Forms.Button cmd貸方仕訳要素追加;
         private System.Windows.Forms.TextBox txt貸借差額;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.DataGridView dgv会計伝票;
+        private System.Windows.Forms.DataGridView dgv伝票検索結果ビュー;
         private System.Windows.Forms.Button cmd伝票番号検索;
         private System.Windows.Forms.Button cmd計上日検索;
         private System.Windows.Forms.Button cmd勘定科目検索;
