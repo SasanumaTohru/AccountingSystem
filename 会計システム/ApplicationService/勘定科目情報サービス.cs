@@ -19,7 +19,8 @@ namespace 会計システム.ApplicationService
             {
                 using(var MyDB = new Infrastructure.AccountingDBEntities())
                 {
-                    var rs = from o in MyDB.M_勘定科目 orderby o.勘定科目コード select o;
+                    //var rs = from o in MyDB.M_勘定科目 orderby o.勘定科目コード select o;
+                    var rs = MyDB.M_勘定科目.OrderBy(o => o.勘定科目コード).Select(o => o);
                     クエリー結果をリストに格納する(rs);
                 }
                 return m_勘定科目リスト;
@@ -35,7 +36,8 @@ namespace 会計システム.ApplicationService
             {
                 using (var MyDB = new Infrastructure.AccountingDBEntities())
                 {
-                    var rs = from o in MyDB.M_勘定科目 where o.集計科目 == false orderby o.勘定科目コード select o;
+                    //var rs = from o in MyDB.M_勘定科目 where o.集計科目 == false orderby o.勘定科目コード select o;
+                    var rs = MyDB.M_勘定科目.Where(o => o.集計科目 == false).OrderBy(o => o.勘定科目コード).Select(o => o);
                     クエリー結果をリストに格納する(rs);
                 }
                 return m_勘定科目リスト;
@@ -51,9 +53,9 @@ namespace 会計システム.ApplicationService
             m_勘定科目リスト.Clear();
             foreach (Infrastructure.M_勘定科目 レコード in クエリー結果)
             {
-                コード 科目コード = new コード(レコード.勘定科目コード);
-                コード 集計科目コード = new コード(レコード.集計科目コード);
-                科目 勘定科目 = new 科目(科目コード, new 名称(レコード.勘定科目名), 集計科目コード);
+                var 科目コード = new コード(レコード.勘定科目コード);
+                var 集計科目コード = new コード(レコード.集計科目コード);
+                var 勘定科目 = new 科目(科目コード, new 名称(レコード.勘定科目名), 集計科目コード);
                 m_勘定科目リスト.Add(勘定科目);
             }
         }
@@ -67,7 +69,8 @@ namespace 会計システム.ApplicationService
         {
             using (var MyDB = new Infrastructure.AccountingDBEntities())
             {
-                var rs = from o in MyDB.M_勘定科目 where o.勘定科目コード == 勘定科目コード.値  select o;
+                //var rs = from o in MyDB.M_勘定科目 where o.勘定科目コード == 勘定科目コード.値  select o;
+                var rs = MyDB.M_勘定科目.Where(o => o.勘定科目コード == 勘定科目コード.値).Select(o => o);
                 return new 名称(rs.First().勘定科目名);
             }
         }
