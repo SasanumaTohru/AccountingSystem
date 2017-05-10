@@ -7,6 +7,7 @@ using 会計システム.Domain.PrimitiveObject;
 using System.Linq;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Diagnostics;
 
 namespace 会計システム
 {
@@ -374,23 +375,16 @@ namespace 会計システム
         /// </summary>
         private void 仕訳コントロールの2行目以降を削除する()
         {
-            /*
-             * 　仕訳コントロールをリムーブすることによって、foreachの順番が詰まってしまう。
-             * 　□□□□□   5つのオブジェクト
-             * 　□■□□□　2番目を削除すると、□□□□になるので、ループの回数が5を期待するのに対して4になる。
-             * 　下のロジックは、forで何度も回すことで無理矢理この問題に対処したが、正しいやり方があるはず。
-             */
-            for (int i=1; i < 30; i++)
+            int コントロールIndexの最大値 = this.Controls.Count - 1;
+            for (int コントロールIndex = コントロールIndexの最大値; コントロールIndex >= 0; コントロールIndex--)
             {
-                foreach (var 画面上のコントロール in Controls)
+                Control カレントコントロール = this.Controls[コントロールIndex];
+                if (カレントコントロール is ctrl仕訳)
                 {
-                    if (画面上のコントロール is ctrl仕訳)
+                    var 仕訳コントロール = (ctrl仕訳)カレントコントロール;
+                    if ((仕訳コントロール.Name != "ctrl借方仕訳" && 仕訳コントロール.Name != "ctrl貸方仕訳"))
                     {
-                        ctrl仕訳 仕訳コントロール = (ctrl仕訳)画面上のコントロール;
-                        if ((仕訳コントロール.Name != "ctrl借方仕訳" && 仕訳コントロール.Name != "ctrl貸方仕訳"))
-                        {
-                            Controls.Remove(仕訳コントロール);
-                        }
+                        カレントコントロール.Dispose();
                     }
                 }
             }
