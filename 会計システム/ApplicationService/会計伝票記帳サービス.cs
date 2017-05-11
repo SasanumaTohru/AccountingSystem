@@ -27,7 +27,7 @@ namespace 会計システム.ApplicationService
         /// <param name="計上日"></param>
         private void 伝票を用意する(DateTime 計上日)
         {
-            日付 _計上日 = new 日付(計上日);
+            var _計上日 = new 日付(計上日);
             m_伝票 = 会計伝票ファイリングサービス.伝票番号が採番された伝票を取得する(_計上日);
         }
 
@@ -37,7 +37,7 @@ namespace 会計システム.ApplicationService
         /// <param name="仕訳リスト"></param>
         private void 用意した伝票に仕訳を追加する(List<仕訳> 仕訳リスト)
         {
-            foreach (仕訳 p in 仕訳リスト)
+            foreach (var p in 仕訳リスト)
             {
                 m_伝票.追加する(p);
             }

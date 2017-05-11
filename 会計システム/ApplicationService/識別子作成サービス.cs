@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace 会計システム.ApplicationService
 {
     public class 識別子作成サービス
     {
-
+        /// <summary>
+        /// 
+        /// </summary>
         public string 時間文字列
         {
             get
@@ -18,21 +16,21 @@ namespace 会計システム.ApplicationService
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public string 日付文字列
         {
             get
             {
-                会計システム.Domain.PrimitiveObject.日付 m_日付 = new Domain.PrimitiveObject.日付(DateTime.Now);
+                var m_日付 = new Domain.PrimitiveObject.日付(DateTime.Now);
                 return m_日付.数値文字列;
             }
         }
 
-        public string 日時文字列
-        {
-            get
-            {
-                return 日付文字列 + 時間文字列;
-            }
-        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string 日時文字列 => 日付文字列 + 時間文字列;
     }
 }

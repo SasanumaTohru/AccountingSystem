@@ -19,7 +19,7 @@ namespace 会計システム.Infrastructure
         {
             using (var MyDB =new AccountingDBEntities())
             {
-                var rs = from o in MyDB.T_会計伝票 where o.伝票番号.Substring(0, 6) == 計上日.西暦年月文字列6桁 select o.伝票番号;
+                var rs = MyDB.T_会計伝票.Where(p => p.伝票番号.Substring(0, 6) == 計上日.西暦年月文字列6桁).Select(p => p.伝票番号);
                 string 既存伝票番号の最大値 = rs.Max();
 
                 番号 新しい伝票番号 = 伝票番号を採番する(計上日, 既存伝票番号の最大値);

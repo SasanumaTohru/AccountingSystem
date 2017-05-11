@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using 会計システム.Domain.BusinessObject.会計伝票;
-using 会計システム.Domain.BusinessObject.勘定科目;
-using 会計システム.Domain.PrimitiveObject;
 
 namespace 会計システム.ApplicationService
 {
@@ -35,8 +30,7 @@ namespace 会計システム.ApplicationService
             m_伝票リスト.Clear();
             using (var MyDB = new Infrastructure.AccountingDBEntities())
             {
-                var rs = from o in MyDB.T_会計伝票 where o.計上日 == 計上日 select o;
-
+                var rs = MyDB.T_会計伝票.Where(p => p.計上日 == 計上日);
                 foreach (var item in rs)
                 {
                     m_伝票リスト.Add(伝票ビルダ.伝票を構築する(item.伝票番号));
@@ -55,7 +49,7 @@ namespace 会計システム.ApplicationService
             m_伝票リスト.Clear();
             using (var MyDB = new Infrastructure.AccountingDBEntities())
             {
-                var rs = from o in MyDB.T_仕訳 where o.勘定科目コード == 勘定科目コード group o by o.伝票番号;
+                var rs = MyDB.T_仕訳.Where(p => p.勘定科目コード == 勘定科目コード).GroupBy(o => o.伝票番号);
                 foreach (var item in rs)
                 {
                     m_伝票リスト.Add(伝票ビルダ.伝票を構築する(item.Key));

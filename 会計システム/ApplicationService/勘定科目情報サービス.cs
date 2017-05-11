@@ -19,8 +19,7 @@ namespace 会計システム.ApplicationService
             {
                 using(var MyDB = new Infrastructure.AccountingDBEntities())
                 {
-                    //var rs = from o in MyDB.M_勘定科目 orderby o.勘定科目コード select o;
-                    var rs = MyDB.M_勘定科目.OrderBy(o => o.勘定科目コード).Select(o => o);
+                    var rs = MyDB.M_勘定科目.OrderBy(o => o.勘定科目コード);
                     クエリー結果をリストに格納する(rs);
                 }
                 return m_勘定科目リスト;
@@ -36,8 +35,7 @@ namespace 会計システム.ApplicationService
             {
                 using (var MyDB = new Infrastructure.AccountingDBEntities())
                 {
-                    //var rs = from o in MyDB.M_勘定科目 where o.集計科目 == false orderby o.勘定科目コード select o;
-                    var rs = MyDB.M_勘定科目.Where(o => o.集計科目 == false).OrderBy(o => o.勘定科目コード).Select(o => o);
+                    var rs = MyDB.M_勘定科目.Where(o => o.集計科目 == false).OrderBy(o => o.勘定科目コード);
                     クエリー結果をリストに格納する(rs);
                 }
                 return m_勘定科目リスト;
@@ -69,8 +67,7 @@ namespace 会計システム.ApplicationService
         {
             using (var MyDB = new Infrastructure.AccountingDBEntities())
             {
-                //var rs = from o in MyDB.M_勘定科目 where o.勘定科目コード == 勘定科目コード.値  select o;
-                var rs = MyDB.M_勘定科目.Where(o => o.勘定科目コード == 勘定科目コード.値).Select(o => o);
+                var rs = MyDB.M_勘定科目.Where(o => o.勘定科目コード == 勘定科目コード.値);
                 return new 名称(rs.First().勘定科目名);
             }
         }
