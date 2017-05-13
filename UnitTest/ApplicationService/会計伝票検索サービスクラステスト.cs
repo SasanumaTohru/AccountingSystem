@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTest.ApplicationService
@@ -20,19 +19,15 @@ namespace UnitTest.ApplicationService
         [TestMethod]
         public void 日付で検索する()
         {
-            foreach(var p in 伝票検索.計上日で検索する(new DateTime(2017, 5, 6)))
-            {
-                Debug.WriteLine(p.番号.値);
-            }
+            var ヒットリスト = 伝票検索.計上日で検索する(new DateTime(2017, 4, 1));
+            Assert.AreEqual(1, ヒットリスト.Count);
         }
 
         [TestMethod]
         public void 勘定科目で検索する()
         {
-            foreach(var p in 伝票検索.勘定科目で検索する(111060))
-            {
-                Debug.Print(p.番号.値);
-            }
+            var ヒットリスト = 伝票検索.勘定科目で検索する(401030);
+            Assert.AreEqual(1, ヒットリスト.Count);
         }
     }
 }

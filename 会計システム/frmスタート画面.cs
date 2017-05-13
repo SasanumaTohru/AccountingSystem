@@ -284,6 +284,7 @@ namespace AccountingSystem
             if (伝票ヒットリスト.Count() == 0)
             {
                 MessageBox.Show("指定した日の会計伝票はありません。", "情報", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                画面ウェイト終了();
                 return;
             }
             検索結果を表示する(伝票ヒットリスト);
@@ -322,6 +323,7 @@ namespace AccountingSystem
             if(伝票ヒットリスト.Count() == 0)
             {
                 MessageBox.Show("指定した勘定科目を持つ会計伝票はありません。", "情報", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                画面ウェイト終了();
                 return;
             }
             検索結果を表示する(伝票ヒットリスト);

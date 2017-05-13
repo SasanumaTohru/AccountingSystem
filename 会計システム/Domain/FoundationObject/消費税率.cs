@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace AccountingSystem.Domain.FoundationObject
+﻿namespace AccountingSystem.Domain.FoundationObject
 {
     public class 消費税率
     {
@@ -9,16 +7,17 @@ namespace AccountingSystem.Domain.FoundationObject
         /// <summary>
         /// 
         /// </summary>
-        public 消費税率()
+        public 消費税率(decimal 消費税率)
         {
-            var 消費税率検索サービス = new Infrastructure.消費税率検索サービス();
-            m_値 = 消費税率検索サービス.適用消費税率(DateTime.Now.Date);
+            m_値 = 消費税率;
         }
 
         /// <summary>
         /// 
         /// </summary>
         public decimal 値 => m_値;
+
+        public string パーセント表示 => m_値.ToString("0%");
 
         /// <summary>
         /// 
