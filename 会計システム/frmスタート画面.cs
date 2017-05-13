@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Windows.Forms;
-using WindowsFormsControlLibrary;
-using 会計システム.Domain.BusinessObject.勘定科目;
-using 会計システム.Domain.BusinessObject.会計伝票;
-using 会計システム.Domain.PrimitiveObject;
-using System.Linq;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Diagnostics;
+using System.Linq;
+using System.Windows.Forms;
+using WindowsFormsControlLibrary;
+using 会計システム.Domain.BusinessObject.会計伝票;
+using 会計システム.Domain.PrimitiveObject;
 
 namespace 会計システム
 {
@@ -24,10 +22,13 @@ namespace 会計システム
             伝票検索結果ビューを設定する();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void 勘定科目コンボボックスとデフォルト仕訳コントロールを設定する()
         {
             var 科目一覧 = new ApplicationService.勘定科目情報サービス();
-            foreach (科目 取引科目 in 科目一覧.取引科目リスト)
+            foreach (var 取引科目 in 科目一覧.取引科目リスト)
             {
                 ctrl借方仕訳.cmb勘定科目.Items.Add(取引科目.コードと名称.値);
                 ctrl貸方仕訳.cmb勘定科目.Items.Add(取引科目.コードと名称.値);
@@ -38,6 +39,9 @@ namespace 会計システム
             ctrl貸方仕訳.貸借区分 = ctrl仕訳.貸借.貸方;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void 伝票検索結果ビューを設定する()
         {
             var dgv列伝票番号 = new DataGridViewTextBoxColumn()
@@ -60,7 +64,7 @@ namespace 会計システム
             dgv伝票検索結果ビュー.Columns.Add(dgv列計上日);
 
             dgv伝票検索結果ビュー.Font = new Font("メイリオ", 9);
-            dgv伝票検索結果ビュー.AlternatingRowsDefaultCellStyle.BackColor = System.Drawing.Color.AliceBlue;
+            dgv伝票検索結果ビュー.AlternatingRowsDefaultCellStyle.BackColor = Color.AliceBlue;
         }
 
         /// <summary>
@@ -72,6 +76,7 @@ namespace 会計システム
         {
             try
             {
+                画面ウェイト();
                 ApplicationService.仕訳構築サービス 伝票仕訳 = 伝票仕訳を構築する();
                 var 登録した会計伝票 = new ApplicationService.会計伝票記帳サービス(dtp計上日.Value.Date, 伝票仕訳.リスト);
                 画面を更新する(登録した会計伝票);
@@ -81,20 +86,20 @@ namespace 会計システム
                 MessageBox.Show(ex.Message, "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 decimal 借方合計金額 = 0;
                 decimal 貸方合計金額 = 0;
-                var 画面の仕訳要素 = new ctrl仕訳();
+                var 仕訳コントロール = new ctrl仕訳();
                 foreach (var item in Controls)
                 {
                     if (item is ctrl仕訳)
                     {
-                        画面の仕訳要素 = (ctrl仕訳)item;
-                        入力金額値の制御(画面の仕訳要素);
-                        switch (画面の仕訳要素.貸借区分)
+                        仕訳コントロール = (ctrl仕訳)item;
+                        金額入力が不適切の場合は0円にする(仕訳コントロール);
+                        switch (仕訳コントロール.貸借区分)
                         {
                             case ctrl仕訳.貸借.借方:
-                                借方合計金額 = 借方合計金額 + int.Parse(画面の仕訳要素.txt金額.Text);
+                                借方合計金額 = 借方合計金額 + int.Parse(仕訳コントロール.txt金額.Text);
                                 break;
                             case ctrl仕訳.貸借.貸方:
-                                貸方合計金額 = 貸方合計金額 + int.Parse(画面の仕訳要素.txt金額.Text);
+                                貸方合計金額 = 貸方合計金額 + int.Parse(仕訳コントロール.txt金額.Text);
                                 break;
                         }
                     }
@@ -103,13 +108,21 @@ namespace 会計システム
                 txt貸方合計金額.Text = new 金額(貸方合計金額).桁区切り値;
                 txt貸借差額.Text = new 金額(借方合計金額 - 貸方合計金額).桁区切り値;
             }
+            finally
+            {
+                画面ウェイト終了();
+            }
         }
 
-        private static void 入力金額値の制御(ctrl仕訳 画面の仕訳要素)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="仕訳コントロール"></param>
+        private static void 金額入力が不適切の場合は0円にする(ctrl仕訳 仕訳コントロール)
         {
-            if (ApplicationService.型変換サービス.金額に変換できる(画面の仕訳要素.txt金額.Text) == false)
+            if (ApplicationService.型変換サービス.金額に変換できる(仕訳コントロール.txt金額.Text) == false)
             {
-                画面の仕訳要素.txt金額.Text = "0";
+                仕訳コントロール.txt金額.Text = "0";
             }
         }
 
@@ -121,17 +134,17 @@ namespace 会計システム
         {
             var 伝票仕訳 = new ApplicationService.仕訳構築サービス();
             
-            var 画面の仕訳要素 = new ctrl仕訳();
+            var 仕訳コントロール = new ctrl仕訳();
             foreach (var item in Controls)
             {
                 if (item is ctrl仕訳)
                 {
-                    画面の仕訳要素 = (ctrl仕訳)item;
+                    仕訳コントロール = (ctrl仕訳)item;
                     伝票仕訳.追加する(
-                        ApplicationService.型変換サービス.コードと名称から勘定科目コードを抽出する(画面の仕訳要素.cmb勘定科目.Text),
-                        ApplicationService.型変換サービス.文字列を金額に変換する(画面の仕訳要素.txt金額.Text),
-                        画面の仕訳要素.txt摘要.Text,
-                        画面の仕訳要素.貸借区分番号);
+                        ApplicationService.型変換サービス.コードと名称から勘定科目コードを抽出する(仕訳コントロール.cmb勘定科目.Text),
+                        ApplicationService.型変換サービス.文字列を金額に変換する(仕訳コントロール.txt金額.Text),
+                        仕訳コントロール.txt摘要.Text,
+                        仕訳コントロール.貸借区分番号);
                 }
             }
             return 伝票仕訳;
@@ -158,17 +171,22 @@ namespace 会計システム
         /// <param name="e"></param>
         private void cmd借方仕訳要素追加_Click(object sender, EventArgs e)
         {
+            画面ウェイト();
             借方仕訳要素を追加する();
+            画面ウェイト終了();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void 借方仕訳要素を追加する()
         {
-            var 新しい仕訳 = new ctrl仕訳();
+            var 新しい仕訳コントロール = new ctrl仕訳();
             借方仕訳コントロールの追加位置 = 借方仕訳コントロールの追加位置 + 仕訳コントロールの追加時位置補正;
-            新しい仕訳.Location = new Point(ctrl借方仕訳.Location.X, ctrl借方仕訳.Location.Y + 借方仕訳コントロールの追加位置);
-            コンボボックスに勘定科目を設定する(新しい仕訳);
-            新しい仕訳.貸借区分 = ctrl仕訳.貸借.借方;
-            画面に追加する(新しい仕訳);
+            新しい仕訳コントロール.Location = new Point(ctrl借方仕訳.Location.X, ctrl借方仕訳.Location.Y + 借方仕訳コントロールの追加位置);
+            コンボボックスに勘定科目を設定する(新しい仕訳コントロール);
+            新しい仕訳コントロール.貸借区分 = ctrl仕訳.貸借.借方;
+            画面に追加する(新しい仕訳コントロール);
         }
 
         /// <summary>
@@ -201,17 +219,22 @@ namespace 会計システム
         /// <param name="e"></param>
         private void cmd貸方仕訳要素追加_Click(object sender, EventArgs e)
         {
+            画面ウェイト();
             貸方仕訳要素を追加する();
+            画面ウェイト終了();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void 貸方仕訳要素を追加する()
         {
-            var 新しい仕訳 = new ctrl仕訳();
+            var 新しい仕訳コントロール = new ctrl仕訳();
             貸方仕訳コントロールの追加位置 = 貸方仕訳コントロールの追加位置 + 仕訳コントロールの追加時位置補正;
-            新しい仕訳.Location = new Point(ctrl貸方仕訳.Location.X, ctrl貸方仕訳.Location.Y + 貸方仕訳コントロールの追加位置);
-            コンボボックスに勘定科目を設定する(新しい仕訳);
-            新しい仕訳.貸借区分 = ctrl仕訳.貸借.貸方;
-            画面に追加する(新しい仕訳);
+            新しい仕訳コントロール.Location = new Point(ctrl貸方仕訳.Location.X, ctrl貸方仕訳.Location.Y + 貸方仕訳コントロールの追加位置);
+            コンボボックスに勘定科目を設定する(新しい仕訳コントロール);
+            新しい仕訳コントロール.貸借区分 = ctrl仕訳.貸借.貸方;
+            画面に追加する(新しい仕訳コントロール);
         }
         
         /// <summary>
@@ -221,7 +244,9 @@ namespace 会計システム
         /// <param name="e"></param>
         private void cmd伝票番号検索_Click(object sender, EventArgs e)
         {
+            画面ウェイト();
             伝票番号で検索する();
+            画面ウェイト終了();
         }
 
         /// <summary>
@@ -253,6 +278,7 @@ namespace 会計システム
         /// <param name="e"></param>
         private void cmd計上日検索_Click(object sender, EventArgs e)
         {
+            画面ウェイト();
             var 伝票検索 = new ApplicationService.会計伝票検索サービス();
             List<伝票> 伝票ヒットリスト = 伝票検索.計上日で検索する(dtp計上日.Value.Date);
             if (伝票ヒットリスト.Count() == 0)
@@ -261,8 +287,13 @@ namespace 会計システム
                 return;
             }
             検索結果を表示する(伝票ヒットリスト);
+            画面ウェイト終了();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="伝票ヒットリスト"></param>
         private void 検索結果を表示する(List<伝票> 伝票ヒットリスト)
         {
             dgv伝票検索結果ビュー.Rows.Clear();
@@ -279,7 +310,8 @@ namespace 会計システム
         /// <param name="e"></param>
         private void cmd勘定科目検索_Click(object sender, EventArgs e)
         {
-            if(cmb検索する勘定科目.Text==string.Empty)
+            画面ウェイト();
+            if (cmb検索する勘定科目.Text==string.Empty)
             {
                 MessageBox.Show("勘定科目が選択されていません。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -293,6 +325,7 @@ namespace 会計システム
                 return;
             }
             検索結果を表示する(伝票ヒットリスト);
+            画面ウェイト終了();
         }
 
         /// <summary>
@@ -313,8 +346,8 @@ namespace 会計システム
         /// <param name="表示する伝票"></param>
         private void 仕訳を入力する(伝票 表示する伝票)
         {
-            int 借方仕訳書きこみ位置 = 0;
-            int 貸方仕訳書きこみ位置 = 0;
+            int 借方仕訳のインデックス = 0;
+            int 貸方仕訳のインデックス = 0;
             foreach (var 画面上のコントロール in Controls)
             {
                 if (画面上のコントロール is ctrl仕訳)
@@ -323,16 +356,16 @@ namespace 会計システム
                     switch (仕訳コントロール.貸借区分)
                     {
                         case ctrl仕訳.貸借.借方:
-                            仕訳コントロール.cmb勘定科目.Text = 表示する伝票.借方.リスト[借方仕訳書きこみ位置].勘定科目.コードと名称.値;
-                            仕訳コントロール.txt金額.Text = 表示する伝票.借方.リスト[借方仕訳書きこみ位置].金額.桁区切り値;
-                            仕訳コントロール.txt摘要.Text = 表示する伝票.借方.リスト[借方仕訳書きこみ位置].摘要.値;
-                            借方仕訳書きこみ位置++;
+                            仕訳コントロール.cmb勘定科目.Text = 表示する伝票.借方.リスト[借方仕訳のインデックス].勘定科目.コードと名称.値;
+                            仕訳コントロール.txt金額.Text = 表示する伝票.借方.リスト[借方仕訳のインデックス].金額.桁区切り値;
+                            仕訳コントロール.txt摘要.Text = 表示する伝票.借方.リスト[借方仕訳のインデックス].摘要.値;
+                            借方仕訳のインデックス++;
                             break;
                         case ctrl仕訳.貸借.貸方:
-                            仕訳コントロール.cmb勘定科目.Text = 表示する伝票.貸方.リスト[貸方仕訳書きこみ位置].勘定科目.コードと名称.値;
-                            仕訳コントロール.txt金額.Text = 表示する伝票.貸方.リスト[貸方仕訳書きこみ位置].金額.桁区切り値;
-                            仕訳コントロール.txt摘要.Text = 表示する伝票.貸方.リスト[貸方仕訳書きこみ位置].摘要.値;
-                            貸方仕訳書きこみ位置++;
+                            仕訳コントロール.cmb勘定科目.Text = 表示する伝票.貸方.リスト[貸方仕訳のインデックス].勘定科目.コードと名称.値;
+                            仕訳コントロール.txt金額.Text = 表示する伝票.貸方.リスト[貸方仕訳のインデックス].金額.桁区切り値;
+                            仕訳コントロール.txt摘要.Text = 表示する伝票.貸方.リスト[貸方仕訳のインデックス].摘要.値;
+                            貸方仕訳のインデックス++;
                             break;
                     }
                 }
@@ -381,17 +414,26 @@ namespace 会計システム
                 Control カレントコントロール = this.Controls[コントロールIndex];
                 if (カレントコントロール is ctrl仕訳)
                 {
-                    var 仕訳コントロール = (ctrl仕訳)カレントコントロール;
-                    if ((仕訳コントロール.Name != "ctrl借方仕訳" && 仕訳コントロール.Name != "ctrl貸方仕訳"))
-                    {
-                        カレントコントロール.Dispose();
-                    }
+                    デフォルト仕訳コントロールでなければ削除する(カレントコントロール);
                 }
             }
             借方仕訳コントロールの追加位置 = 0;
             貸方仕訳コントロールの追加位置 = 0;
         }
-        
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="カレントコントロール"></param>
+        private static void デフォルト仕訳コントロールでなければ削除する(Control カレントコントロール)
+        {
+            var 仕訳コントロール = (ctrl仕訳)カレントコントロール;
+            if ((仕訳コントロール.Name != "ctrl借方仕訳" && 仕訳コントロール.Name != "ctrl貸方仕訳"))
+            {
+                カレントコントロール.Dispose();
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -399,8 +441,10 @@ namespace 会計システム
         /// <param name="e"></param>
         private void dgv伝票検索結果ビュー_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            画面ウェイト();
             txt伝票番号.Text = dgv伝票検索結果ビュー.SelectedCells[0].Value.ToString();
             伝票番号で検索する();
+            画面ウェイト終了();
         }
 
         /// <summary>
@@ -410,10 +454,26 @@ namespace 会計システム
         /// <param name="e"></param>
         private void cmd画面キャプチャ_Click(object sender, EventArgs e)
         {
-            Cursor = Cursors.WaitCursor;
+            画面ウェイト();
             var 記録 = new ApplicationService.動作記録サービス();
             記録.表示画面をファイルに保存する(this);
+            画面ウェイト終了();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void 画面ウェイト終了()
+        {
             Cursor = Cursors.Default;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void 画面ウェイト()
+        {
+            Cursor = Cursors.WaitCursor;
         }
     }
 }

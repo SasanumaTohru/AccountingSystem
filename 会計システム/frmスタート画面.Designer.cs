@@ -200,13 +200,13 @@
             this.label3.TabIndex = 40;
             this.label3.Text = "貸借差額:";
             // 
-            // dgv会計伝票
+            // dgv伝票検索結果ビュー
             // 
             this.dgv伝票検索結果ビュー.AllowUserToAddRows = false;
             this.dgv伝票検索結果ビュー.AllowUserToDeleteRows = false;
             this.dgv伝票検索結果ビュー.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv伝票検索結果ビュー.Location = new System.Drawing.Point(1373, 243);
-            this.dgv伝票検索結果ビュー.Name = "dgv会計伝票";
+            this.dgv伝票検索結果ビュー.Name = "dgv伝票検索結果ビュー";
             this.dgv伝票検索結果ビュー.ReadOnly = true;
             this.dgv伝票検索結果ビュー.RowTemplate.Height = 33;
             this.dgv伝票検索結果ビュー.Size = new System.Drawing.Size(786, 1165);
