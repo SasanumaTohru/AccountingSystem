@@ -37,9 +37,9 @@ namespace 会計システム.ApplicationService
         /// <param name="仕訳リスト"></param>
         private void 用意した伝票に仕訳を追加する(List<仕訳> 仕訳リスト)
         {
-            foreach (var p in 仕訳リスト)
+            foreach (var item in 仕訳リスト)
             {
-                m_伝票.追加する(p);
+                m_伝票.追加する(item);
             }
             if (m_伝票.貸借金額不一致)
             {

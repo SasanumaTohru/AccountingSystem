@@ -9,7 +9,7 @@ namespace 会計システム.ApplicationService
     {
 
         private List<伝票> m_伝票リスト = new List<伝票>();
-        ApplicationService.会計伝票構築サービス 伝票ビルダ = new 会計伝票構築サービス();
+        ApplicationService.会計伝票構築サービス 伝票構築サービス = new 会計伝票構築サービス();
 
         /// <summary>
         /// 
@@ -18,7 +18,7 @@ namespace 会計システム.ApplicationService
         /// <returns></returns>
         public 伝票 伝票番号で検索する(string 伝票番号)
         {
-            return 伝票ビルダ.伝票を構築する(伝票番号);
+            return 伝票構築サービス.伝票を構築する(伝票番号);
         }
 
         /// <summary>
@@ -30,10 +30,10 @@ namespace 会計システム.ApplicationService
             m_伝票リスト.Clear();
             using (var MyDB = new Infrastructure.AccountingDBEntities())
             {
-                var rs = MyDB.T_会計伝票.Where(p => p.計上日 == 計上日);
+                var rs = MyDB.T_会計伝票.Where(o => o.計上日 == 計上日);
                 foreach (var item in rs)
                 {
-                    m_伝票リスト.Add(伝票ビルダ.伝票を構築する(item.伝票番号));
+                    m_伝票リスト.Add(伝票構築サービス.伝票を構築する(item.伝票番号));
                 }
             }
             return m_伝票リスト;
@@ -49,10 +49,10 @@ namespace 会計システム.ApplicationService
             m_伝票リスト.Clear();
             using (var MyDB = new Infrastructure.AccountingDBEntities())
             {
-                var rs = MyDB.T_仕訳.Where(p => p.勘定科目コード == 勘定科目コード).GroupBy(o => o.伝票番号);
+                var rs = MyDB.T_仕訳.Where(o => o.勘定科目コード == 勘定科目コード).GroupBy(p => p.伝票番号);
                 foreach (var item in rs)
                 {
-                    m_伝票リスト.Add(伝票ビルダ.伝票を構築する(item.Key));
+                    m_伝票リスト.Add(伝票構築サービス.伝票を構築する(item.Key));
                 }
                 return m_伝票リスト;
             }

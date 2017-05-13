@@ -53,7 +53,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public PrimitiveObject.文字列 コードと名称 => new PrimitiveObject.文字列($"{m_コード.値.ToString()} : {m_名称.値}");
+        public PrimitiveObject.必須文字列 コードと名称 => new PrimitiveObject.必須文字列($"{m_コード.値.ToString()} : {m_名称.値}");
 
         /// <summary>
         /// 

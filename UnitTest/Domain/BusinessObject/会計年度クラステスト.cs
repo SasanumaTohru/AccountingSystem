@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using 会計システム.Domain.BusinessObject;
 using 会計システム.Domain.PrimitiveObject;
 

@@ -8,6 +8,7 @@
         <EntityTypeShape EntityType="AccountingDBModel.M_勘定科目" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="AccountingDBModel.T_会計伝票" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="AccountingDBModel.T_仕訳" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AccountingDBModel.M_消費税率" Width="1.5" PointX="5.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

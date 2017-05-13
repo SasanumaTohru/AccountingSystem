@@ -2,7 +2,7 @@
 
 namespace 会計システム.Domain.PrimitiveObject
 {
-    public  class 文字列
+    public  class 必須文字列
     {
         private string m_値;
 
@@ -10,7 +10,7 @@ namespace 会計システム.Domain.PrimitiveObject
         /// 
         /// </summary>
         /// <param name="値"></param>
-        public 文字列(string 値)
+        public 必須文字列(string 値)
         {
             string 文末の空白を除去した値 = 値.TrimEnd();
             文字列となり得る文字がある(文末の空白を除去した値);

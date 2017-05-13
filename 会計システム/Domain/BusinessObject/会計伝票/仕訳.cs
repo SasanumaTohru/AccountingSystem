@@ -9,7 +9,7 @@
         }
 
         private 勘定科目.科目 m_勘定科目;
-        private PrimitiveObject.文字列 m_摘要;
+        private PrimitiveObject.必須文字列 m_摘要;
         private PrimitiveObject.金額 m_金額;
         private 貸借区分 m_貸借区分;
 
@@ -20,7 +20,7 @@
         /// <param name="摘要"></param>
         /// <param name="金額"></param>
         /// <param name="貸借"></param>
-        public 仕訳(勘定科目.科目 勘定科目,PrimitiveObject.文字列 摘要, PrimitiveObject.金額 金額,貸借区分 貸借)
+        public 仕訳(勘定科目.科目 勘定科目,PrimitiveObject.必須文字列 摘要, PrimitiveObject.金額 金額,貸借区分 貸借)
         {
             金額は0円以下ではない(金額);
             m_勘定科目 = 勘定科目;
@@ -49,7 +49,7 @@
         /// <summary>
         /// 
         /// </summary>
-        public PrimitiveObject.文字列 摘要 => m_摘要;
+        public PrimitiveObject.必須文字列 摘要 => m_摘要;
 
         /// <summary>
         /// 

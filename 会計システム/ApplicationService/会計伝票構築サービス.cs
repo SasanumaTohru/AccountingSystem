@@ -16,7 +16,7 @@ namespace 会計システム.ApplicationService
         {
             using (var MyDB = new Infrastructure.AccountingDBEntities())
             {
-                var rs伝票 = MyDB.T_会計伝票.Where(p => p.伝票番号 == 伝票番号);
+                var rs伝票 = MyDB.T_会計伝票.Where(o => o.伝票番号 == 伝票番号);
                 if (rs伝票.Count() == 0)
                 {
                     throw new Exception("指定された伝票番号に一致する会計伝票はありません。");
@@ -26,15 +26,15 @@ namespace 会計システム.ApplicationService
                 var 検索した伝票番号 = new 番号(年月内伝票番号, 伝票日付);
                 var 検索した伝票 = new 伝票(検索した伝票番号, 伝票日付);
 
-                var rs仕訳 = MyDB.T_仕訳.Where(p => p.伝票番号 == 検索した伝票.番号.値);
+                var rs仕訳 = MyDB.T_仕訳.Where(o => o.伝票番号 == 検索した伝票.番号.値);
                 var 仕訳ビルド = new 仕訳構築サービス();
-                foreach(var o in rs仕訳)
+                foreach(var item in rs仕訳)
                 {
-                    仕訳ビルド.追加する(o.勘定科目コード, o.金額, o.摘要, o.貸借);
+                    仕訳ビルド.追加する(item.勘定科目コード, item.金額, item.摘要, item.貸借);
                 }
-                foreach(仕訳 q in 仕訳ビルド.リスト)
+                foreach(仕訳 item in 仕訳ビルド.リスト)
                 {
-                    検索した伝票.追加する(q);
+                    検索した伝票.追加する(item);
                 }
                 return 検索した伝票;
             }

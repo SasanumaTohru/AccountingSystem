@@ -85,7 +85,11 @@
     <Compile Include="Domain\PrimitiveObject\金額クラステスト.cs" />
     <Compile Include="Domain\PrimitiveObject\日付クラステスト.cs" />
     <Compile Include="Domain\PrimitiveObject\名称クラステスト.cs" />
+    <Compile Include="Infrastructure\消費税率検索サービスクラステスト.cs" />
     <Compile Include="M_勘定科目.cs">
+      <DependentUpon>AccountingEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="M_消費税率.cs">
       <DependentUpon>AccountingEDM.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

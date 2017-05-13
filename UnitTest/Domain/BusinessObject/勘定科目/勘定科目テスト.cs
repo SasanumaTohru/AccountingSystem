@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using 会計システム.Domain.BusinessObject.会計伝票;
 using 会計システム.Domain.BusinessObject.勘定科目;
 using 会計システム.Domain.PrimitiveObject;
-using 会計システム.Domain.BusinessObject.会計伝票;
 
 namespace UnitTest.Domain.BusinessObject.勘定科目
 {
@@ -32,12 +29,12 @@ namespace UnitTest.Domain.BusinessObject.勘定科目
             Assert.AreEqual(100002, 普通預金.集計科目コード.値);
 
             //仕訳
-            仕訳 貸方仕訳 = new 仕訳(普通預金, new 文字列("コピー用紙代等"), new 金額(1080), 仕訳.貸借区分.貸方);
+            仕訳 貸方仕訳 = new 仕訳(普通預金, new 必須文字列("コピー用紙代等"), new 金額(1080), 仕訳.貸借区分.貸方);
             Assert.AreEqual(100003, 貸方仕訳.勘定科目.コード.値);
             Assert.AreEqual(1080, 貸方仕訳.金額.値);
             Assert.AreEqual(仕訳.貸借区分.貸方, 貸方仕訳.貸借);
-            仕訳 借方仕訳1 = new 仕訳(費用, new 文字列("コピー用紙代"), new 金額(1000), 仕訳.貸借区分.借方);
-            仕訳 借方仕訳2 = new 仕訳(仮払消費税, new 文字列("消費税"), new 金額(80), 仕訳.貸借区分.借方);
+            仕訳 借方仕訳1 = new 仕訳(費用, new 必須文字列("コピー用紙代"), new 金額(1000), 仕訳.貸借区分.借方);
+            仕訳 借方仕訳2 = new 仕訳(仮払消費税, new 必須文字列("消費税"), new 金額(80), 仕訳.貸借区分.借方);
 
             //伝票
             日付 計上日 = new 日付(2017, 4, 1);

@@ -89,7 +89,7 @@
     <Compile Include="Domain\FoundationObject\消費税率.cs" />
     <Compile Include="Domain\PrimitiveObject\名称.cs" />
     <Compile Include="Domain\PrimitiveObject\整数.cs" />
-    <Compile Include="Domain\PrimitiveObject\文字列.cs" />
+    <Compile Include="Domain\PrimitiveObject\必須文字列.cs" />
     <Compile Include="Domain\PrimitiveObject\日付.cs" />
     <Compile Include="Domain\PrimitiveObject\自然数.cs" />
     <Compile Include="Domain\PrimitiveObject\金額.cs" />
@@ -118,6 +118,9 @@
     <Compile Include="Infrastructure\M_勘定科目.cs">
       <DependentUpon>AccountingEDM.tt</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\M_消費税率.cs">
+      <DependentUpon>AccountingEDM.tt</DependentUpon>
+    </Compile>
     <Compile Include="Infrastructure\T_仕訳.cs">
       <DependentUpon>AccountingEDM.tt</DependentUpon>
     </Compile>
@@ -125,6 +128,7 @@
       <DependentUpon>AccountingEDM.tt</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\会計伝票ファイリングサービス.cs" />
+    <Compile Include="Infrastructure\消費税率検索サービス.cs" />
     <Compile Include="Infrastructure\画面画像保存サービス.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

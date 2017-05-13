@@ -1,4 +1,6 @@
-﻿namespace 会計システム.Domain.FoundationObject
+﻿using System;
+
+namespace 会計システム.Domain.FoundationObject
 {
     public class 消費税率
     {
@@ -9,8 +11,10 @@
         /// </summary>
         public 消費税率()
         {
-            m_値 = 0.08m;    //ToDo:仮実装
+            var 消費税率検索サービス = new Infrastructure.消費税率検索サービス();
+            m_値 = 消費税率検索サービス.適用消費税率(DateTime.Now.Date);
         }
+
         /// <summary>
         /// 
         /// </summary>

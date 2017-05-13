@@ -35,7 +35,7 @@ namespace 会計システム.ApplicationService
             {
                 using (var MyDB = new Infrastructure.AccountingDBEntities())
                 {
-                    var rs = MyDB.M_勘定科目.Where(o => o.集計科目 == false).OrderBy(o => o.勘定科目コード);
+                    var rs = MyDB.M_勘定科目.Where(o => o.集計科目 == false).OrderBy(p => p.勘定科目コード);
                     クエリー結果をリストに格納する(rs);
                 }
                 return m_勘定科目リスト;

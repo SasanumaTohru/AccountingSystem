@@ -28,5 +28,6 @@ namespace 会計システム.Infrastructure
         public virtual DbSet<M_勘定科目> M_勘定科目 { get; set; }
         public virtual DbSet<T_会計伝票> T_会計伝票 { get; set; }
         public virtual DbSet<T_仕訳> T_仕訳 { get; set; }
+        public virtual DbSet<M_消費税率> M_消費税率 { get; set; }
     }
 }

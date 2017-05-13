@@ -18,6 +18,14 @@
           <Property Name="集計科目" Type="bit" Nullable="false" />
           <Property Name="集計科目コード" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="M_消費税率">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="税率" Type="float" Nullable="false" />
+          <Property Name="適用開始日" Type="date" Nullable="false" />
+        </EntityType>
         <EntityType Name="T_会計伝票">
           <Key>
             <PropertyRef Name="伝票番号" />
@@ -39,6 +47,7 @@
         </EntityType>
         <EntityContainer Name="AccountingDBModelStoreContainer">
           <EntitySet Name="M_勘定科目" EntityType="Self.M_勘定科目" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="M_消費税率" EntityType="Self.M_消費税率" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_会計伝票" EntityType="Self.T_会計伝票" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="T_仕訳" EntityType="Self.T_仕訳" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
@@ -63,6 +72,7 @@
           <EntitySet Name="M_勘定科目" EntityType="Self.M_勘定科目" />
           <EntitySet Name="T_会計伝票" EntityType="AccountingDBModel.T_会計伝票" />
           <EntitySet Name="T_仕訳" EntityType="AccountingDBModel.T_仕訳" />
+          <EntitySet Name="M_消費税率" EntityType="AccountingDBModel.M_消費税率" />
         </EntityContainer>
         <EntityType Name="T_会計伝票">
           <Key>
@@ -82,6 +92,14 @@
           <Property Name="金額" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
           <Property Name="摘要" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="貸借" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="M_消費税率">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="税率" Type="Double" Nullable="false" />
+          <Property Name="適用開始日" Type="DateTime" Nullable="false" Precision="0" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -120,6 +138,15 @@
                 <ScalarProperty Name="勘定科目コード" ColumnName="勘定科目コード" />
                 <ScalarProperty Name="仕訳番号" ColumnName="仕訳番号" />
                 <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="M_消費税率">
+            <EntityTypeMapping TypeName="AccountingDBModel.M_消費税率">
+              <MappingFragment StoreEntitySet="M_消費税率">
+                <ScalarProperty Name="適用開始日" ColumnName="適用開始日" />
+                <ScalarProperty Name="税率" ColumnName="税率" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
