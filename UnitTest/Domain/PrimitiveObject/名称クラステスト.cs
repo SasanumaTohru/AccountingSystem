@@ -10,7 +10,7 @@ namespace UnitTest.Domain.PrimitiveObject
         [TestCategory("基本テスト")]
         public void 基本テスト()
         {
-            会計システム.Domain.PrimitiveObject.名称 氏名 = new 会計システム.Domain.PrimitiveObject.名称("笹沼");
+            AccountingSystem.Domain.PrimitiveObject.名称 氏名 = new AccountingSystem.Domain.PrimitiveObject.名称("笹沼");
             Assert.AreEqual("笹沼", 氏名.値);
         }
 
@@ -18,7 +18,7 @@ namespace UnitTest.Domain.PrimitiveObject
         [TestCategory("基本テスト")]
         public void 空白の除去()
         {
-            会計システム.Domain.PrimitiveObject.名称 氏名 = new 会計システム.Domain.PrimitiveObject.名称(" 　笹沼 　");
+            AccountingSystem.Domain.PrimitiveObject.名称 氏名 = new AccountingSystem.Domain.PrimitiveObject.名称(" 　笹沼 　");
             Assert.AreEqual("笹沼", 氏名.値);
         }
 
@@ -27,7 +27,7 @@ namespace UnitTest.Domain.PrimitiveObject
         [ExpectedException(typeof(Exception))]
         public void  空文字列はNG()
         {
-            会計システム.Domain.PrimitiveObject.名称 氏名 = new 会計システム.Domain.PrimitiveObject.名称("");
+            AccountingSystem.Domain.PrimitiveObject.名称 氏名 = new AccountingSystem.Domain.PrimitiveObject.名称("");
             Assert.AreEqual("", 氏名.値);
         }
 
@@ -36,7 +36,7 @@ namespace UnitTest.Domain.PrimitiveObject
         [ExpectedException(typeof(Exception))]
         public void ヌルはNG()
         {
-            会計システム.Domain.PrimitiveObject.名称 氏名 = new 会計システム.Domain.PrimitiveObject.名称(string.Empty);
+            AccountingSystem.Domain.PrimitiveObject.名称 氏名 = new AccountingSystem.Domain.PrimitiveObject.名称(string.Empty);
             Assert.AreEqual("", 氏名.値);
         }
 
@@ -45,7 +45,7 @@ namespace UnitTest.Domain.PrimitiveObject
         [ExpectedException(typeof(Exception))]
         public void 空白のみはNG()
         {
-            会計システム.Domain.PrimitiveObject.名称 氏名 = new 会計システム.Domain.PrimitiveObject.名称("  　 ");
+            AccountingSystem.Domain.PrimitiveObject.名称 氏名 = new AccountingSystem.Domain.PrimitiveObject.名称("  　 ");
             Assert.AreEqual("  　 ", 氏名.値);
         }
     }

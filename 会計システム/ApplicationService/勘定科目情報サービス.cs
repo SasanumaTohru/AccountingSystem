@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using 会計システム.Domain.BusinessObject.勘定科目;
-using 会計システム.Domain.PrimitiveObject;
+using AccountingSystem.Domain.BusinessObject.勘定科目;
+using AccountingSystem.Domain.PrimitiveObject;
 
-namespace 会計システム.ApplicationService
+namespace AccountingSystem.ApplicationService
 {
     class 勘定科目情報サービス
     {

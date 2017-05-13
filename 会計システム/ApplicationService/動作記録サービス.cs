@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 
-namespace 会計システム.ApplicationService
+namespace AccountingSystem.ApplicationService
 {
     public class 動作記録サービス
     {

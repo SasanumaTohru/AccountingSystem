@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using 会計システム.Domain.BusinessObject.会計伝票;
+using AccountingSystem.Domain.BusinessObject.会計伝票;
 
-namespace 会計システム.ApplicationService
+namespace AccountingSystem.ApplicationService
 {
     public class 会計伝票検索サービス
     {

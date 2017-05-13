@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using 会計システム.Domain.BusinessObject.会計伝票;
-using 会計システム.Domain.BusinessObject.勘定科目;
-using 会計システム.Domain.PrimitiveObject;
+using AccountingSystem.Domain.BusinessObject.会計伝票;
+using AccountingSystem.Domain.BusinessObject.勘定科目;
+using AccountingSystem.Domain.PrimitiveObject;
 
 namespace UnitTest.Domain.BusinessObject.勘定科目
 {

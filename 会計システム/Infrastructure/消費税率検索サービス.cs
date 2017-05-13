@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace 会計システム.Infrastructure
+namespace AccountingSystem.Infrastructure
 {
     public class 消費税率検索サービス
     {

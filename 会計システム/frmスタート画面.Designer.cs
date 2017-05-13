@@ -1,4 +1,4 @@
-﻿namespace 会計システム
+﻿namespace AccountingSystem
 {
     partial class frmスタート画面
     {

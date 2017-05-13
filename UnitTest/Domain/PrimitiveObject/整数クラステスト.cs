@@ -9,7 +9,7 @@ namespace UnitTest.Domain.PrimitiveObject
         [TestMethod]
         public void 基本テスト()
         {
-            会計システム.Domain.PrimitiveObject.整数 数値 = new 会計システム.Domain.PrimitiveObject.整数(77);
+            AccountingSystem.Domain.PrimitiveObject.整数 数値 = new AccountingSystem.Domain.PrimitiveObject.整数(77);
             Assert.AreEqual(77, 数値.値);
         }
     }

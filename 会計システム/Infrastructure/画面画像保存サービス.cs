@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace 会計システム.Infrastructure
+namespace AccountingSystem.Infrastructure
 {
     public class 画面画像保存サービス
     {

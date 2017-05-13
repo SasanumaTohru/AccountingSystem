@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{17AE2C9E-CD77-4CF7-A3AE-6045231F141D}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>会計システム</RootNamespace>
-    <AssemblyName>会計システム</AssemblyName>
+    <RootNamespace>AccountingSystem</RootNamespace>
+    <AssemblyName>AccountingSystem</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -180,6 +180,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DB定義\dbo.M_勘定科目.sql" />
+    <Content Include="DB定義\dbo.M_消費税率.sql" />
     <Content Include="DB定義\dbo.T_仕訳.sql" />
     <Content Include="DB定義\dbo.T_会計伝票.sql" />
     <Content Include="Infrastructure\AccountingEDM.Context.tt">

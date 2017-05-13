@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace 会計システム.Domain.PrimitiveObject
+namespace AccountingSystem.Domain.PrimitiveObject
 {
     public class 日付
     {

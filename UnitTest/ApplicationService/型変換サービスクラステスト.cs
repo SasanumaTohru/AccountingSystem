@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using 会計システム.ApplicationService;
+using AccountingSystem.ApplicationService;
 
 namespace UnitTest.ApplicationService
 {

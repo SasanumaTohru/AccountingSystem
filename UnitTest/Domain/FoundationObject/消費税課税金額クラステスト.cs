@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using 会計システム.Domain.FoundationObject;
-using 会計システム.Domain.PrimitiveObject;
+using AccountingSystem.Domain.FoundationObject;
+using AccountingSystem.Domain.PrimitiveObject;
 
 namespace UnitTest.Domain.FoundationObject
 {

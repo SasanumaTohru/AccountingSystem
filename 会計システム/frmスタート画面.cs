@@ -4,10 +4,10 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using WindowsFormsControlLibrary;
-using 会計システム.Domain.BusinessObject.会計伝票;
-using 会計システム.Domain.PrimitiveObject;
+using AccountingSystem.Domain.BusinessObject.会計伝票;
+using AccountingSystem.Domain.PrimitiveObject;
 
-namespace 会計システム
+namespace AccountingSystem
 {
     public partial class frmスタート画面 : Form
     {

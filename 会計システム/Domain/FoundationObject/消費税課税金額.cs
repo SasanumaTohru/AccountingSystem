@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace 会計システム.Domain.FoundationObject
+namespace AccountingSystem.Domain.FoundationObject
 {
     public class 消費税課税金額
     {

@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace 会計システム.Infrastructure
+namespace AccountingSystem.Infrastructure
 {
     using System;
     using System.Data.Entity;

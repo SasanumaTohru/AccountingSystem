@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace 会計システム.ApplicationService
+namespace AccountingSystem.ApplicationService
 {
     /// <summary>
     /// UIからの入力された値を型変換もしくは検査します。

@@ -1,4 +1,4 @@
-﻿namespace 会計システム.Domain.BusinessObject.会計伝票
+﻿namespace AccountingSystem.Domain.BusinessObject.会計伝票
 {
     public class 仕訳
     {

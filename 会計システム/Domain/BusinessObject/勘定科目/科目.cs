@@ -1,4 +1,4 @@
-﻿namespace 会計システム.Domain.BusinessObject.勘定科目
+﻿namespace AccountingSystem.Domain.BusinessObject.勘定科目
 {
     public  class 科目
     {

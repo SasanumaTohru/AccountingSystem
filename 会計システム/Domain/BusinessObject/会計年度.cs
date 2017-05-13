@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace 会計システム.Domain.BusinessObject
+namespace AccountingSystem.Domain.BusinessObject
 {
     public class 会計年度
     {
