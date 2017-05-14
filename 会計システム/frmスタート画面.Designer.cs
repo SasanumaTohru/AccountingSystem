@@ -51,6 +51,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.cmd画面キャプチャ = new System.Windows.Forms.Button();
+            this.cmd伝票訂正 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv伝票検索結果ビュー)).BeginInit();
             this.SuspendLayout();
             // 
@@ -77,7 +78,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label2.Location = new System.Drawing.Point(500, 67);
+            this.label2.Location = new System.Drawing.Point(418, 65);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(97, 36);
             this.label2.TabIndex = 2;
@@ -126,9 +127,9 @@
             // cmd伝票を登録する
             // 
             this.cmd伝票を登録する.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.cmd伝票を登録する.Location = new System.Drawing.Point(987, 50);
+            this.cmd伝票を登録する.Location = new System.Drawing.Point(873, 48);
             this.cmd伝票を登録する.Name = "cmd伝票を登録する";
-            this.cmd伝票を登録する.Size = new System.Drawing.Size(287, 75);
+            this.cmd伝票を登録する.Size = new System.Drawing.Size(185, 75);
             this.cmd伝票を登録する.TabIndex = 34;
             this.cmd伝票を登録する.Text = "伝票登録";
             this.cmd伝票を登録する.UseVisualStyleBackColor = true;
@@ -138,7 +139,7 @@
             // 
             this.dtp計上日.CalendarFont = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.dtp計上日.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.dtp計上日.Location = new System.Drawing.Point(625, 64);
+            this.dtp計上日.Location = new System.Drawing.Point(543, 62);
             this.dtp計上日.Name = "dtp計上日";
             this.dtp計上日.Size = new System.Drawing.Size(301, 43);
             this.dtp計上日.TabIndex = 35;
@@ -288,11 +289,23 @@
             this.cmd画面キャプチャ.UseVisualStyleBackColor = false;
             this.cmd画面キャプチャ.Click += new System.EventHandler(this.cmd画面キャプチャ_Click);
             // 
+            // cmd伝票訂正
+            // 
+            this.cmd伝票訂正.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.cmd伝票訂正.Location = new System.Drawing.Point(1089, 48);
+            this.cmd伝票訂正.Name = "cmd伝票訂正";
+            this.cmd伝票訂正.Size = new System.Drawing.Size(185, 75);
+            this.cmd伝票訂正.TabIndex = 53;
+            this.cmd伝票訂正.Text = "伝票訂正";
+            this.cmd伝票訂正.UseVisualStyleBackColor = true;
+            this.cmd伝票訂正.Click += new System.EventHandler(this.cmd伝票訂正_Click);
+            // 
             // frmスタート画面
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(2193, 1504);
+            this.Controls.Add(this.cmd伝票訂正);
             this.Controls.Add(this.cmd画面キャプチャ);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -350,6 +363,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button cmd画面キャプチャ;
+        private System.Windows.Forms.Button cmd伝票訂正;
     }
 }
 

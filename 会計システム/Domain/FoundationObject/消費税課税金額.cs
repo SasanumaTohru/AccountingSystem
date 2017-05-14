@@ -19,7 +19,7 @@ namespace AccountingSystem.Domain.FoundationObject
         /// </summary>
         /// <param name="金額"></param>
         /// <param name="入力値"></param>
-        public 消費税課税金額(PrimitiveObject.金額 金額, 計算方法 入力値 = 計算方法.課税対象金額 ,decimal 消費税率=0.08m)
+        public 消費税課税金額(PrimitiveObject.金額 金額, 計算方法 入力値 = 計算方法.課税対象金額 ,decimal 消費税率 = 0.08m) 
         {
             m_適用消費税率 = new 消費税率(消費税率);
             switch ( 入力値 )

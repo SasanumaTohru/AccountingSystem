@@ -352,9 +352,8 @@ namespace AccountingSystem
             int 貸方仕訳のインデックス = 0;
             foreach (var 画面上のコントロール in Controls)
             {
-                if (画面上のコントロール is ctrl仕訳)
+                if (画面上のコントロール is ctrl仕訳 仕訳コントロール)
                 {
-                    ctrl仕訳 仕訳コントロール = (ctrl仕訳)画面上のコントロール;
                     switch (仕訳コントロール.貸借区分)
                     {
                         case ctrl仕訳.貸借.借方:
@@ -476,6 +475,18 @@ namespace AccountingSystem
         private void 画面ウェイト()
         {
             Cursor = Cursors.WaitCursor;
+        }
+
+        private void cmd伝票訂正_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("貸借を反転し訂正伝票を起票します。", "操作確認", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            {
+                var 伝票検索 = new ApplicationService.会計伝票検索サービス();
+                伝票 検索した伝票 = 伝票検索.伝票番号で検索する(txt伝票番号.Text);
+                検索した伝票.訂正伝票化する();
+                指定した伝票を画面に表示する(検索した伝票);
+            }
+            
         }
     }
 }

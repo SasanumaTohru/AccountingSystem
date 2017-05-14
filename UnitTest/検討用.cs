@@ -13,7 +13,8 @@ namespace UnitTest
         public void foo()
         {
 
-            
+            int a = 3;
+            Debug.WriteLine(a.ToString("000"));
 
         }
 
