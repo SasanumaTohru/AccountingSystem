@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using AccountingSystem.ApplicationService;
 
+
 namespace UnitTest.ApplicationService
 {
     [TestClass]
@@ -38,15 +39,17 @@ namespace UnitTest.ApplicationService
         [TestMethod]
         public void 金額に変換できる基本テスト()
         {
-            Assert.AreEqual(true, 型変換サービス.金額に変換できる("0"));
-            Assert.AreEqual(true, 型変換サービス.金額に変換できる("1"));
-            Assert.AreEqual(true, 型変換サービス.金額に変換できる("-1"));
-            Assert.AreEqual(true, 型変換サービス.金額に変換できる("0000001"));
+            Assert.AreEqual(true, 型変換サービス.文字列を金額に変換する("0").変換できる);
+            Assert.AreEqual(true, 型変換サービス.文字列を金額に変換する("1").変換できる);
+            Assert.AreEqual(true, 型変換サービス.文字列を金額に変換する("-1").変換できる);
+            Assert.AreEqual(true, 型変換サービス.文字列を金額に変換する("0000001").変換できる);
+            Assert.AreEqual(true, 型変換サービス.文字列を金額に変換する("100,000").変換できる);
 
-            Assert.AreEqual(false, 型変換サービス.金額に変換できる("a"));
-            Assert.AreEqual(false, 型変換サービス.金額に変換できる("a123"));
-            Assert.AreEqual(false, 型変換サービス.金額に変換できる("123abc"));
-            Assert.AreEqual(false, 型変換サービス.金額に変換できる("-"));
+            Assert.AreEqual(false, 型変換サービス.文字列を金額に変換する("a").変換できる);
+            Assert.AreEqual(0m, 型変換サービス.文字列を金額に変換する("a").金額);
+            Assert.AreEqual(false, 型変換サービス.文字列を金額に変換する("a123").変換できる);
+            Assert.AreEqual(false, 型変換サービス.文字列を金額に変換する("123abc").変換できる);
+            Assert.AreEqual(false, 型変換サービス.文字列を金額に変換する("-").変換できる);
         }
 
         /*
@@ -55,11 +58,13 @@ namespace UnitTest.ApplicationService
         [TestMethod]
         public void 文字列を金額に変換する基本テスト()
         {
-            Assert.AreEqual(0m, 型変換サービス.文字列を金額に変換する("0"));
-            Assert.AreEqual(1m, 型変換サービス.文字列を金額に変換する("1"));
-            Assert.AreEqual(-1m, 型変換サービス.文字列を金額に変換する("-1"));
-            Assert.AreEqual(1m, 型変換サービス.文字列を金額に変換する("001"));
-            Assert.AreEqual(-1m, 型変換サービス.文字列を金額に変換する("-001"));
+            Assert.AreEqual(0m, 型変換サービス.文字列を金額に変換する("0").金額);
+            Assert.AreEqual(1m, 型変換サービス.文字列を金額に変換する("1").金額);
+            Assert.AreEqual(-1m, 型変換サービス.文字列を金額に変換する("-1").金額);
+            Assert.AreEqual(1m, 型変換サービス.文字列を金額に変換する("001").金額);
+            Assert.AreEqual(-1m, 型変換サービス.文字列を金額に変換する("-001").金額);
+            Assert.AreEqual(100000m, 型変換サービス.文字列を金額に変換する("100,000").金額);
+            Assert.AreEqual(-100000m, 型変換サービス.文字列を金額に変換する("-100,000").金額);
         }
     }
 }

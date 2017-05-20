@@ -27,7 +27,7 @@ namespace UnitTest.ApplicationService
         public void 勘定科目で検索する()
         {
             var ヒットリスト = 伝票検索.勘定科目で検索する(401030);
-            Assert.AreEqual(1, ヒットリスト.Count);
+            Assert.AreEqual(23, ヒットリスト.Count);
         }
     }
 }

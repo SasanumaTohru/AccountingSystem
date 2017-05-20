@@ -7,30 +7,21 @@ namespace AccountingSystem.ApplicationService
     /// </summary>
     public static class 型変換サービス
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="値"></param>
-        /// <returns></returns>
-        public static decimal 文字列を金額に変換する(string 値)
-        {
-            if (金額に変換できる(値) == false)
-            {
-                throw new Exception("金額を正しく入力してください。");
-            }
-            return decimal.Parse(値);
-        }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="値"></param>
-        /// <returns></returns>
-        public static bool 金額に変換できる(string 値)
+        private static (bool 変換できる, decimal 金額) 金額変換文字列;
+        
+       /// <summary>
+       /// 変換に失敗した場合、金額はゼロを返します。
+       /// </summary>
+       /// <param name="値"></param>
+       /// <returns></returns>
+        public static (bool 変換できる, decimal 金額) 文字列を金額に変換する(string 値)
         {
-            return System.Text.RegularExpressions.Regex.IsMatch(値, @"^[-]?[0-9]+$");
+            金額変換文字列.変換できる =  decimal.TryParse(値, out decimal 変換された値);
+            金額変換文字列.金額 = 変換された値;
+            return 金額変換文字列;
         }
-
+               
         /// <summary>
         /// 
         /// </summary>

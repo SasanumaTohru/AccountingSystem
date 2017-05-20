@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using WindowsFormsControlLibrary;
 using AccountingSystem.Domain.BusinessObject.会計伝票;
 using AccountingSystem.Domain.PrimitiveObject;
+using System.Diagnostics;
 
 namespace AccountingSystem
 {
@@ -20,6 +21,16 @@ namespace AccountingSystem
             
             勘定科目コンボボックスとデフォルト仕訳コントロールを設定する();
             伝票検索結果ビューを設定する();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private struct 通知目的
+        {
+            public const string 確認 = "操作確認";
+            public const string 結果 = "操作結果";
+            public const string エラー = "エラー";
         }
 
         /// <summary>
@@ -66,13 +77,21 @@ namespace AccountingSystem
             dgv伝票検索結果ビュー.Font = new Font("メイリオ", 9);
             dgv伝票検索結果ビュー.AlternatingRowsDefaultCellStyle.BackColor = Color.AliceBlue;
         }
-
+                
         /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void cmd伝票を登録する_Click(object sender, EventArgs e)
+        {
+            伝票を登録する();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void 伝票を登録する()
         {
             try
             {
@@ -83,7 +102,7 @@ namespace AccountingSystem
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, 通知目的.エラー, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 decimal 借方合計金額 = 0;
                 decimal 貸方合計金額 = 0;
                 var 仕訳コントロール = new ctrl仕訳();
@@ -96,10 +115,10 @@ namespace AccountingSystem
                         switch (仕訳コントロール.貸借区分)
                         {
                             case ctrl仕訳.貸借.借方:
-                                借方合計金額 = 借方合計金額 + int.Parse(仕訳コントロール.txt金額.Text);
+                                借方合計金額 = 借方合計金額 + ApplicationService.型変換サービス.文字列を金額に変換する(仕訳コントロール.txt金額.Text).金額;
                                 break;
                             case ctrl仕訳.貸借.貸方:
-                                貸方合計金額 = 貸方合計金額 + int.Parse(仕訳コントロール.txt金額.Text);
+                                貸方合計金額 = 貸方合計金額 + ApplicationService.型変換サービス.文字列を金額に変換する(仕訳コントロール.txt金額.Text).金額;
                                 break;
                         }
                     }
@@ -120,7 +139,7 @@ namespace AccountingSystem
         /// <param name="仕訳コントロール"></param>
         private static void 金額入力が不適切の場合は0円にする(ctrl仕訳 仕訳コントロール)
         {
-            if (ApplicationService.型変換サービス.金額に変換できる(仕訳コントロール.txt金額.Text) == false)
+            if (ApplicationService.型変換サービス.文字列を金額に変換する(仕訳コントロール.txt金額.Text).変換できる == false)
             {
                 仕訳コントロール.txt金額.Text = "0";
             }
@@ -140,11 +159,13 @@ namespace AccountingSystem
                 if (item is ctrl仕訳)
                 {
                     仕訳コントロール = (ctrl仕訳)item;
-                    伝票仕訳.追加する(
-                        ApplicationService.型変換サービス.コードと名称から勘定科目コードを抽出する(仕訳コントロール.cmb勘定科目.Text),
-                        ApplicationService.型変換サービス.文字列を金額に変換する(仕訳コントロール.txt金額.Text),
-                        仕訳コントロール.txt摘要.Text,
-                        仕訳コントロール.貸借区分番号);
+                    int 勘定科目コード = ApplicationService.型変換サービス.コードと名称から勘定科目コードを抽出する(仕訳コントロール.cmb勘定科目.Text);
+                    var 金額入力欄 = ApplicationService.型変換サービス.文字列を金額に変換する(仕訳コントロール.txt金額.Text);
+                    if (金額入力欄.変換できる == false)
+                    {
+                        throw new Exception("金額欄に不適切な文字が入力されています。");
+                    }
+                    伝票仕訳.追加する(勘定科目コード, 金額入力欄.金額, 仕訳コントロール.txt摘要.Text, 仕訳コントロール.貸借区分番号);
                 }
             }
             return 伝票仕訳;
@@ -256,7 +277,7 @@ namespace AccountingSystem
         {
             if (txt伝票番号.Text == string.Empty)
             {
-                MessageBox.Show("伝票番号が入力されていません。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("伝票番号が入力されていません。", 通知目的.エラー, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             try
@@ -267,7 +288,7 @@ namespace AccountingSystem
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, 通知目的.エラー, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -283,7 +304,7 @@ namespace AccountingSystem
             List<伝票> 伝票ヒットリスト = 伝票検索.計上日で検索する(dtp計上日.Value.Date);
             if (伝票ヒットリスト.Count() == 0)
             {
-                MessageBox.Show("指定した日の会計伝票はありません。", "情報", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("指定した日の会計伝票はありません。", 通知目的.結果, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 画面ウェイト終了();
                 return;
             }
@@ -314,7 +335,7 @@ namespace AccountingSystem
             画面ウェイト();
             if (cmb検索する勘定科目.Text==string.Empty)
             {
-                MessageBox.Show("勘定科目が選択されていません。", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("勘定科目が選択されていません。", 通知目的.エラー, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             var 伝票検索 = new ApplicationService.会計伝票検索サービス();
@@ -322,7 +343,7 @@ namespace AccountingSystem
             List<伝票> 伝票ヒットリスト = 伝票検索.勘定科目で検索する(検索する勘定科目);
             if(伝票ヒットリスト.Count() == 0)
             {
-                MessageBox.Show("指定した勘定科目を持つ会計伝票はありません。", "情報", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("指定した勘定科目を持つ会計伝票はありません。", 通知目的.結果, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 画面ウェイト終了();
                 return;
             }
@@ -477,16 +498,41 @@ namespace AccountingSystem
             Cursor = Cursors.WaitCursor;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cmd伝票訂正_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("貸借を反転し訂正伝票を起票します。", "操作確認", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            if (txt伝票番号.Text == string.Empty)
             {
-                var 伝票検索 = new ApplicationService.会計伝票検索サービス();
-                伝票 検索した伝票 = 伝票検索.伝票番号で検索する(txt伝票番号.Text);
-                検索した伝票.訂正伝票化する();
-                指定した伝票を画面に表示する(検索した伝票);
+                const string EM1 = "訂正する伝票を表示してから操作してください。";
+                MessageBox.Show(EM1, 通知目的.エラー, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
-            
+
+            const string EM2 = "貸借を反転し訂正伝票を起票します。";
+            var 操作を続行する = MessageBox.Show(EM2, 通知目的.確認, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+            if (操作を続行する == DialogResult.Yes)
+            {
+                画面ウェイト();
+
+                var 伝票検索 = new ApplicationService.会計伝票検索サービス();
+                伝票 訂正元伝票 = 伝票検索.伝票番号で検索する(txt伝票番号.Text);
+                伝票 訂正伝票 = 訂正元伝票.訂正伝票化する();
+                指定した伝票を画面に表示する(訂正伝票);
+                伝票を登録する();
+
+                画面ウェイト終了();
+            }
+        }
+
+        private void cmdTest_Click(object sender, EventArgs e)
+        {
+            (int a, int b) foo = (10,20);
+            Debug.WriteLine(foo.a + foo.b);
+
         }
     }
 }

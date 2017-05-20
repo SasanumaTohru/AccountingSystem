@@ -52,6 +52,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.cmd画面キャプチャ = new System.Windows.Forms.Button();
             this.cmd伝票訂正 = new System.Windows.Forms.Button();
+            this.cmdTest = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv伝票検索結果ビュー)).BeginInit();
             this.SuspendLayout();
             // 
@@ -300,11 +301,22 @@
             this.cmd伝票訂正.UseVisualStyleBackColor = true;
             this.cmd伝票訂正.Click += new System.EventHandler(this.cmd伝票訂正_Click);
             // 
+            // cmdTest
+            // 
+            this.cmdTest.Location = new System.Drawing.Point(1373, 1414);
+            this.cmdTest.Name = "cmdTest";
+            this.cmdTest.Size = new System.Drawing.Size(177, 71);
+            this.cmdTest.TabIndex = 54;
+            this.cmdTest.Text = "TEST";
+            this.cmdTest.UseVisualStyleBackColor = true;
+            this.cmdTest.Click += new System.EventHandler(this.cmdTest_Click);
+            // 
             // frmスタート画面
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(2193, 1504);
+            this.Controls.Add(this.cmdTest);
             this.Controls.Add(this.cmd伝票訂正);
             this.Controls.Add(this.cmd画面キャプチャ);
             this.Controls.Add(this.label5);
@@ -364,6 +376,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button cmd画面キャプチャ;
         private System.Windows.Forms.Button cmd伝票訂正;
+        private System.Windows.Forms.Button cmdTest;
     }
 }
 

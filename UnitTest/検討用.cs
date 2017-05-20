@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 
 
+
 namespace UnitTest
 {
     [TestClass]
@@ -12,10 +13,9 @@ namespace UnitTest
         [TestMethod]
         public void foo()
         {
-
-            int a = 3;
-            Debug.WriteLine(a.ToString("000"));
-
+           
+            
+            
         }
 
     }

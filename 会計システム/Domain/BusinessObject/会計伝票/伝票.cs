@@ -88,8 +88,11 @@
             }
         }
 
-        public void 訂正伝票化する()
+
+        public 伝票 訂正伝票化する()
         {
+            m_計上日 = new PrimitiveObject.日付(System.DateTime.Today);
+            m_番号 = new 番号(new PrimitiveObject.自然数(0), m_計上日);
             var _貸借入れ換え用仕訳列 = new 仕訳列();
             _貸借入れ換え用仕訳列 = m_借方仕訳;
             m_借方仕訳 = m_貸方仕訳;
@@ -102,6 +105,7 @@
             {
                 item.貸借を反転する();
             }
+            return this;
         }
     }
 }
