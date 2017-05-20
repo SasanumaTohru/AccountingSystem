@@ -527,12 +527,5 @@ namespace AccountingSystem
                 画面ウェイト終了();
             }
         }
-
-        private void cmdTest_Click(object sender, EventArgs e)
-        {
-            (int a, int b) foo = (10,20);
-            Debug.WriteLine(foo.a + foo.b);
-
-        }
     }
 }
