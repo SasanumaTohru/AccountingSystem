@@ -85,13 +85,13 @@ namespace AccountingSystem
         /// <param name="e"></param>
         private void cmd伝票を登録する_Click(object sender, EventArgs e)
         {
-            伝票を登録する();
+            画面に表示している伝票を登録する();
         }
 
         /// <summary>
         /// 
         /// </summary>
-        private void 伝票を登録する()
+        private void 画面に表示している伝票を登録する()
         {
             try
             {
@@ -518,11 +518,11 @@ namespace AccountingSystem
             {
                 画面ウェイト();
 
-                var 伝票検索 = new ApplicationService.会計伝票検索サービス();
-                伝票 訂正元伝票 = 伝票検索.伝票番号で検索する(txt伝票番号.Text);
-                伝票 訂正伝票 = 訂正元伝票.訂正伝票化する();
+                var 伝票検索サービス = new ApplicationService.会計伝票検索サービス();
+                伝票 訂正元伝票 = 伝票検索サービス.伝票番号で検索する(txt伝票番号.Text);
+                伝票 訂正伝票 = 訂正元伝票.訂正伝票を用意する();
                 指定した伝票を画面に表示する(訂正伝票);
-                伝票を登録する();
+                画面に表示している伝票を登録する();
 
                 画面ウェイト終了();
             }

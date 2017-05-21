@@ -101,23 +101,17 @@ namespace AccountingSystem.Domain.BusinessObject.会計伝票
         /// 
         /// </summary>
         /// <returns></returns>
-        public 伝票 訂正伝票化する()
+        public 伝票 訂正伝票を用意する()
         {
-            m_計上日 = new PrimitiveObject.日付(System.DateTime.Today);
-            m_番号 = new 番号(new PrimitiveObject.自然数(0), m_計上日);
-            var _貸借入れ換え用仕訳列 = new 仕訳列();
-            _貸借入れ換え用仕訳列 = m_借方仕訳;
-            m_借方仕訳 = m_貸方仕訳;
-            m_貸方仕訳 = _貸借入れ換え用仕訳列;
-            foreach (var item in m_借方仕訳.リスト)
-            {
-                item.貸借を反転する();
-            }
-            foreach (var item in m_貸方仕訳.リスト)
-            {
-                item.貸借を反転する();
-            }
-            return this;
+            var 訂正伝票の計上日 = new PrimitiveObject.日付(DateTime.Today);
+            var 訂正伝票の仮伝票番号 = new 番号(new PrimitiveObject.自然数(0), m_計上日);
+            var 訂正伝票 = new 伝票(訂正伝票の仮伝票番号, 訂正伝票の計上日);
+            var 訂正伝票の仕訳列 = new 仕訳列();
+            m_借方仕訳.リスト.ForEach(item => 訂正伝票の仕訳列.追加する(item));
+            m_貸方仕訳.リスト.ForEach(item => 訂正伝票の仕訳列.追加する(item));
+            訂正伝票の仕訳列.リスト.ForEach(item => item.貸借を反転する());
+            訂正伝票の仕訳列.リスト.ForEach(item => 訂正伝票.追加する(item));
+            return 訂正伝票;
         }
     }
 }
