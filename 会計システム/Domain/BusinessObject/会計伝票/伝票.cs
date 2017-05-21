@@ -1,4 +1,6 @@
-﻿namespace AccountingSystem.Domain.BusinessObject.会計伝票
+﻿using System;
+
+namespace AccountingSystem.Domain.BusinessObject.会計伝票
 {
     public class 伝票
     {
@@ -58,7 +60,14 @@
         /// <summary>
         /// 
         /// </summary>
-        public PrimitiveObject.金額 貸借金額差額 => new PrimitiveObject.金額(m_借方仕訳.合計金額.値 - m_貸方仕訳.合計金額.値);
+        public PrimitiveObject.金額 貸借金額差額
+        {
+            get
+            {
+                var 差額 = new PrimitiveObject.金額(m_借方仕訳.合計金額.値 - m_貸方仕訳.合計金額.値).絶対値;
+                return new PrimitiveObject.金額(差額);
+            }
+        }
 
         /// <summary>
         /// 
@@ -88,7 +97,10 @@
             }
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public 伝票 訂正伝票化する()
         {
             m_計上日 = new PrimitiveObject.日付(System.DateTime.Today);

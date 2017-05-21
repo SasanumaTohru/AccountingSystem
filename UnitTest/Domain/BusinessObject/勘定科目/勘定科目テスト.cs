@@ -60,6 +60,15 @@ namespace UnitTest.Domain.BusinessObject.勘定科目
             Assert.AreEqual(false, 伝票.貸借金額不一致);
             Assert.AreEqual(0, 伝票.貸借金額差額.値);
 
+            伝票.追加する(貸方仕訳);
+            Assert.AreEqual(true, 伝票.貸借金額不一致);
+            Assert.AreEqual(1080, 伝票.貸借金額差額.値);
+            伝票.追加する(借方仕訳1);
+            伝票.追加する(借方仕訳2);
+            伝票.追加する(借方仕訳1);
+            伝票.追加する(借方仕訳2);
+            Assert.AreEqual(true, 伝票.貸借金額不一致);
+            Assert.AreEqual(1080, 伝票.貸借金額差額.値);
         }
     }
 }

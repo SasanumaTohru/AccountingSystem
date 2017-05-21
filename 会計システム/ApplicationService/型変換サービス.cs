@@ -7,19 +7,17 @@ namespace AccountingSystem.ApplicationService
     /// </summary>
     public static class 型変換サービス
     {
-
-        private static (bool 変換できる, decimal 金額) 金額変換文字列;
-        
-       /// <summary>
-       /// 変換に失敗した場合、金額はゼロを返します。
-       /// </summary>
-       /// <param name="値"></param>
-       /// <returns></returns>
-        public static (bool 変換できる, decimal 金額) 文字列を金額に変換する(string 値)
+        /// <summary>
+        /// Decimalに変換できない場合、金額は0を返します。
+        /// </summary>
+        /// <param name="値"></param>
+        /// <returns></returns>
+        public static (bool 変換可能, decimal 金額) 文字列を金額に変換する(string 値)
         {
-            金額変換文字列.変換できる =  decimal.TryParse(値, out decimal 変換された値);
-            金額変換文字列.金額 = 変換された値;
-            return 金額変換文字列;
+            (bool 変換可能, decimal 金額) 金額変換情報;
+            金額変換情報.変換可能 =  decimal.TryParse(値, out decimal 変換された値);
+            金額変換情報.金額 = 変換された値;
+            return 金額変換情報;
         }
                
         /// <summary>

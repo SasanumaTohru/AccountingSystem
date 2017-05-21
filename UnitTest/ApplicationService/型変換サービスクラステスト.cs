@@ -34,22 +34,22 @@ namespace UnitTest.ApplicationService
         }
 
         /*
-         * 金額に変換できる
+         * 金額に変換可能
          */
         [TestMethod]
-        public void 金額に変換できる基本テスト()
+        public void 金額に変換可能基本テスト()
         {
-            Assert.AreEqual(true, 型変換サービス.文字列を金額に変換する("0").変換できる);
-            Assert.AreEqual(true, 型変換サービス.文字列を金額に変換する("1").変換できる);
-            Assert.AreEqual(true, 型変換サービス.文字列を金額に変換する("-1").変換できる);
-            Assert.AreEqual(true, 型変換サービス.文字列を金額に変換する("0000001").変換できる);
-            Assert.AreEqual(true, 型変換サービス.文字列を金額に変換する("100,000").変換できる);
+            Assert.AreEqual(true, 型変換サービス.文字列を金額に変換する("0").変換可能);
+            Assert.AreEqual(true, 型変換サービス.文字列を金額に変換する("1").変換可能);
+            Assert.AreEqual(true, 型変換サービス.文字列を金額に変換する("-1").変換可能);
+            Assert.AreEqual(true, 型変換サービス.文字列を金額に変換する("0000001").変換可能);
+            Assert.AreEqual(true, 型変換サービス.文字列を金額に変換する("100,000").変換可能);
 
-            Assert.AreEqual(false, 型変換サービス.文字列を金額に変換する("a").変換できる);
+            Assert.AreEqual(false, 型変換サービス.文字列を金額に変換する("a").変換可能);
             Assert.AreEqual(0m, 型変換サービス.文字列を金額に変換する("a").金額);
-            Assert.AreEqual(false, 型変換サービス.文字列を金額に変換する("a123").変換できる);
-            Assert.AreEqual(false, 型変換サービス.文字列を金額に変換する("123abc").変換できる);
-            Assert.AreEqual(false, 型変換サービス.文字列を金額に変換する("-").変換できる);
+            Assert.AreEqual(false, 型変換サービス.文字列を金額に変換する("a123").変換可能);
+            Assert.AreEqual(false, 型変換サービス.文字列を金額に変換する("123abc").変換可能);
+            Assert.AreEqual(false, 型変換サービス.文字列を金額に変換する("-").変換可能);
         }
 
         /*

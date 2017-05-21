@@ -125,7 +125,7 @@ namespace AccountingSystem
                 }
                 txt借方合計金額.Text = new 金額(借方合計金額).桁区切り値;
                 txt貸方合計金額.Text = new 金額(貸方合計金額).桁区切り値;
-                txt貸借差額.Text = new 金額(借方合計金額 - 貸方合計金額).桁区切り値;
+                txt貸借差額.Text = new 金額(借方合計金額 - 貸方合計金額).桁区切り絶対値;
             }
             finally
             {
@@ -139,7 +139,7 @@ namespace AccountingSystem
         /// <param name="仕訳コントロール"></param>
         private static void 金額入力が不適切の場合は0円にする(ctrl仕訳 仕訳コントロール)
         {
-            if (ApplicationService.型変換サービス.文字列を金額に変換する(仕訳コントロール.txt金額.Text).変換できる == false)
+            if (ApplicationService.型変換サービス.文字列を金額に変換する(仕訳コントロール.txt金額.Text).変換可能 == false)
             {
                 仕訳コントロール.txt金額.Text = "0";
             }
@@ -161,7 +161,7 @@ namespace AccountingSystem
                     仕訳コントロール = (ctrl仕訳)item;
                     int 勘定科目コード = ApplicationService.型変換サービス.コードと名称から勘定科目コードを抽出する(仕訳コントロール.cmb勘定科目.Text);
                     var 金額入力欄 = ApplicationService.型変換サービス.文字列を金額に変換する(仕訳コントロール.txt金額.Text);
-                    if (金額入力欄.変換できる == false)
+                    if (金額入力欄.変換可能 == false)
                     {
                         throw new Exception("金額欄に不適切な文字が入力されています。");
                     }
