@@ -24,7 +24,8 @@ namespace UnitTest.Domain.BusinessObject.勘定科目
             元伝票.追加する(貸方仕訳1);
             元伝票.追加する(借方仕訳1);
             元伝票.追加する(借方仕訳2);
-            
+            Assert.AreEqual(false, 元伝票.訂正情報.訂正の有無);
+
             var 訂正伝票 = 元伝票.訂正伝票を用意する();
 
             //元伝票
@@ -43,8 +44,15 @@ namespace UnitTest.Domain.BusinessObject.勘定科目
             Assert.AreEqual(訂正伝票.貸方.リスト.Count, 元伝票.借方.リスト.Count);
             Assert.AreEqual(訂正伝票.借方.リスト.Count, 元伝票.貸方.リスト.Count);
 
-            //Assert.AreEqual(true, foo.訂正伝票の有無(元伝票.番号));
-            
+            /***********************************************************
+                ToDo:検討中
+            ***********************************************************/
+            Assert.AreEqual(true, 元伝票.訂正情報.訂正の有無);
+            //伝票 検索した訂正伝票 = AccountingSystem.ApplicationService.会計伝票検索サービス.訂正伝票検索(元伝票.番号);
+
+            Assert.AreEqual(true, 訂正伝票.訂正情報.訂正伝票である);
+            //伝票 検索した元伝票 = AccountingSystem.ApplicationService.会計伝票検索サービス.訂正元伝票検索(訂正伝票.番号);
+
 
         }
     }

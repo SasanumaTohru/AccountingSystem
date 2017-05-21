@@ -9,15 +9,20 @@ namespace AccountingSystem.Domain.BusinessObject.会計伝票
         private 仕訳列 m_借方仕訳 = new 仕訳列();
         private 仕訳列 m_貸方仕訳 = new 仕訳列();
 
+        public 訂正情報 m_訂正情報 = new 訂正情報();
+        //private bool m_訂正伝票の有無 = false;
+        //private bool m_訂正伝票 = false;
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="伝票番号"></param>
         /// <param name="計上日"></param>
-        public 伝票(番号 伝票番号,PrimitiveObject.日付 計上日)
+        public 伝票(番号 伝票番号,PrimitiveObject.日付 計上日, bool 訂正伝票 = false)
         {
             m_番号 = 伝票番号;
             m_計上日 = 計上日;
+            m_訂正情報.訂正伝票である = 訂正伝票;
         }
 
         /// <summary>
@@ -100,17 +105,23 @@ namespace AccountingSystem.Domain.BusinessObject.会計伝票
         /// <summary>
         /// 
         /// </summary>
+        public 訂正情報 訂正情報 => m_訂正情報;
+        
+        /// <summary>
+        /// 
+        /// </summary>
         /// <returns></returns>
         public 伝票 訂正伝票を用意する()
         {
             var 訂正伝票の計上日 = new PrimitiveObject.日付(DateTime.Today);
-            var 訂正伝票の仮伝票番号 = new 番号(new PrimitiveObject.自然数(0), m_計上日);
-            var 訂正伝票 = new 伝票(訂正伝票の仮伝票番号, 訂正伝票の計上日);
+            var 訂正伝票の仮伝票番号 = new 番号(new PrimitiveObject.自然数(0), 訂正伝票の計上日);
+            var 訂正伝票 = new 伝票(訂正伝票の仮伝票番号, 訂正伝票の計上日, true);
             var 訂正伝票の仕訳列 = new 仕訳列();
             m_借方仕訳.リスト.ForEach(item => 訂正伝票の仕訳列.追加する(item));
             m_貸方仕訳.リスト.ForEach(item => 訂正伝票の仕訳列.追加する(item));
             訂正伝票の仕訳列.リスト.ForEach(item => item.貸借を反転する());
             訂正伝票の仕訳列.リスト.ForEach(item => 訂正伝票.追加する(item));
+            m_訂正情報.訂正の有無 = true;
             return 訂正伝票;
         }
     }

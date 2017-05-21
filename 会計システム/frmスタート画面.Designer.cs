@@ -52,6 +52,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.cmd画面キャプチャ = new System.Windows.Forms.Button();
             this.cmd伝票訂正 = new System.Windows.Forms.Button();
+            this.chk訂正伝票の有無 = new System.Windows.Forms.CheckBox();
+            this.chk訂正伝票 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgv伝票検索結果ビュー)).BeginInit();
             this.SuspendLayout();
             // 
@@ -59,7 +61,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label1.Location = new System.Drawing.Point(56, 67);
+            this.label1.Location = new System.Drawing.Point(34, 35);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(121, 36);
             this.label1.TabIndex = 0;
@@ -68,7 +70,7 @@
             // txt伝票番号
             // 
             this.txt伝票番号.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.txt伝票番号.Location = new System.Drawing.Point(183, 64);
+            this.txt伝票番号.Location = new System.Drawing.Point(161, 32);
             this.txt伝票番号.Name = "txt伝票番号";
             this.txt伝票番号.Size = new System.Drawing.Size(204, 43);
             this.txt伝票番号.TabIndex = 1;
@@ -78,7 +80,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label2.Location = new System.Drawing.Point(418, 65);
+            this.label2.Location = new System.Drawing.Point(396, 33);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(97, 36);
             this.label2.TabIndex = 2;
@@ -139,7 +141,7 @@
             // 
             this.dtp計上日.CalendarFont = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.dtp計上日.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.dtp計上日.Location = new System.Drawing.Point(543, 62);
+            this.dtp計上日.Location = new System.Drawing.Point(521, 30);
             this.dtp計上日.Name = "dtp計上日";
             this.dtp計上日.Size = new System.Drawing.Size(301, 43);
             this.dtp計上日.TabIndex = 35;
@@ -300,11 +302,35 @@
             this.cmd伝票訂正.UseVisualStyleBackColor = true;
             this.cmd伝票訂正.Click += new System.EventHandler(this.cmd伝票訂正_Click);
             // 
+            // chk訂正伝票の有無
+            // 
+            this.chk訂正伝票の有無.AutoSize = true;
+            this.chk訂正伝票の有無.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.chk訂正伝票の有無.Location = new System.Drawing.Point(440, 100);
+            this.chk訂正伝票の有無.Name = "chk訂正伝票の有無";
+            this.chk訂正伝票の有無.Size = new System.Drawing.Size(215, 40);
+            this.chk訂正伝票の有無.TabIndex = 54;
+            this.chk訂正伝票の有無.Text = "訂正伝票の有無";
+            this.chk訂正伝票の有無.UseVisualStyleBackColor = true;
+            // 
+            // chk訂正伝票
+            // 
+            this.chk訂正伝票.AutoSize = true;
+            this.chk訂正伝票.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.chk訂正伝票.Location = new System.Drawing.Point(679, 100);
+            this.chk訂正伝票.Name = "chk訂正伝票";
+            this.chk訂正伝票.Size = new System.Drawing.Size(143, 40);
+            this.chk訂正伝票.TabIndex = 55;
+            this.chk訂正伝票.Text = "訂正伝票";
+            this.chk訂正伝票.UseVisualStyleBackColor = true;
+            // 
             // frmスタート画面
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(2193, 1504);
+            this.Controls.Add(this.chk訂正伝票);
+            this.Controls.Add(this.chk訂正伝票の有無);
             this.Controls.Add(this.cmd伝票訂正);
             this.Controls.Add(this.cmd画面キャプチャ);
             this.Controls.Add(this.label5);
@@ -364,6 +390,8 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button cmd画面キャプチャ;
         private System.Windows.Forms.Button cmd伝票訂正;
+        private System.Windows.Forms.CheckBox chk訂正伝票の有無;
+        private System.Windows.Forms.CheckBox chk訂正伝票;
     }
 }
 

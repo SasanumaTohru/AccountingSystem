@@ -8,7 +8,7 @@ namespace AccountingSystem.ApplicationService
     class 会計伝票記帳サービス
     {
         private 伝票 m_伝票;
-        private Infrastructure.会計伝票ファイリングサービス 会計伝票ファイリングサービス = new Infrastructure.会計伝票ファイリングサービス();
+        private Infrastructure.会計伝票ファイリングサービス m_会計伝票ファイリングサービス = new Infrastructure.会計伝票ファイリングサービス();
 
         /// <summary>
         /// 
@@ -28,7 +28,7 @@ namespace AccountingSystem.ApplicationService
         private void 伝票を用意する(DateTime 計上日)
         {
             var _計上日 = new 日付(計上日);
-            m_伝票 = 会計伝票ファイリングサービス.伝票番号が採番された伝票を取得する(_計上日);
+            m_伝票 = m_会計伝票ファイリングサービス.伝票番号が採番された伝票を取得する(_計上日);
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace AccountingSystem.ApplicationService
             {
                 throw new Exception("貸借の金額が不一致しているため、仕訳の保存を中止します。");
             }
-            会計伝票ファイリングサービス.伝票を保存する(仕訳リスト);
+            m_会計伝票ファイリングサービス.伝票を保存する(仕訳リスト);
         }
 
         /// <summary>
