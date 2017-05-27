@@ -16,5 +16,8 @@ namespace AccountingSystem.Infrastructure
     {
         public string 伝票番号 { get; set; }
         public System.DateTime 計上日 { get; set; }
+        public bool 訂正有無 { get; set; }
+        public int 伝票区分 { get; set; }
+        public string 対応伝票番号 { get; set; }
     }
 }

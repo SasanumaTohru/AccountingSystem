@@ -13,7 +13,7 @@ namespace UnitTest.ApplicationService
         {
             AccountingSystem.Domain.BusinessObject.会計伝票.伝票 検索した伝票 = 伝票検索.伝票番号で検索する("201705-00001");
             Assert.AreEqual("201705-00001", 検索した伝票.番号.値);
-            Assert.AreEqual(123m, 検索した伝票.貸方.合計金額.値);
+            Assert.AreEqual(1000000m, 検索した伝票.貸方.合計金額.値);
         }
 
         [TestMethod]
@@ -26,8 +26,8 @@ namespace UnitTest.ApplicationService
         [TestMethod]
         public void 勘定科目で検索する()
         {
-            var ヒットリスト = 伝票検索.勘定科目で検索する(401030);
-            Assert.AreEqual(23, ヒットリスト.Count);
+            var ヒットリスト = 伝票検索.勘定科目で検索する(111030);
+            Assert.AreEqual(3, ヒットリスト.Count);
         }
     }
 }

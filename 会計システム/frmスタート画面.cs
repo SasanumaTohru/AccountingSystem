@@ -18,7 +18,7 @@ namespace AccountingSystem
         public frmスタート画面()
         {
             InitializeComponent();
-            
+
             勘定科目コンボボックスとデフォルト仕訳コントロールを設定する();
             伝票検索結果ビューを設定する();
         }
@@ -77,7 +77,7 @@ namespace AccountingSystem
             dgv伝票検索結果ビュー.Font = new Font("メイリオ", 9);
             dgv伝票検索結果ビュー.AlternatingRowsDefaultCellStyle.BackColor = Color.AliceBlue;
         }
-                
+
         /// <summary>
         /// 
         /// </summary>
@@ -96,9 +96,14 @@ namespace AccountingSystem
             try
             {
                 画面ウェイト();
-                ApplicationService.仕訳構築サービス 伝票仕訳 = 伝票仕訳を構築する();
-                var 登録した会計伝票 = new ApplicationService.会計伝票記帳サービス(dtp計上日.Value.Date, 伝票仕訳.リスト);
-                画面を更新する(登録した会計伝票);
+                ApplicationService.仕訳構築サービス 構築した仕訳 = 伝票仕訳を構築する();
+
+                var 伝票構築サービス = new ApplicationService.会計伝票構築サービス();
+                伝票 保存する伝票 = 伝票構築サービス.伝票を構築する(dtp計上日.Value.Date, 構築した仕訳);
+
+                var 会計伝票記帳サービス = new ApplicationService.会計伝票記帳サービス();
+                会計伝票記帳サービス.伝票を記帳する(保存する伝票);
+                画面を更新する(保存する伝票);
             }
             catch (Exception ex)
             {
@@ -152,7 +157,7 @@ namespace AccountingSystem
         private ApplicationService.仕訳構築サービス 伝票仕訳を構築する()
         {
             var 伝票仕訳 = new ApplicationService.仕訳構築サービス();
-            
+
             var 仕訳コントロール = new ctrl仕訳();
             foreach (var item in Controls)
             {
@@ -175,12 +180,12 @@ namespace AccountingSystem
         /// 
         /// </summary>
         /// <param name="登録した会計伝票"></param>
-        private void 画面を更新する(ApplicationService.会計伝票記帳サービス 登録した会計伝票)
+        private void 画面を更新する(Domain.BusinessObject.会計伝票.伝票 登録した会計伝票)
         {
-            txt伝票番号.Text = 登録した会計伝票.内容.番号.値;
-            txt借方合計金額.Text = 登録した会計伝票.内容.借方.合計金額.桁区切り値;
-            txt貸方合計金額.Text = 登録した会計伝票.内容.貸方.合計金額.桁区切り値;
-            txt貸借差額.Text = 登録した会計伝票.内容.貸借金額差額.桁区切り値;
+            txt伝票番号.Text = 登録した会計伝票.番号.値;
+            txt借方合計金額.Text = 登録した会計伝票.借方.合計金額.桁区切り値;
+            txt貸方合計金額.Text = 登録した会計伝票.貸方.合計金額.桁区切り値;
+            txt貸借差額.Text = 登録した会計伝票.貸借金額差額.桁区切り値;
         }
 
         private const int 仕訳コントロールの追加時位置補正 = 100;
@@ -257,7 +262,7 @@ namespace AccountingSystem
             新しい仕訳コントロール.貸借区分 = ctrl仕訳.貸借.貸方;
             画面に追加する(新しい仕訳コントロール);
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -333,7 +338,7 @@ namespace AccountingSystem
         private void cmd勘定科目検索_Click(object sender, EventArgs e)
         {
             画面ウェイト();
-            if (cmb検索する勘定科目.Text==string.Empty)
+            if (cmb検索する勘定科目.Text == string.Empty)
             {
                 MessageBox.Show("勘定科目が選択されていません。", 通知目的.エラー, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -341,7 +346,7 @@ namespace AccountingSystem
             var 伝票検索 = new ApplicationService.会計伝票検索サービス();
             int 検索する勘定科目 = ApplicationService.型変換サービス.コードと名称から勘定科目コードを抽出する(cmb検索する勘定科目.Text);
             List<伝票> 伝票ヒットリスト = 伝票検索.勘定科目で検索する(検索する勘定科目);
-            if(伝票ヒットリスト.Count() == 0)
+            if (伝票ヒットリスト.Count() == 0)
             {
                 MessageBox.Show("指定した勘定科目を持つ会計伝票はありません。", 通知目的.結果, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 画面ウェイト終了();
@@ -405,6 +410,8 @@ namespace AccountingSystem
             txt借方合計金額.Text = 表示する伝票.借方.合計金額.桁区切り値;
             txt貸方合計金額.Text = 表示する伝票.貸方.合計金額.桁区切り値;
             txt貸借差額.Text = 表示する伝票.貸借金額差額.桁区切り値;
+            chk訂正伝票の有無.Checked = 表示する伝票.伝票情報.訂正伝票がある;
+            chk訂正伝票.Checked = 表示する伝票.伝票情報.訂正伝票である;
         }
 
         /// <summary>
@@ -514,18 +521,21 @@ namespace AccountingSystem
 
             const string EM2 = "貸借を反転し訂正伝票を起票します。";
             var 操作を続行する = MessageBox.Show(EM2, 通知目的.確認, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
-            if (操作を続行する == DialogResult.Yes)
+            if (操作を続行する == DialogResult.No)
             {
-                画面ウェイト();
-
-                var 伝票検索サービス = new ApplicationService.会計伝票検索サービス();
-                伝票 訂正元伝票 = 伝票検索サービス.伝票番号で検索する(txt伝票番号.Text);
-                伝票 訂正伝票 = 訂正元伝票.訂正伝票を用意する();
-                指定した伝票を画面に表示する(訂正伝票);
-                画面に表示している伝票を登録する();
-
-                画面ウェイト終了();
+                return;
             }
+
+            画面ウェイト();
+
+            var 伝票検索サービス = new ApplicationService.会計伝票検索サービス();
+            伝票 訂正元伝票 = 伝票検索サービス.伝票番号で検索する(txt伝票番号.Text);
+            伝票 訂正伝票 = 訂正元伝票.訂正伝票を用意する();
+            var 伝票記帳サービス = new ApplicationService.会計伝票記帳サービス();
+            伝票記帳サービス.伝票を記帳する(訂正伝票);
+            指定した伝票を画面に表示する(訂正伝票);
+
+            画面ウェイト終了();
         }
     }
 }

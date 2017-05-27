@@ -308,9 +308,9 @@
             this.chk訂正伝票の有無.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.chk訂正伝票の有無.Location = new System.Drawing.Point(440, 100);
             this.chk訂正伝票の有無.Name = "chk訂正伝票の有無";
-            this.chk訂正伝票の有無.Size = new System.Drawing.Size(215, 40);
+            this.chk訂正伝票の有無.Size = new System.Drawing.Size(119, 40);
             this.chk訂正伝票の有無.TabIndex = 54;
-            this.chk訂正伝票の有無.Text = "訂正伝票の有無";
+            this.chk訂正伝票の有無.Text = "訂正済";
             this.chk訂正伝票の有無.UseVisualStyleBackColor = true;
             // 
             // chk訂正伝票

@@ -32,6 +32,9 @@
           </Key>
           <Property Name="伝票番号" Type="nchar" MaxLength="12" Nullable="false" />
           <Property Name="計上日" Type="date" Nullable="false" />
+          <Property Name="訂正有無" Type="bit" Nullable="false" />
+          <Property Name="伝票区分" Type="int" Nullable="false" />
+          <Property Name="対応伝票番号" Type="nchar" MaxLength="12" Nullable="false" />
         </EntityType>
         <EntityType Name="T_仕訳">
           <Key>
@@ -68,13 +71,6 @@
           <Property Name="集計科目" Type="Boolean" Nullable="false" />
           <Property Name="集計科目コード" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityType Name="T_会計伝票">
-          <Key>
-            <PropertyRef Name="伝票番号" />
-          </Key>
-          <Property Name="伝票番号" Type="String" MaxLength="12" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="計上日" Type="DateTime" Nullable="false" Precision="0" />
-        </EntityType>
         <EntityType Name="T_仕訳">
           <Key>
             <PropertyRef Name="伝票番号" />
@@ -89,9 +85,9 @@
         </EntityType>
         <EntityContainer Name="AccountingDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="M_勘定科目" EntityType="Self.M_勘定科目" />
-          <EntitySet Name="T_会計伝票" EntityType="Self.T_会計伝票" />
           <EntitySet Name="T_仕訳" EntityType="Self.T_仕訳" />
           <EntitySet Name="M_消費税率" EntityType="AccountingDBModel.M_消費税率" />
+          <EntitySet Name="T_会計伝票" EntityType="AccountingDBModel.T_会計伝票" />
         </EntityContainer>
         <EntityType Name="M_消費税率">
           <Key>
@@ -100,6 +96,16 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="税率" Type="Double" Nullable="false" />
           <Property Name="適用開始日" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <EntityType Name="T_会計伝票">
+          <Key>
+            <PropertyRef Name="伝票番号" />
+          </Key>
+          <Property Name="伝票番号" Type="String" Nullable="false" MaxLength="12" FixedLength="true" Unicode="true" />
+          <Property Name="計上日" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="訂正有無" Type="Boolean" Nullable="false" />
+          <Property Name="伝票区分" Type="Int32" Nullable="false" />
+          <Property Name="対応伝票番号" Type="String" Nullable="false" MaxLength="12" FixedLength="true" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -121,14 +127,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="T_会計伝票">
-            <EntityTypeMapping TypeName="AccountingDBModel.T_会計伝票">
-              <MappingFragment StoreEntitySet="T_会計伝票">
-                <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
-                <ScalarProperty Name="計上日" ColumnName="計上日" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="T_仕訳">
             <EntityTypeMapping TypeName="AccountingDBModel.T_仕訳">
               <MappingFragment StoreEntitySet="T_仕訳">
@@ -147,6 +145,17 @@
                 <ScalarProperty Name="適用開始日" ColumnName="適用開始日" />
                 <ScalarProperty Name="税率" ColumnName="税率" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_会計伝票">
+            <EntityTypeMapping TypeName="AccountingDBModel.T_会計伝票">
+              <MappingFragment StoreEntitySet="T_会計伝票">
+                <ScalarProperty Name="対応伝票番号" ColumnName="対応伝票番号" />
+                <ScalarProperty Name="伝票区分" ColumnName="伝票区分" />
+                <ScalarProperty Name="訂正有無" ColumnName="訂正有無" />
+                <ScalarProperty Name="計上日" ColumnName="計上日" />
+                <ScalarProperty Name="伝票番号" ColumnName="伝票番号" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

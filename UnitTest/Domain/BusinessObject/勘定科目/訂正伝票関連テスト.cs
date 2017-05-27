@@ -10,50 +10,73 @@ namespace UnitTest.Domain.BusinessObject.勘定科目
     public class 訂正伝票関連テスト
     {
         [TestMethod]
-        public void TestMethod1()
+        public void 訂正伝票基本テスト()
         {
-            var 計上日 = new 日付(2017, 4, 1);
-            var 元伝票番号 = new 番号(new 自然数(1), 計上日);
+            var 計上日 = new 日付(2017, 5, 1);
+            var 元伝票番号 = new 伝票番号(new 自然数(1), 計上日);
             var 元伝票 = new 伝票(元伝票番号, 計上日);
-            var 貸方仕訳1勘定科目 = new 科目(new コード(1), new 名称("現金"));
+            var 貸方仕訳1勘定科目 = new 科目(new コード(111030), new 名称("現金"));
             var 貸方仕訳1 = new 仕訳(貸方仕訳1勘定科目, new 必須文字列("a"), new 金額(1080), 仕訳.貸借区分.貸方);
-            var 借方仕訳1勘定科目 = new 科目(new コード(2), new 名称("消耗品費"));
+            var 借方仕訳1勘定科目 = new 科目(new コード(512450), new 名称("消耗品費"));
             var 借方仕訳1 = new 仕訳(貸方仕訳1勘定科目, new 必須文字列("b"), new 金額(1000), 仕訳.貸借区分.借方);
-            var 借方仕訳2勘定科目 = new 科目(new コード(3), new 名称("仮払消費税"));
+            var 借方仕訳2勘定科目 = new 科目(new コード(114270), new 名称("仮払消費税"));
             var 借方仕訳2 = new 仕訳(貸方仕訳1勘定科目, new 必須文字列("c"), new 金額(80), 仕訳.貸借区分.借方);
             元伝票.追加する(貸方仕訳1);
             元伝票.追加する(借方仕訳1);
             元伝票.追加する(借方仕訳2);
-            Assert.AreEqual(false, 元伝票.訂正情報.訂正の有無);
+            Assert.AreEqual(伝票情報.伝票区分リスト.通常伝票, 元伝票.伝票情報.伝票区分);
+            Assert.AreEqual(伝票情報.訂正リスト.なし, 元伝票.伝票情報.訂正有無);
 
+            var 伝票記帳サービス = new AccountingSystem.ApplicationService.会計伝票記帳サービス();
+            伝票 保存した元伝票 = 伝票記帳サービス.伝票を記帳する(元伝票);
             var 訂正伝票 = 元伝票.訂正伝票を用意する();
+            伝票 保存した訂正伝票 = 伝票記帳サービス.伝票を記帳する(訂正伝票);
 
             //元伝票
-            Assert.AreEqual("201704-00001", 元伝票.番号.値);
-            Assert.AreEqual(0, 元伝票.貸借金額差額.絶対値);
-            Assert.AreEqual(1, 元伝票.貸方.リスト.Count);
-            Assert.AreEqual(2, 元伝票.借方.リスト.Count);
+            Assert.AreEqual("201705-00003", 保存した元伝票.番号.値);
+            Assert.AreEqual(0, 保存した元伝票.貸借金額差額.絶対値);
+            Assert.AreEqual(1, 保存した元伝票.貸方.リスト.Count);
+            Assert.AreEqual(2, 保存した元伝票.借方.リスト.Count);
+            Assert.AreEqual(伝票情報.伝票区分リスト.通常伝票, 保存した元伝票.伝票情報.伝票区分);
+            Assert.AreEqual(伝票情報.訂正リスト.あり, 保存した元伝票.伝票情報.訂正有無);
 
             //訂正伝票
-            Assert.AreEqual("201705-00000", 訂正伝票.番号.値);
-            Assert.AreEqual(0, 訂正伝票.貸借金額差額.絶対値);
-            Assert.AreEqual(2, 訂正伝票.貸方.リスト.Count);
-            Assert.AreEqual(1, 訂正伝票.借方.リスト.Count);
+            Assert.AreEqual("201705-00004", 保存した訂正伝票.番号.値);
+            Assert.AreEqual(0, 保存した訂正伝票.貸借金額差額.絶対値);
+            Assert.AreEqual(2, 保存した訂正伝票.貸方.リスト.Count);
+            Assert.AreEqual(1, 保存した訂正伝票.借方.リスト.Count);
+            Assert.AreEqual(伝票情報.伝票区分リスト.訂正伝票, 保存した訂正伝票.伝票情報.伝票区分);
+            Assert.AreEqual(伝票情報.訂正リスト.なし, 保存した訂正伝票.伝票情報.訂正有無);
+            Assert.AreEqual(保存した元伝票.番号.値, 保存した訂正伝票.伝票情報.対応伝票番号);
 
             //伝票比較
             Assert.AreEqual(訂正伝票.貸方.リスト.Count, 元伝票.借方.リスト.Count);
             Assert.AreEqual(訂正伝票.借方.リスト.Count, 元伝票.貸方.リスト.Count);
 
-            /***********************************************************
-                ToDo:検討中
-            ***********************************************************/
-            Assert.AreEqual(true, 元伝票.訂正情報.訂正の有無);
-            //伝票 検索した訂正伝票 = AccountingSystem.ApplicationService.会計伝票検索サービス.訂正伝票検索(元伝票.番号);
+        }
 
-            Assert.AreEqual(true, 訂正伝票.訂正情報.訂正伝票である);
-            //伝票 検索した元伝票 = AccountingSystem.ApplicationService.会計伝票検索サービス.訂正元伝票検索(訂正伝票.番号);
+        [TestMethod]
+        [TestCategory("例外テスト")]
+        [ExpectedException(typeof(Exception))]
+        public void 訂正した伝票は訂正できない()
+        {
+            var 計上日 = new 日付(2017, 4, 1);
+            var 元伝票番号 = new 伝票番号(new 自然数(1), 計上日);
+            var 元伝票 = new 伝票(元伝票番号, 計上日);
+            var 訂正伝票 = 元伝票.訂正伝票を用意する();
+            var 再度訂正した伝票 = 元伝票.訂正伝票を用意する();
+        }
 
-
+        [TestMethod]
+        [TestCategory("例外テスト")]
+        [ExpectedException(typeof(Exception))]
+        public void 訂正伝票は訂正できない()
+        {
+            var 計上日 = new 日付(2017, 4, 1);
+            var 元伝票番号 = new 伝票番号(new 自然数(1), 計上日);
+            var 元伝票 = new 伝票(元伝票番号, 計上日);
+            var 訂正伝票 = 元伝票.訂正伝票を用意する();
+            var さらに訂正した伝票 = 訂正伝票.訂正伝票を用意する();
         }
     }
 }

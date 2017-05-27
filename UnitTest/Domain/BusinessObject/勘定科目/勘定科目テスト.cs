@@ -38,7 +38,7 @@ namespace UnitTest.Domain.BusinessObject.勘定科目
 
             //伝票
             日付 計上日 = new 日付(2017, 4, 1);
-            番号 月内連番 = new 番号(new 自然数(1), 計上日);
+            伝票番号 月内連番 = new 伝票番号(new 自然数(1), 計上日);
             伝票 伝票 = new 伝票(月内連番, 計上日);
             Assert.AreEqual("201704-00001", 伝票.番号.値);
             Assert.AreEqual("2017年4月1日", 伝票.計上日.西暦年月日());
