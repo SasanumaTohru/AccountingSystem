@@ -32,20 +32,17 @@ namespace AccountingSystem.ApplicationService
                 {
                     仕訳ビルド.追加する(item.勘定科目コード, item.金額, item.摘要, item.貸借);
                 }
-                foreach (仕訳 item in 仕訳ビルド.リスト)
-                {
-                    構築する伝票.追加する(item);
-                }
+                構築する伝票.追加する(仕訳ビルド.リスト);
                 return 構築する伝票;
             }
         }
 
         internal 伝票 伝票を構築する(DateTime 計上日, 仕訳構築サービス 伝票仕訳)
         {
-            var _計上日 = new AccountingSystem.Domain.PrimitiveObject.日付(計上日);
-            var 伝票番号 = new AccountingSystem.Domain.BusinessObject.会計伝票.伝票番号(new 自然数(0), _計上日);
-            var 伝票 = new AccountingSystem.Domain.BusinessObject.会計伝票.伝票(伝票番号, _計上日);
-            伝票仕訳.リスト.ForEach(o => 伝票.追加する(o));
+            var _計上日 = new 日付(計上日);
+            var 伝票番号 = new 伝票番号(new 自然数(0), _計上日);
+            var 伝票 = new 伝票(伝票番号, _計上日);
+            伝票.追加する(伝票仕訳.リスト);
             return 伝票;
         }
     }

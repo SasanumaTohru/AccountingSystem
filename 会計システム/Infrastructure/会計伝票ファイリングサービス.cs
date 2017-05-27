@@ -7,6 +7,11 @@ namespace AccountingSystem.Infrastructure
     public class 会計伝票ファイリングサービス
     {
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="計上日"></param>
+        /// <returns></returns>
         private string 月内最終伝票番号を取得する(日付 計上日)
         {
             using (var MyDB = new AccountingDBEntities())
@@ -40,6 +45,11 @@ namespace AccountingSystem.Infrastructure
             return 新しい伝票番号;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="伝票"></param>
+        /// <returns></returns>
         internal 伝票 伝票を保存する(伝票 伝票)
         {
             var 新しい伝票番号 = 伝票番号を採番する(伝票.計上日);
@@ -83,6 +93,11 @@ namespace AccountingSystem.Infrastructure
             return 保存する伝票;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="保存する伝票"></param>
+        /// <param name="MyDB"></param>
         private void 元伝票を訂正済みにする(伝票 保存する伝票, AccountingDBEntities MyDB)
         {
             var 訂正元伝票 = MyDB.T_会計伝票.Where(o => o.伝票番号 == 保存する伝票.伝票情報.対応伝票番号);

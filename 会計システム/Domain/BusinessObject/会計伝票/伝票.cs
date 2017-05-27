@@ -1,6 +1,6 @@
-﻿using System;
-using AccountingSystem.Domain.PrimitiveObject;
-using System.Linq;
+﻿using AccountingSystem.Domain.PrimitiveObject;
+using System;
+using System.Collections.Generic;
 
 namespace AccountingSystem.Domain.BusinessObject.会計伝票
 {
@@ -69,6 +69,18 @@ namespace AccountingSystem.Domain.BusinessObject.会計伝票
                 case 仕訳.貸借区分.貸方:
                     m_貸方仕訳.追加する(仕訳);
                     break;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="すべての仕訳"></param>
+        public void 追加する(List<仕訳> すべての仕訳)
+        {
+            foreach(var item in すべての仕訳)
+            {
+                追加する(item);
             }
         }
 
@@ -159,7 +171,7 @@ namespace AccountingSystem.Domain.BusinessObject.会計伝票
             m_借方仕訳.リスト.ForEach(item => 訂正伝票の仕訳列.追加する(item));
             m_貸方仕訳.リスト.ForEach(item => 訂正伝票の仕訳列.追加する(item));
             訂正伝票の仕訳列.リスト.ForEach(item => item.貸借を反転する());
-            訂正伝票の仕訳列.リスト.ForEach(item => 訂正伝票.追加する(item));
+            訂正伝票.追加する(訂正伝票の仕訳列.リスト);
             return 訂正伝票;
         }
     }
