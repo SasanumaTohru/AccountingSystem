@@ -90,6 +90,7 @@
     <Compile Include="Domain\BusinessObject\勘定科目\コード.cs" />
     <Compile Include="Domain\BusinessObject\財務諸表\損益計算書.cs" />
     <Compile Include="Domain\BusinessObject\財務諸表\貸借対照表.cs" />
+    <Compile Include="Domain\FoundationObject\期間.cs" />
     <Compile Include="Domain\FoundationObject\消費税率.cs" />
     <Compile Include="Domain\PrimitiveObject\名称.cs" />
     <Compile Include="Domain\PrimitiveObject\整数.cs" />

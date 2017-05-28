@@ -146,7 +146,7 @@ namespace AccountingSystem.Domain.BusinessObject.会計伝票
         {
             get
             {
-                var 帰属年度 = new 会計年度(4);
+                var 帰属年度 = new 会計年度(m_計上日.値.Year, 4);
                 return 帰属年度.指定した日付の会計年度(m_計上日);
             }
         }

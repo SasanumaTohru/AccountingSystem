@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace AccountingSystem.Domain.BusinessObject.財務諸表
 {
-    class 貸借対照表
+    public class 貸借対照表
     {
+
     }
 }

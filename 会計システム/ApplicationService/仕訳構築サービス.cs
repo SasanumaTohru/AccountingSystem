@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace AccountingSystem.ApplicationService
 {
-    class 仕訳構築サービス
+    public class 仕訳構築サービス
     {
         private List<仕訳> m_仕訳リスト = new List<仕訳>();
         private 勘定科目情報サービス 勘定科目情報 = new 勘定科目情報サービス();
