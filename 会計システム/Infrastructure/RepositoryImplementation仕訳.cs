@@ -1,11 +1,7 @@
 ﻿using AccountingSystem.Domain.BusinessObject.会計伝票;
 using AccountingSystem.Domain.BusinessObject.勘定科目;
-using AccountingSystem.Domain.PrimitiveObject;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AccountingSystem.Infrastructure
 {
@@ -13,6 +9,11 @@ namespace AccountingSystem.Infrastructure
     {
         private List<T_仕訳> m_仕訳リスト = new List<T_仕訳>();
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="伝票番号"></param>
+        /// <returns></returns>
         public List<T_仕訳> 検索する(string 伝票番号)
         {
             using (var MyDB = new AccountingDBEntities())
@@ -22,6 +23,12 @@ namespace AccountingSystem.Infrastructure
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="伝票"></param>
+        /// <param name="勘定科目"></param>
+        /// <returns></returns>
         public List<T_仕訳> 伝票番号と勘定科目が一致する仕訳を検索する(伝票 伝票, 科目 勘定科目)
         {
             using (var MyDB = new AccountingDBEntities())
@@ -30,6 +37,5 @@ namespace AccountingSystem.Infrastructure
                 return rs.ToList();
             }
         }
-
     }
 }

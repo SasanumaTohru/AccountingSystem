@@ -8,6 +8,11 @@ namespace AccountingSystem.Infrastructure
 
         private DateTime m_消費税法施行日 = new DateTime(1989, 4, 1);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="基準日"></param>
+        /// <returns></returns>
         public decimal 適用消費税率(DateTime 基準日)
         {
             if(基準日 < m_消費税法施行日)

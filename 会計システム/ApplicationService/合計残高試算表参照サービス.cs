@@ -13,6 +13,11 @@ namespace AccountingSystem.ApplicationService
 {
     public class 合計残高試算表参照サービス
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="会計年度"></param>
+        /// <returns></returns>
         public 合計残高試算表 勘定科目別残高リスト(会計年度 会計年度)
         {
             var m_会計年度 = 会計年度;

@@ -36,6 +36,12 @@ namespace AccountingSystem.ApplicationService
             return m_伝票リスト;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="開始日"></param>
+        /// <param name="終了日"></param>
+        /// <returns></returns>
         public List<伝票> 期間で検索する(DateTime 開始日,DateTime 終了日) 
         {
             m_伝票リスト.Clear();

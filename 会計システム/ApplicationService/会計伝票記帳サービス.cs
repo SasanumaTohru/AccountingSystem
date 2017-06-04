@@ -5,6 +5,11 @@ namespace AccountingSystem.ApplicationService
     public class 会計伝票記帳サービス
     {
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="伝票"></param>
+        /// <returns></returns>
         public 伝票 伝票を記帳する(伝票 伝票)
         {
             var 伝票ファイリングサービス = new Infrastructure.RepositoryImplementation会計伝票();
