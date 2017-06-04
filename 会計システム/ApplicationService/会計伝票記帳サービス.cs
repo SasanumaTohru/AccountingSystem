@@ -7,7 +7,7 @@ namespace AccountingSystem.ApplicationService
 
         public 伝票 伝票を記帳する(伝票 伝票)
         {
-            var 伝票ファイリングサービス = new Infrastructure.会計伝票ファイリングサービス();
+            var 伝票ファイリングサービス = new Infrastructure.RepositoryImplementation会計伝票();
             if (伝票.貸借金額不一致)
             {
                 throw new System.Exception("貸借の金額が一致していません。");

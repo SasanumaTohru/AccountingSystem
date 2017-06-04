@@ -33,7 +33,7 @@ namespace UnitTest.Domain.BusinessObject.勘定科目
             伝票 保存した訂正伝票 = 伝票記帳サービス.伝票を記帳する(訂正伝票);
 
             //元伝票
-            Assert.AreEqual("201705-00003", 保存した元伝票.番号.値);
+            Assert.AreEqual("201705-00001", 保存した元伝票.番号.値);
             Assert.AreEqual(0, 保存した元伝票.貸借金額差額.絶対値);
             Assert.AreEqual(1, 保存した元伝票.貸方.リスト.Count);
             Assert.AreEqual(2, 保存した元伝票.借方.リスト.Count);
@@ -41,7 +41,7 @@ namespace UnitTest.Domain.BusinessObject.勘定科目
             Assert.AreEqual(伝票情報.訂正リスト.あり, 保存した元伝票.伝票情報.訂正有無);
 
             //訂正伝票
-            Assert.AreEqual("201705-00004", 保存した訂正伝票.番号.値);
+            Assert.AreEqual("201706-00001", 保存した訂正伝票.番号.値);
             Assert.AreEqual(0, 保存した訂正伝票.貸借金額差額.絶対値);
             Assert.AreEqual(2, 保存した訂正伝票.貸方.リスト.Count);
             Assert.AreEqual(1, 保存した訂正伝票.借方.リスト.Count);

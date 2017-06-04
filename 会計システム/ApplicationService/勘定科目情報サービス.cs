@@ -1,13 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using AccountingSystem.Domain.BusinessObject.勘定科目;
+﻿using AccountingSystem.Domain.BusinessObject.勘定科目;
 using AccountingSystem.Domain.PrimitiveObject;
+using System.Collections.Generic;
 
 namespace AccountingSystem.ApplicationService
 {
-    class 勘定科目情報サービス
+    public class 勘定科目情報サービス
     {
-
+        private Infrastructure.RepositoryImplementation勘定科目 勘定科目RI = new Infrastructure.RepositoryImplementation勘定科目();
         private List<科目> m_勘定科目リスト = new List<科目>();
 
         /// <summary>
@@ -17,27 +16,19 @@ namespace AccountingSystem.ApplicationService
         {
             get
             {
-                using(var MyDB = new Infrastructure.AccountingDBEntities())
-                {
-                    var rs = MyDB.M_勘定科目.OrderBy(o => o.勘定科目コード);
-                    クエリー結果をリストに格納する(rs);
-                }
+                クエリー結果をリストに格納する(勘定科目RI.すべての勘定科目を取得する());
                 return m_勘定科目リスト;
             }
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
-        public List<科目> 取引科目リスト
+        public List<科目> 取引勘定科目リスト
         {
             get
             {
-                using (var MyDB = new Infrastructure.AccountingDBEntities())
-                {
-                    var rs = MyDB.M_勘定科目.Where(o => o.集計科目 == false).OrderBy(p => p.勘定科目コード);
-                    クエリー結果をリストに格納する(rs);
-                }
+                クエリー結果をリストに格納する(勘定科目RI.取引勘定科目を取得する());
                 return m_勘定科目リスト;
             }
         }
@@ -46,10 +37,10 @@ namespace AccountingSystem.ApplicationService
         /// 
         /// </summary>
         /// <param name="クエリー結果"></param>
-        private void クエリー結果をリストに格納する(IQueryable<Infrastructure.M_勘定科目> クエリー結果)
+        private void クエリー結果をリストに格納する(List<Infrastructure.M_勘定科目> クエリー結果)
         {
             m_勘定科目リスト.Clear();
-            foreach (Infrastructure.M_勘定科目 レコード in クエリー結果)
+            foreach (var レコード in クエリー結果)
             {
                 var 科目コード = new コード(レコード.勘定科目コード);
                 var 集計科目コード = new コード(レコード.集計科目コード);
@@ -65,11 +56,7 @@ namespace AccountingSystem.ApplicationService
         /// <returns></returns>
         public 名称 勘定科目名を照会する(コード 勘定科目コード)
         {
-            using (var MyDB = new Infrastructure.AccountingDBEntities())
-            {
-                var rs = MyDB.M_勘定科目.Where(o => o.勘定科目コード == 勘定科目コード.値);
-                return new 名称(rs.First().勘定科目名);
-            }
+            return 勘定科目RI.勘定科目名を照会する(勘定科目コード);
         }
     }
 }

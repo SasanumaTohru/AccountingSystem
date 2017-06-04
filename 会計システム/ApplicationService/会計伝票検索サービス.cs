@@ -1,7 +1,6 @@
-﻿using System;
+﻿using AccountingSystem.Domain.BusinessObject.会計伝票;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using AccountingSystem.Domain.BusinessObject.会計伝票;
 
 namespace AccountingSystem.ApplicationService
 {
@@ -9,7 +8,7 @@ namespace AccountingSystem.ApplicationService
     {
 
         private List<伝票> m_伝票リスト = new List<伝票>();
-        ApplicationService.会計伝票構築サービス 伝票構築サービス = new 会計伝票構築サービス();
+        会計伝票構築サービス 伝票構築サービス = new 会計伝票構築サービス();
 
         /// <summary>
         /// 
@@ -28,13 +27,23 @@ namespace AccountingSystem.ApplicationService
         public List<伝票> 計上日で検索する(DateTime 計上日)
         {
             m_伝票リスト.Clear();
-            using (var MyDB = new Infrastructure.AccountingDBEntities())
+            var 会計伝票RI = new Infrastructure.RepositoryImplementation会計伝票();
+            List<Infrastructure.T_会計伝票> 検索した会計伝票 = 会計伝票RI.計上日で検索する(計上日);
+            foreach (var item in 検索した会計伝票)
             {
-                var rs = MyDB.T_会計伝票.Where(o => o.計上日 == 計上日);
-                foreach (var item in rs)
-                {
-                    m_伝票リスト.Add(伝票構築サービス.伝票を構築する(item.伝票番号));
-                }
+                m_伝票リスト.Add(伝票構築サービス.伝票を構築する(item.伝票番号));
+            }
+            return m_伝票リスト;
+        }
+
+        public List<伝票> 期間で検索する(DateTime 開始日,DateTime 終了日) 
+        {
+            m_伝票リスト.Clear();
+            var 会計伝票RI = new Infrastructure.RepositoryImplementation会計伝票();
+            List<Infrastructure.T_会計伝票> 検索した会計伝票 = 会計伝票RI.期間で検索する(開始日, 終了日);
+            foreach (var item in 検索した会計伝票)
+            {
+                m_伝票リスト.Add(伝票構築サービス.伝票を構築する(item.伝票番号));
             }
             return m_伝票リスト;
         }
@@ -47,16 +56,13 @@ namespace AccountingSystem.ApplicationService
         public List<伝票> 勘定科目で検索する(int 勘定科目コード)
         {
             m_伝票リスト.Clear();
-            using (var MyDB = new Infrastructure.AccountingDBEntities())
+            var 会計伝票RI = new Infrastructure.RepositoryImplementation会計伝票();
+            List<string> 検索した伝票番号 = 会計伝票RI.勘定科目で検索する(勘定科目コード);
+            foreach (var item in 検索した伝票番号)
             {
-                var rs = MyDB.T_仕訳.Where(o => o.勘定科目コード == 勘定科目コード).GroupBy(p => p.伝票番号);
-                foreach (var item in rs)
-                {
-                    m_伝票リスト.Add(伝票構築サービス.伝票を構築する(item.Key));
-                }
-                return m_伝票リスト;
+                m_伝票リスト.Add(伝票構築サービス.伝票を構築する(item));
             }
+            return m_伝票リスト;
         }
-        
     }
 }

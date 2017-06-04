@@ -1,11 +1,70 @@
 ﻿using AccountingSystem.Domain.BusinessObject.会計伝票;
 using AccountingSystem.Domain.PrimitiveObject;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AccountingSystem.Infrastructure
 {
-    public class 会計伝票ファイリングサービス
+    public class RepositoryImplementation会計伝票
     {
+        private List<T_会計伝票> m_伝票リスト = new List<T_会計伝票>();
+        private List<string> m_伝票番号リスト = new List<string>();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="伝票番号"></param>
+        /// <returns></returns>
+        public T_会計伝票 伝票番号で検索する(string 伝票番号)
+        {
+            using (var MyDB = new Infrastructure.AccountingDBEntities())
+            {
+                var rs伝票 = MyDB.T_会計伝票.Where(o => o.伝票番号 == 伝票番号);
+                if (rs伝票.Count() == 0)
+                {
+                    throw new Exception("指定された伝票番号に一致する会計伝票はありません。");
+                }
+                return rs伝票.First();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="計上日"></param>
+        public List<T_会計伝票> 計上日で検索する(DateTime 計上日)
+        {
+            m_伝票リスト.Clear();
+            using (var MyDB = new Infrastructure.AccountingDBEntities())
+            {
+                var rs = MyDB.T_会計伝票.Where(o => o.計上日 == 計上日);
+                return rs.ToList();
+            }
+        }
+
+        public List<T_会計伝票> 期間で検索する(DateTime 開始日, DateTime 終了日)
+        {
+            using (var MyDB = new AccountingSystem.Infrastructure.AccountingDBEntities())
+            {
+                var rs = MyDB.T_会計伝票.Where(o => (開始日 <= o.計上日 & o.計上日 <= 終了日) & o.伝票区分 == 1 & o.訂正有無 == false);
+                return rs.ToList();
+            }
+        }
+
+        public List<string> 勘定科目で検索する(int 勘定科目コード)
+        {
+            m_伝票番号リスト.Clear();
+            using (var MyDB = new Infrastructure.AccountingDBEntities())
+            {
+                var rs = MyDB.T_仕訳.Where(o => o.勘定科目コード == 勘定科目コード).GroupBy(p => p.伝票番号);
+                foreach (var p in rs)
+                {
+                    m_伝票番号リスト.Add(p.Key);
+                }
+            }
+            return m_伝票番号リスト;
+        }
 
         /// <summary>
         /// 

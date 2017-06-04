@@ -39,7 +39,7 @@ namespace AccountingSystem
         private void 勘定科目コンボボックスとデフォルト仕訳コントロールを設定する()
         {
             var 科目一覧 = new ApplicationService.勘定科目情報サービス();
-            foreach (var 取引科目 in 科目一覧.取引科目リスト)
+            foreach (var 取引科目 in 科目一覧.取引勘定科目リスト)
             {
                 ctrl借方仕訳.cmb勘定科目.Items.Add(取引科目.コードと名称.値);
                 ctrl貸方仕訳.cmb勘定科目.Items.Add(取引科目.コードと名称.値);
@@ -231,7 +231,7 @@ namespace AccountingSystem
         private static void コンボボックスに勘定科目を設定する(ctrl仕訳 新し仕訳)
         {
             var 科目一覧 = new ApplicationService.勘定科目情報サービス();
-            foreach (var 取引科目 in 科目一覧.取引科目リスト)
+            foreach (var 取引科目 in 科目一覧.取引勘定科目リスト)
             {
                 新し仕訳.cmb勘定科目.Items.Add(取引科目.コードと名称.値);
             }

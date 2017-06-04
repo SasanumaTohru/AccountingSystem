@@ -31,7 +31,7 @@ namespace UnitTest.Domain.BusinessObject
             会計年度 = new 会計年度(2017, 5);
             Assert.AreEqual("2017年度", 会計年度.現在の会計年度);
             会計年度 = new 会計年度(2017, 6);
-            Assert.AreEqual("2016年度", 会計年度.現在の会計年度);
+            Assert.AreEqual("2017年度", 会計年度.現在の会計年度);
             会計年度 = new 会計年度(2017, 7);
             Assert.AreEqual("2016年度", 会計年度.現在の会計年度);
             会計年度 = new 会計年度(2017, 8);

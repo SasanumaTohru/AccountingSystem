@@ -18,7 +18,5 @@ namespace AccountingSystem.ApplicationService
             画面保存サービス.保存する(記録する画面, ファイル識別名);
             記録する画面.Dispose();
         }
-
-        
     }
 }
