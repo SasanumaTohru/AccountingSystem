@@ -1,12 +1,11 @@
-﻿using System;
+﻿using AccountingSystem.Domain.BusinessObject.会計伝票;
+using AccountingSystem.Domain.PrimitiveObject;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using WindowsFormsControlLibrary;
-using AccountingSystem.Domain.BusinessObject.会計伝票;
-using AccountingSystem.Domain.PrimitiveObject;
-using System.Diagnostics;
 
 namespace AccountingSystem
 {
@@ -536,6 +535,12 @@ namespace AccountingSystem
             指定した伝票を画面に表示する(訂正伝票);
 
             画面ウェイト終了();
+        }
+
+        private void cmdレポート_Click(object sender, EventArgs e)
+        {
+            var レポート画面 = new UserInterface.frmレポート();
+            レポート画面.Show();
         }
     }
 }

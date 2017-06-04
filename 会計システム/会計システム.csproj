@@ -141,6 +141,12 @@
     <Compile Include="Infrastructure\画面画像保存サービス.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserInterface\frmレポート.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserInterface\frmレポート.Designer.cs">
+      <DependentUpon>frmレポート.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="frmスタート画面.resx">
       <DependentUpon>frmスタート画面.cs</DependentUpon>
     </EmbeddedResource>
@@ -154,6 +160,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="UserInterface\frmレポート.resx">
+      <DependentUpon>frmレポート.cs</DependentUpon>
+    </EmbeddedResource>
     <EntityDeploy Include="Infrastructure\AccountingEDM.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>AccountingEDM.Designer.cs</LastGenOutput>

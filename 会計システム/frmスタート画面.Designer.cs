@@ -54,6 +54,7 @@
             this.cmd伝票訂正 = new System.Windows.Forms.Button();
             this.chk訂正伝票の有無 = new System.Windows.Forms.CheckBox();
             this.chk訂正伝票 = new System.Windows.Forms.CheckBox();
+            this.cmdレポート = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv伝票検索結果ビュー)).BeginInit();
             this.SuspendLayout();
             // 
@@ -324,11 +325,23 @@
             this.chk訂正伝票.Text = "訂正伝票";
             this.chk訂正伝票.UseVisualStyleBackColor = true;
             // 
+            // cmdレポート
+            // 
+            this.cmdレポート.Font = new System.Drawing.Font("メイリオ", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.cmdレポート.Location = new System.Drawing.Point(1373, 1433);
+            this.cmdレポート.Name = "cmdレポート";
+            this.cmdレポート.Size = new System.Drawing.Size(205, 59);
+            this.cmdレポート.TabIndex = 56;
+            this.cmdレポート.Text = "レポート";
+            this.cmdレポート.UseVisualStyleBackColor = true;
+            this.cmdレポート.Click += new System.EventHandler(this.cmdレポート_Click);
+            // 
             // frmスタート画面
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(2193, 1504);
+            this.Controls.Add(this.cmdレポート);
             this.Controls.Add(this.chk訂正伝票);
             this.Controls.Add(this.chk訂正伝票の有無);
             this.Controls.Add(this.cmd伝票訂正);
@@ -392,6 +405,7 @@
         private System.Windows.Forms.Button cmd伝票訂正;
         private System.Windows.Forms.CheckBox chk訂正伝票の有無;
         private System.Windows.Forms.CheckBox chk訂正伝票;
+        private System.Windows.Forms.Button cmdレポート;
     }
 }
 
