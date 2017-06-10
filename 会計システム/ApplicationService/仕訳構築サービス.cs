@@ -7,7 +7,7 @@ namespace AccountingSystem.ApplicationService
 {
     public class 仕訳構築サービス
     {
-        private List<仕訳> m_仕訳リスト = new List<仕訳>();
+        private 仕訳列 m_仕訳列 = new 仕訳列();
         private 勘定科目情報サービス 勘定科目情報 = new 勘定科目情報サービス();
 
         /// <summary>
@@ -24,13 +24,13 @@ namespace AccountingSystem.ApplicationService
             var _勘定科目 = new 科目(_勘定科目コード, _勘定科目名);
             var _金額 = new 金額(金額);
             var _摘要 = new 必須文字列(摘要);
-            m_仕訳リスト.Add(new 仕訳(_勘定科目, _摘要, _金額, (仕訳.貸借区分)貸借区分番号));
+            m_仕訳列.追加する(new 仕訳(_勘定科目, _摘要, _金額, (仕訳.貸借区分)貸借区分番号));
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public List<仕訳> リスト => m_仕訳リスト;
+        public System.Collections.ObjectModel.ReadOnlyCollection<仕訳> リスト => m_仕訳列.リスト;
 
     }
 }

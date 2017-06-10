@@ -13,7 +13,7 @@ namespace AccountingSystem.ApplicationService
         {
             var 記録する画面 = new Bitmap(対象画面.Width, 対象画面.Height);
             対象画面.DrawToBitmap(記録する画面, new Rectangle(0, 0, 対象画面.Width, 対象画面.Height));
-            string ファイル識別名 = new ApplicationService.識別子作成サービス().日時文字列;
+            string ファイル識別名 = new 識別子作成サービス().日時文字列;
             var 画面保存サービス = new Infrastructure.画面画像保存サービス();
             画面保存サービス.保存する(記録する画面, ファイル識別名);
             記録する画面.Dispose();

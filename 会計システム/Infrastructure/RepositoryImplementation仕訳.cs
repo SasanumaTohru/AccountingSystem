@@ -18,8 +18,8 @@ namespace AccountingSystem.Infrastructure
         {
             using (var MyDB = new AccountingDBEntities())
             {
-                var rs仕訳 = MyDB.T_仕訳.Where(o => o.伝票番号 == 伝票番号);
-                return rs仕訳.ToList();
+                var rs = MyDB.T_仕訳.Where(o => o.伝票番号 == 伝票番号);
+                return rs.ToList();
             }
         }
 
@@ -33,7 +33,7 @@ namespace AccountingSystem.Infrastructure
         {
             using (var MyDB = new AccountingDBEntities())
             {
-                var rs = MyDB.T_仕訳.Where(仕訳 => 仕訳.伝票番号 == 伝票.番号.値 & 仕訳.勘定科目コード == 勘定科目.コード.値);
+                var rs = MyDB.T_仕訳.Where(o => o.伝票番号 == 伝票.番号.値 & o.勘定科目コード == 勘定科目.コード.値);
                 return rs.ToList();
             }
         }

@@ -42,11 +42,11 @@ namespace AccountingSystem.ApplicationService
         /// <param name="開始日"></param>
         /// <param name="終了日"></param>
         /// <returns></returns>
-        public List<伝票> 期間で検索する(DateTime 開始日,DateTime 終了日) 
+        public List<伝票> 期間で検索する(Domain.FoundationObject.期間 期間) 
         {
             m_伝票リスト.Clear();
             var 会計伝票RI = new Infrastructure.RepositoryImplementation会計伝票();
-            List<Infrastructure.T_会計伝票> 検索した会計伝票 = 会計伝票RI.期間で検索する(開始日, 終了日);
+            List<Infrastructure.T_会計伝票> 検索した会計伝票 = 会計伝票RI.期間で検索する(期間.開始日.値, 期間.終了日.値);
             foreach (var item in 検索した会計伝票)
             {
                 m_伝票リスト.Add(伝票構築サービス.伝票を構築する(item.伝票番号));

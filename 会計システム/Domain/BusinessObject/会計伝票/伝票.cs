@@ -1,6 +1,7 @@
 ﻿using AccountingSystem.Domain.PrimitiveObject;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace AccountingSystem.Domain.BusinessObject.会計伝票
 {
@@ -76,14 +77,27 @@ namespace AccountingSystem.Domain.BusinessObject.会計伝票
         /// 
         /// </summary>
         /// <param name="すべての仕訳"></param>
-        public void 追加する(List<仕訳> すべての仕訳)
+        public void 追加する(System.Collections.ObjectModel.ReadOnlyCollection<仕訳> すべての仕訳)
         {
-            foreach(var item in すべての仕訳)
+            foreach (var item in すべての仕訳)
             {
                 追加する(item);
             }
         }
 
+        public void 追加する(List<仕訳> すべての仕訳)
+        {
+            foreach (var item in すべての仕訳)
+            {
+                追加する(item);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="新しい伝票番号"></param>
+        /// <returns></returns>
         internal 伝票 伝票番号を変更したコピーを作成する(伝票番号 新しい伝票番号)
         {
             m_伝票番号 = 新しい伝票番号;
@@ -100,13 +114,22 @@ namespace AccountingSystem.Domain.BusinessObject.会計伝票
         /// </summary>
         public 仕訳列 貸方 => m_貸方仕訳;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public 仕訳列 すべての仕訳
         {
             get
             {
                 var すべての仕訳 = new 仕訳列();
-                m_借方仕訳.リスト.ForEach(o => すべての仕訳.リスト.Add(o));
-                m_貸方仕訳.リスト.ForEach(p => すべての仕訳.リスト.Add(p));
+                foreach (var p in m_借方仕訳.リスト)
+                {
+                    すべての仕訳.追加する(p);
+                }
+                foreach (var p in m_貸方仕訳.リスト)
+                {
+                    すべての仕訳.追加する(p);
+                }
                 return すべての仕訳;
             }
         }
@@ -168,9 +191,9 @@ namespace AccountingSystem.Domain.BusinessObject.会計伝票
             var 訂正伝票の仮伝票番号 = new 伝票番号(new 自然数(0), 訂正伝票の計上日);
             var 訂正伝票 = new 伝票(訂正伝票の仮伝票番号, 訂正伝票の計上日, 伝票情報.伝票区分リスト.訂正伝票, m_伝票番号.値);
             var 訂正伝票の仕訳列 = new 仕訳列();
-            m_借方仕訳.リスト.ForEach(item => 訂正伝票の仕訳列.追加する(item));
-            m_貸方仕訳.リスト.ForEach(item => 訂正伝票の仕訳列.追加する(item));
-            訂正伝票の仕訳列.リスト.ForEach(item => item.貸借を反転する());
+            訂正伝票の仕訳列.追加する(m_借方仕訳);
+            訂正伝票の仕訳列.追加する(m_貸方仕訳);
+            訂正伝票の仕訳列.すべての仕訳の貸借を反転する();
             訂正伝票.追加する(訂正伝票の仕訳列.リスト);
             return 訂正伝票;
         }

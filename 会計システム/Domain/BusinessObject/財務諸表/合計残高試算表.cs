@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace AccountingSystem.Domain.BusinessObject.財務諸表
 {
@@ -22,11 +18,11 @@ namespace AccountingSystem.Domain.BusinessObject.財務諸表
         /// <summary>
         /// 
         /// </summary>
-        public List<勘定科目残高> リスト
+        public System.Collections.ObjectModel.ReadOnlyCollection<勘定科目残高> 勘定科目別残高リスト
         {
             get
             {
-                return m_勘定科目別残高;
+                return m_勘定科目別残高.AsReadOnly();
             }
         }
     }

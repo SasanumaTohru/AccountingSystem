@@ -18,14 +18,14 @@ namespace AccountingSystem.Infrastructure
         /// <returns></returns>
         public T_会計伝票 伝票番号で検索する(string 伝票番号)
         {
-            using (var MyDB = new Infrastructure.AccountingDBEntities())
+            using (var MyDB = new AccountingDBEntities())
             {
-                var rs伝票 = MyDB.T_会計伝票.Where(o => o.伝票番号 == 伝票番号);
-                if (rs伝票.Count() == 0)
+                var rs = MyDB.T_会計伝票.Where(o => o.伝票番号 == 伝票番号);
+                if (rs.Count() == 0)
                 {
                     throw new Exception("指定された伝票番号に一致する会計伝票はありません。");
                 }
-                return rs伝票.First();
+                return rs.First();
             }
         }
 
@@ -36,26 +36,37 @@ namespace AccountingSystem.Infrastructure
         public List<T_会計伝票> 計上日で検索する(DateTime 計上日)
         {
             m_伝票リスト.Clear();
-            using (var MyDB = new Infrastructure.AccountingDBEntities())
+            using (var MyDB = new AccountingDBEntities())
             {
                 var rs = MyDB.T_会計伝票.Where(o => o.計上日 == 計上日);
                 return rs.ToList();
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="開始日"></param>
+        /// <param name="終了日"></param>
+        /// <returns></returns>
         public List<T_会計伝票> 期間で検索する(DateTime 開始日, DateTime 終了日)
         {
-            using (var MyDB = new AccountingSystem.Infrastructure.AccountingDBEntities())
+            using (var MyDB = new AccountingDBEntities())
             {
                 var rs = MyDB.T_会計伝票.Where(o => (開始日 <= o.計上日 & o.計上日 <= 終了日) & o.伝票区分 == 1 & o.訂正有無 == false);
                 return rs.ToList();
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="勘定科目コード"></param>
+        /// <returns></returns>
         public List<string> 勘定科目で検索する(int 勘定科目コード)
         {
             m_伝票番号リスト.Clear();
-            using (var MyDB = new Infrastructure.AccountingDBEntities())
+            using (var MyDB = new AccountingDBEntities())
             {
                 var rs = MyDB.T_仕訳.Where(o => o.勘定科目コード == 勘定科目コード).GroupBy(p => p.伝票番号);
                 foreach (var p in rs)
@@ -111,7 +122,7 @@ namespace AccountingSystem.Infrastructure
         /// <returns></returns>
         internal 伝票 伝票を保存する(伝票 伝票)
         {
-            var 新しい伝票番号 = 伝票番号を採番する(伝票.計上日);
+            伝票番号 新しい伝票番号 = 伝票番号を採番する(伝票.計上日);
             伝票 保存する伝票 = 伝票.伝票番号を変更したコピーを作成する(新しい伝票番号);
             using (var MyDB = new AccountingDBEntities())
             {

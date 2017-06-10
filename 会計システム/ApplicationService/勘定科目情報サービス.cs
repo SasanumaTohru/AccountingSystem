@@ -12,24 +12,24 @@ namespace AccountingSystem.ApplicationService
         /// <summary>
         /// 
         /// </summary>
-        public List<科目> すべての勘定科目リスト
+        public System.Collections.ObjectModel.ReadOnlyCollection<科目> すべての勘定科目リスト
         {
             get
             {
                 クエリー結果をリストに格納する(勘定科目RI.すべての勘定科目を取得する());
-                return m_勘定科目リスト;
+                return m_勘定科目リスト.AsReadOnly();
             }
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public List<科目> 取引勘定科目リスト
+        public System.Collections.ObjectModel.ReadOnlyCollection<科目> 取引勘定科目リスト
         {
             get
             {
                 クエリー結果をリストに格納する(勘定科目RI.取引勘定科目を取得する());
-                return m_勘定科目リスト;
+                return m_勘定科目リスト.AsReadOnly();
             }
         }
 

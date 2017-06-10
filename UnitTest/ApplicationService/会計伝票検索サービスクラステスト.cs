@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using AccountingSystem.Domain.PrimitiveObject;
 
 namespace UnitTest.ApplicationService
 {
@@ -33,8 +34,9 @@ namespace UnitTest.ApplicationService
         [TestMethod]
         public void 期間で検索する()
         {
-            var ヒットリスト = 伝票検索.期間で検索する(new DateTime(2017, 4, 1), new DateTime(2018, 3, 31));
-            Assert.AreEqual(2, ヒットリスト.Count);
+            var 期間 = new AccountingSystem.Domain.FoundationObject.期間(new 日付(2017, 4, 1), new 日付(2018, 3, 31));
+            var ヒットリスト = 伝票検索.期間で検索する(期間);
+            Assert.AreEqual(1, ヒットリスト.Count);
         }
     }
 }

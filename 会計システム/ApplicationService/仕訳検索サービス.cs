@@ -12,7 +12,7 @@ namespace AccountingSystem.ApplicationService
         /// <param name="伝票"></param>
         /// <param name="勘定科目"></param>
         /// <returns></returns>
-        public List<仕訳> 伝票番号と勘定科目が一致する仕訳を検索する(伝票 伝票, 科目 勘定科目)
+        public System.Collections.ObjectModel.ReadOnlyCollection<仕訳> 伝票番号と勘定科目が一致する仕訳を検索する(伝票 伝票, 科目 勘定科目)
         {
             var 仕訳RI = new Infrastructure.RepositoryImplementation仕訳();
             List<Infrastructure.T_仕訳> 検索した仕訳 = 仕訳RI.伝票番号と勘定科目が一致する仕訳を検索する(伝票, 勘定科目);
