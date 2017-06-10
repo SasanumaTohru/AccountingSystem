@@ -1,7 +1,7 @@
 ﻿using AccountingSystem.Domain.BusinessObject.会計伝票;
 using AccountingSystem.Domain.BusinessObject.勘定科目;
 using AccountingSystem.Domain.PrimitiveObject;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace AccountingSystem.ApplicationService
 {
@@ -30,7 +30,7 @@ namespace AccountingSystem.ApplicationService
         /// <summary>
         /// 
         /// </summary>
-        public System.Collections.ObjectModel.ReadOnlyCollection<仕訳> リスト => m_仕訳列.リスト;
+        public ReadOnlyCollection<仕訳> リスト => m_仕訳列.リスト;
 
     }
 }

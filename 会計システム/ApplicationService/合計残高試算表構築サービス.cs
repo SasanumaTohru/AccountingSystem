@@ -4,6 +4,7 @@ using AccountingSystem.Domain.BusinessObject.勘定科目;
 using AccountingSystem.Domain.BusinessObject.財務諸表;
 using AccountingSystem.Domain.PrimitiveObject;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace AccountingSystem.ApplicationService
 {
@@ -19,7 +20,7 @@ namespace AccountingSystem.ApplicationService
             var m_会計年度 = 会計年度;
 
             var 勘定科目情報サービス = new 勘定科目情報サービス();
-            System.Collections.ObjectModel.ReadOnlyCollection<科目> m_取引勘定科目リスト = 勘定科目情報サービス.取引勘定科目リスト;
+            ReadOnlyCollection<科目> m_取引勘定科目リスト = 勘定科目情報サービス.取引勘定科目リスト;
 
             var 伝票検索サービス = new 会計伝票検索サービス();
             List<伝票> m_伝票リスト = 伝票検索サービス.期間で検索する(m_会計年度.期間);
