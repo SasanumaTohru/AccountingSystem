@@ -1,7 +1,5 @@
 ﻿using AccountingSystem.Domain.PrimitiveObject;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 namespace AccountingSystem.Domain.BusinessObject.会計伝票
 {
@@ -85,14 +83,6 @@ namespace AccountingSystem.Domain.BusinessObject.会計伝票
             }
         }
 
-        public void 追加する(List<仕訳> すべての仕訳)
-        {
-            foreach (var item in すべての仕訳)
-            {
-                追加する(item);
-            }
-        }
-
         /// <summary>
         /// 
         /// </summary>
@@ -122,14 +112,8 @@ namespace AccountingSystem.Domain.BusinessObject.会計伝票
             get
             {
                 var すべての仕訳 = new 仕訳列();
-                foreach (var p in m_借方仕訳.リスト)
-                {
-                    すべての仕訳.追加する(p);
-                }
-                foreach (var p in m_貸方仕訳.リスト)
-                {
-                    すべての仕訳.追加する(p);
-                }
+                すべての仕訳.追加する(m_借方仕訳);
+                すべての仕訳.追加する(m_貸方仕訳);
                 return すべての仕訳;
             }
         }
