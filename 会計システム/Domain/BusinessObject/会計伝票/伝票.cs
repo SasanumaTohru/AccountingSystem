@@ -62,10 +62,10 @@ namespace AccountingSystem.Domain.BusinessObject.会計伝票
         {
             switch (仕訳.貸借)
             {
-                case 仕訳.貸借区分.借方:
+                case 貸借.区分.借方:
                     m_借方仕訳.追加する(仕訳);
                     break;
-                case 仕訳.貸借区分.貸方:
+                case 貸借.区分.貸方:
                     m_貸方仕訳.追加する(仕訳);
                     break;
             }

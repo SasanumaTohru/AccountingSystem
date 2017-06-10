@@ -2,16 +2,11 @@
 {
     public class 仕訳
     {
-        public enum 貸借区分
-        {
-            借方=1,
-            貸方=2,
-        }
-
+        
         private 勘定科目.科目 m_勘定科目;
         private PrimitiveObject.必須文字列 m_摘要;
         private PrimitiveObject.金額 m_金額;
-        private 貸借区分 m_貸借区分;
+        private 貸借.区分 m_貸借区分;
 
         /// <summary>
         /// 
@@ -20,7 +15,7 @@
         /// <param name="摘要"></param>
         /// <param name="金額"></param>
         /// <param name="貸借"></param>
-        public 仕訳(勘定科目.科目 勘定科目,PrimitiveObject.必須文字列 摘要, PrimitiveObject.金額 金額,貸借区分 貸借)
+        public 仕訳(勘定科目.科目 勘定科目,PrimitiveObject.必須文字列 摘要, PrimitiveObject.金額 金額, 貸借.区分 貸借)
         {
             金額は0円以下ではない(金額);
             m_勘定科目 = 勘定科目;
@@ -59,17 +54,17 @@
         /// <summary>
         /// 
         /// </summary>
-        public 貸借区分 貸借 => m_貸借区分;
+        public 貸借.区分 貸借 => m_貸借区分;
 
         public void 貸借を反転する()
         {
             switch(m_貸借区分)
             {
-                case 貸借区分.借方:
-                    m_貸借区分 = 貸借区分.貸方;
+                case BusinessObject.貸借.区分.借方:
+                    m_貸借区分 = BusinessObject.貸借.区分.貸方;
                     break;
-                case 貸借区分.貸方:
-                    m_貸借区分 = 貸借区分.借方;
+                case BusinessObject.貸借.区分.貸方:
+                    m_貸借区分 = BusinessObject.貸借.区分.借方;
                     break;
             }
         }

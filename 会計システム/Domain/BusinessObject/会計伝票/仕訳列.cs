@@ -50,31 +50,25 @@ namespace AccountingSystem.Domain.BusinessObject.会計伝票
             }
         }
 
-        public enum 貸借区分リスト
-        {
-            借方 = 1,
-            貸方 = 2
-        }
-
         /// <summary>
         /// 
         /// </summary>
         /// <param name="貸借区分"></param>
         /// <returns></returns>
-        public PrimitiveObject.金額 貸借別合計金額を取得する(貸借区分リスト 貸借区分)
+        public PrimitiveObject.金額 貸借別合計金額を取得する(貸借.区分 貸借区分)
         {
             decimal 貸借別合計金額 = 0m;
             switch (貸借区分)
             {
-                case 貸借区分リスト.借方:
-                    var 借方仕訳 = m_仕訳列.Where(o => o.貸借 == 仕訳.貸借区分.借方);
+                case 貸借.区分.借方:
+                    var 借方仕訳 = m_仕訳列.Where(o => o.貸借 == 貸借.区分.借方);
                     if (借方仕訳.Count() != 0)
                     {
                         貸借別合計金額 = 借方仕訳.Select(o => o.金額.値).Sum();
                     }
                     break;
-                case 貸借区分リスト.貸方:
-                    var 貸方仕訳 = m_仕訳列.Where(o => o.貸借 == 仕訳.貸借区分.貸方);
+                case 貸借.区分.貸方:
+                    var 貸方仕訳 = m_仕訳列.Where(o => o.貸借 == 貸借.区分.貸方);
                     if (貸方仕訳.Count() != 0)
                     {
                         貸借別合計金額 = 貸方仕訳.Select(o => o.金額.値).Sum();

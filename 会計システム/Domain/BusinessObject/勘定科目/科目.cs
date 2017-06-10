@@ -1,20 +1,12 @@
-﻿using AccountingSystem.Infrastructure;
-
-namespace AccountingSystem.Domain.BusinessObject.勘定科目
+﻿namespace AccountingSystem.Domain.BusinessObject.勘定科目
 {
     public class 科目
     {
         private コード m_コード;
         private PrimitiveObject.名称 m_名称;
-        private 貸借区分リスト m_貸借区分;
+        private 貸借.区分 m_貸借区分;
         private コード m_集計科目コード;
-
-        public enum 貸借区分リスト
-        {
-            借方 = 1,
-            貸方 = 2
-        }
-
+        
         /// <summary>
         /// 
         /// </summary>
@@ -49,19 +41,19 @@ namespace AccountingSystem.Domain.BusinessObject.勘定科目
             switch (コード.勘定区分)
             {
                 case 1:
-                    m_貸借区分 = 貸借区分リスト.借方;
+                    m_貸借区分 = 貸借.区分.借方;
                     break;
                 case 2:
-                    m_貸借区分 = 貸借区分リスト.貸方;
+                    m_貸借区分 = 貸借.区分.貸方;
                     break;
                 case 3:
-                    m_貸借区分 = 貸借区分リスト.貸方;
+                    m_貸借区分 = 貸借.区分.貸方;
                     break;
                 case 4:
-                    m_貸借区分 = 貸借区分リスト.借方;
+                    m_貸借区分 = 貸借.区分.借方;
                     break;
                 case 5:
-                    m_貸借区分 = 貸借区分リスト.貸方;
+                    m_貸借区分 = 貸借.区分.貸方;
                     break;
             }
             m_名称 = 名称;
@@ -80,7 +72,7 @@ namespace AccountingSystem.Domain.BusinessObject.勘定科目
         /// <summary>
         /// 
         /// </summary>
-        public 貸借区分リスト 貸借区分 => m_貸借区分;
+        public 貸借.区分 貸借区分 => m_貸借区分;
 
         /// <summary>
         /// 

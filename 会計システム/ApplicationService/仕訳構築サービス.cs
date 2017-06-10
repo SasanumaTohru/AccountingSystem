@@ -24,7 +24,7 @@ namespace AccountingSystem.ApplicationService
             var _勘定科目 = new 科目(_勘定科目コード, _勘定科目名);
             var _金額 = new 金額(金額);
             var _摘要 = new 必須文字列(摘要);
-            m_仕訳列.追加する(new 仕訳(_勘定科目, _摘要, _金額, (仕訳.貸借区分)貸借区分番号));
+            m_仕訳列.追加する(new 仕訳(_勘定科目, _摘要, _金額, (Domain.BusinessObject.貸借.区分)貸借区分番号));
         }
 
         /// <summary>

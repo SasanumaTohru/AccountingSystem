@@ -24,22 +24,22 @@ namespace UnitTest.Domain.BusinessObject.勘定科目
             Assert.AreEqual(4, 費用.コード.勘定区分);
 
             Assert.AreEqual(100000, 資産.集計科目コード.値);
-            Assert.AreEqual(科目.貸借区分リスト.借方, 資産.貸借区分);
+            Assert.AreEqual(AccountingSystem.Domain.BusinessObject.貸借.区分.借方, 資産.貸借区分);
             Assert.AreEqual(1, 資産.コード.勘定区分);
 
             Assert.AreEqual(100003, 普通預金.コード.値);
             Assert.AreEqual("普通預金", 普通預金.名称.値);
-            Assert.AreEqual(科目.貸借区分リスト.借方, 普通預金.貸借区分);
+            Assert.AreEqual(AccountingSystem.Domain.BusinessObject.貸借.区分.借方, 普通預金.貸借区分);
             Assert.AreEqual("100003 : 普通預金", 普通預金.コードと名称.値);
             Assert.AreEqual(100002, 普通預金.集計科目コード.値);
 
             //仕訳
-            仕訳 貸方仕訳 = new 仕訳(普通預金, new 必須文字列("コピー用紙代等"), new 金額(1080), 仕訳.貸借区分.貸方);
+            仕訳 貸方仕訳 = new 仕訳(普通預金, new 必須文字列("コピー用紙代等"), new 金額(1080), AccountingSystem.Domain.BusinessObject.貸借.区分.貸方);
             Assert.AreEqual(100003, 貸方仕訳.勘定科目.コード.値);
             Assert.AreEqual(1080, 貸方仕訳.金額.値);
-            Assert.AreEqual(仕訳.貸借区分.貸方, 貸方仕訳.貸借);
-            仕訳 借方仕訳1 = new 仕訳(費用, new 必須文字列("コピー用紙代"), new 金額(1000), 仕訳.貸借区分.借方);
-            仕訳 借方仕訳2 = new 仕訳(仮払消費税, new 必須文字列("消費税"), new 金額(80), 仕訳.貸借区分.借方);
+            Assert.AreEqual(AccountingSystem.Domain.BusinessObject.貸借.区分.貸方, 貸方仕訳.貸借);
+            仕訳 借方仕訳1 = new 仕訳(費用, new 必須文字列("コピー用紙代"), new 金額(1000), AccountingSystem.Domain.BusinessObject.貸借.区分.借方);
+            仕訳 借方仕訳2 = new 仕訳(仮払消費税, new 必須文字列("消費税"), new 金額(80), AccountingSystem.Domain.BusinessObject.貸借.区分.借方);
 
             //伝票
             日付 計上日 = new 日付(2017, 4, 1);
@@ -98,27 +98,27 @@ namespace UnitTest.Domain.BusinessObject.勘定科目
             var コード = new コード(199999);
             Assert.AreEqual(1, コード.勘定区分);
             var 勘定科目 = new 科目(コード, new 名称("a"));
-            Assert.AreEqual(科目.貸借区分リスト.借方, 勘定科目.貸借区分);
+            Assert.AreEqual(AccountingSystem.Domain.BusinessObject.貸借.区分.借方, 勘定科目.貸借区分);
 
             コード = new コード(200000);
             Assert.AreEqual(2, コード.勘定区分);
             勘定科目 = new 科目(コード, new 名称("a"));
-            Assert.AreEqual(科目.貸借区分リスト.貸方, 勘定科目.貸借区分);
+            Assert.AreEqual(AccountingSystem.Domain.BusinessObject.貸借.区分.貸方, 勘定科目.貸借区分);
 
             コード = new コード(300000);
             Assert.AreEqual(3, コード.勘定区分);
             勘定科目 = new 科目(コード, new 名称("a"));
-            Assert.AreEqual(科目.貸借区分リスト.貸方, 勘定科目.貸借区分);
+            Assert.AreEqual(AccountingSystem.Domain.BusinessObject.貸借.区分.貸方, 勘定科目.貸借区分);
 
             コード = new コード(400000);
             Assert.AreEqual(4, コード.勘定区分);
             勘定科目 = new 科目(コード, new 名称("a"));
-            Assert.AreEqual(科目.貸借区分リスト.借方, 勘定科目.貸借区分);
+            Assert.AreEqual(AccountingSystem.Domain.BusinessObject.貸借.区分.借方, 勘定科目.貸借区分);
 
             コード = new コード(500000);
             Assert.AreEqual(5, コード.勘定区分);
             勘定科目 = new 科目(コード, new 名称("a"));
-            Assert.AreEqual(科目.貸借区分リスト.貸方, 勘定科目.貸借区分);
+            Assert.AreEqual(AccountingSystem.Domain.BusinessObject.貸借.区分.貸方, 勘定科目.貸借区分);
         }
     }
 }
