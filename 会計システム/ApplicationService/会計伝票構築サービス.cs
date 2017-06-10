@@ -18,17 +18,17 @@ namespace AccountingSystem.ApplicationService
             Infrastructure.T_会計伝票 検索結果 = 会計伝票RI.伝票番号で検索する(伝票番号);
             var 検索した伝票番号 = new 伝票番号(検索結果.伝票番号);
             var 検索した伝票の日付 = new 日付(検索結果.計上日);
-            var 構築する伝票 = new 伝票(検索した伝票番号, 検索した伝票の日付, 検索結果.伝票区分, 検索結果.訂正有無, 検索結果.対応伝票番号);
+            var 構築した伝票 = new 伝票(検索した伝票番号, 検索した伝票の日付, 検索結果.伝票区分, 検索結果.訂正有無, 検索結果.対応伝票番号);
 
             var 仕訳RI = new Infrastructure.RepositoryImplementation仕訳();
-            List<Infrastructure.T_仕訳> 検索した仕訳 = 仕訳RI.検索する(構築する伝票.番号.値);
+            List<Infrastructure.T_仕訳> 検索した仕訳 = 仕訳RI.検索する(構築した伝票.番号.値);
             var 仕訳ビルダー = new 仕訳構築サービス();
             foreach (var p in 検索した仕訳)
             {
                 仕訳ビルダー.追加する(p.勘定科目コード, p.金額, p.摘要, p.貸借);
             }
-            構築する伝票.追加する(仕訳ビルダー.リスト);
-            return 構築する伝票;
+            構築した伝票.追加する(仕訳ビルダー.リスト);
+            return 構築した伝票;
         }
 
         /// <summary>

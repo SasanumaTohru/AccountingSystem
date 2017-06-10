@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace AccountingSystem.Infrastructure
 {
-    public class 消費税率検索サービス
+    public class RepositoryImplementation消費税率
     {
 
         private DateTime m_消費税法施行日 = new DateTime(1989, 4, 1);

@@ -1,6 +1,7 @@
 ﻿using AccountingSystem.Domain.BusinessObject.会計伝票;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace AccountingSystem.ApplicationService
 {
@@ -24,7 +25,7 @@ namespace AccountingSystem.ApplicationService
         /// 
         /// </summary>
         /// <param name="計上日"></param>
-        public List<伝票> 計上日で検索する(DateTime 計上日)
+        public ReadOnlyCollection<伝票> 計上日で検索する(DateTime 計上日)
         {
             m_伝票リスト.Clear();
             var 会計伝票RI = new Infrastructure.RepositoryImplementation会計伝票();
@@ -33,7 +34,7 @@ namespace AccountingSystem.ApplicationService
             {
                 m_伝票リスト.Add(伝票構築サービス.伝票を構築する(item.伝票番号));
             }
-            return m_伝票リスト;
+            return m_伝票リスト.AsReadOnly();
         }
 
         /// <summary>
@@ -42,7 +43,7 @@ namespace AccountingSystem.ApplicationService
         /// <param name="開始日"></param>
         /// <param name="終了日"></param>
         /// <returns></returns>
-        public List<伝票> 期間で検索する(Domain.FoundationObject.期間 期間) 
+        public ReadOnlyCollection<伝票> 期間で検索する(Domain.FoundationObject.期間 期間) 
         {
             m_伝票リスト.Clear();
             var 会計伝票RI = new Infrastructure.RepositoryImplementation会計伝票();
@@ -51,7 +52,7 @@ namespace AccountingSystem.ApplicationService
             {
                 m_伝票リスト.Add(伝票構築サービス.伝票を構築する(item.伝票番号));
             }
-            return m_伝票リスト;
+            return m_伝票リスト.AsReadOnly();
         }
 
         /// <summary>
@@ -59,7 +60,7 @@ namespace AccountingSystem.ApplicationService
         /// </summary>
         /// <param name="勘定科目コード"></param>
         /// <returns></returns>
-        public List<伝票> 勘定科目で検索する(int 勘定科目コード)
+        public ReadOnlyCollection<伝票> 勘定科目で検索する(int 勘定科目コード)
         {
             m_伝票リスト.Clear();
             var 会計伝票RI = new Infrastructure.RepositoryImplementation会計伝票();
@@ -68,7 +69,7 @@ namespace AccountingSystem.ApplicationService
             {
                 m_伝票リスト.Add(伝票構築サービス.伝票を構築する(item));
             }
-            return m_伝票リスト;
+            return m_伝票リスト.AsReadOnly();
         }
     }
 }

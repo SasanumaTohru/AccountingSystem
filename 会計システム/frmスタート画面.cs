@@ -1,7 +1,5 @@
-﻿using AccountingSystem.Domain.BusinessObject.会計伝票;
-using AccountingSystem.Domain.PrimitiveObject;
-using System;
-using System.Collections.Generic;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -98,7 +96,7 @@ namespace AccountingSystem
                 ApplicationService.仕訳構築サービス 構築した仕訳 = 伝票仕訳を構築する();
 
                 var 伝票構築サービス = new ApplicationService.会計伝票構築サービス();
-                伝票 保存する伝票 = 伝票構築サービス.伝票を構築する(dtp計上日.Value.Date, 構築した仕訳);
+                Domain.BusinessObject.会計伝票.伝票 保存する伝票 = 伝票構築サービス.伝票を構築する(dtp計上日.Value.Date, 構築した仕訳);
 
                 var 会計伝票記帳サービス = new ApplicationService.会計伝票記帳サービス();
                 会計伝票記帳サービス.伝票を記帳する(保存する伝票);
@@ -127,9 +125,9 @@ namespace AccountingSystem
                         }
                     }
                 }
-                txt借方合計金額.Text = new 金額(借方合計金額).桁区切り値;
-                txt貸方合計金額.Text = new 金額(貸方合計金額).桁区切り値;
-                txt貸借差額.Text = new 金額(借方合計金額 - 貸方合計金額).桁区切り絶対値;
+                txt借方合計金額.Text = new Domain.PrimitiveObject.金額(借方合計金額).桁区切り値;
+                txt貸方合計金額.Text = new Domain.PrimitiveObject.金額(貸方合計金額).桁区切り値;
+                txt貸借差額.Text = new Domain.PrimitiveObject.金額(借方合計金額 - 貸方合計金額).桁区切り絶対値;
             }
             finally
             {
@@ -287,7 +285,7 @@ namespace AccountingSystem
             try
             {
                 var 伝票検索 = new ApplicationService.会計伝票検索サービス();
-                伝票 検索した伝票 = 伝票検索.伝票番号で検索する(txt伝票番号.Text);
+                Domain.BusinessObject.会計伝票.伝票 検索した伝票 = 伝票検索.伝票番号で検索する(txt伝票番号.Text);
                 指定した伝票を画面に表示する(検索した伝票);
             }
             catch (Exception ex)
@@ -305,7 +303,7 @@ namespace AccountingSystem
         {
             画面ウェイト();
             var 伝票検索 = new ApplicationService.会計伝票検索サービス();
-            List<伝票> 伝票ヒットリスト = 伝票検索.計上日で検索する(dtp計上日.Value.Date);
+            ReadOnlyCollection<Domain.BusinessObject.会計伝票.伝票> 伝票ヒットリスト = 伝票検索.計上日で検索する(dtp計上日.Value.Date);
             if (伝票ヒットリスト.Count() == 0)
             {
                 MessageBox.Show("指定した日の会計伝票はありません。", 通知目的.結果, MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -320,12 +318,12 @@ namespace AccountingSystem
         /// 
         /// </summary>
         /// <param name="伝票ヒットリスト"></param>
-        private void 検索結果を表示する(List<伝票> 伝票ヒットリスト)
+        private void 検索結果を表示する(ReadOnlyCollection<Domain.BusinessObject.会計伝票.伝票> 伝票ヒットリスト)
         {
             dgv伝票検索結果ビュー.Rows.Clear();
-            foreach (伝票 item in 伝票ヒットリスト)
+            foreach (Domain.BusinessObject.会計伝票.伝票 item in 伝票ヒットリスト)
             {
-                dgv伝票検索結果ビュー.Rows.Add(item.番号.値, item.計上日.西暦年月日(日付.曜日表示.あり));
+                dgv伝票検索結果ビュー.Rows.Add(item.番号.値, item.計上日.西暦年月日(Domain.PrimitiveObject.日付.曜日表示.あり));
             }
         }
 
@@ -344,7 +342,7 @@ namespace AccountingSystem
             }
             var 伝票検索 = new ApplicationService.会計伝票検索サービス();
             int 検索する勘定科目 = ApplicationService.型変換サービス.コードと名称から勘定科目コードを抽出する(cmb検索する勘定科目.Text);
-            List<伝票> 伝票ヒットリスト = 伝票検索.勘定科目で検索する(検索する勘定科目);
+            ReadOnlyCollection<Domain.BusinessObject.会計伝票.伝票> 伝票ヒットリスト = 伝票検索.勘定科目で検索する(検索する勘定科目);
             if (伝票ヒットリスト.Count() == 0)
             {
                 MessageBox.Show("指定した勘定科目を持つ会計伝票はありません。", 通知目的.結果, MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -359,7 +357,7 @@ namespace AccountingSystem
         /// 
         /// </summary>
         /// <param name="表示する伝票"></param>
-        private void 指定した伝票を画面に表示する(伝票 表示する伝票)
+        private void 指定した伝票を画面に表示する(Domain.BusinessObject.会計伝票.伝票 表示する伝票)
         {
             伝票のヘッダ部を入力する(表示する伝票);
             仕訳コントロールの2行目以降を削除する();
@@ -371,7 +369,7 @@ namespace AccountingSystem
         /// 
         /// </summary>
         /// <param name="表示する伝票"></param>
-        private void 仕訳を入力する(伝票 表示する伝票)
+        private void 仕訳を入力する(Domain.BusinessObject.会計伝票.伝票 表示する伝票)
         {
             int 借方仕訳のインデックス = 0;
             int 貸方仕訳のインデックス = 0;
@@ -402,7 +400,7 @@ namespace AccountingSystem
         /// 
         /// </summary>
         /// <param name="表示する伝票"></param>
-        private void 伝票のヘッダ部を入力する(伝票 表示する伝票)
+        private void 伝票のヘッダ部を入力する(Domain.BusinessObject.会計伝票.伝票 表示する伝票)
         {
             txt伝票番号.Text = 表示する伝票.番号.値;
             dtp計上日.Value = 表示する伝票.計上日.値;
@@ -417,7 +415,7 @@ namespace AccountingSystem
         /// 
         /// </summary>
         /// <param name="表示する伝票"></param>
-        private void 仕訳コントロールを追加する(伝票 表示する伝票)
+        private void 仕訳コントロールを追加する(Domain.BusinessObject.会計伝票.伝票 表示する伝票)
         {
             int 借方仕訳数 = 表示する伝票.借方.リスト.Count();
             for (int i = 1; i < 借方仕訳数; i++)
@@ -528,8 +526,8 @@ namespace AccountingSystem
             画面ウェイト();
 
             var 伝票検索サービス = new ApplicationService.会計伝票検索サービス();
-            伝票 訂正元伝票 = 伝票検索サービス.伝票番号で検索する(txt伝票番号.Text);
-            伝票 訂正伝票 = 訂正元伝票.訂正伝票を用意する();
+            Domain.BusinessObject.会計伝票.伝票 訂正元伝票 = 伝票検索サービス.伝票番号で検索する(txt伝票番号.Text);
+            Domain.BusinessObject.会計伝票.伝票 訂正伝票 = 訂正元伝票.訂正伝票を用意する();
             var 伝票記帳サービス = new ApplicationService.会計伝票記帳サービス();
             伝票記帳サービス.伝票を記帳する(訂正伝票);
             指定した伝票を画面に表示する(訂正伝票);
@@ -537,6 +535,11 @@ namespace AccountingSystem
             画面ウェイト終了();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cmdレポート_Click(object sender, EventArgs e)
         {
             var レポート画面 = new UserInterface.frmレポート();

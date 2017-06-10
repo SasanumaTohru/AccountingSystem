@@ -2,7 +2,7 @@
 
 namespace AccountingSystem.Infrastructure
 {
-    public class 画面画像保存サービス
+    public class RepositoryImplementation画面画像
     {
         /// <summary>
         /// 

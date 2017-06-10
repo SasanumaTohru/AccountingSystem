@@ -9,7 +9,7 @@ namespace UnitTest.Infrastructure
         [TestMethod]
         public void 現在の摘要消費税を検索()
         {
-            var 消費税率検索サービス = new AccountingSystem.Infrastructure.消費税率検索サービス();
+            var 消費税率検索サービス = new AccountingSystem.Infrastructure.RepositoryImplementation消費税率();
             Assert.AreEqual(0.03m, 消費税率検索サービス.適用消費税率(new DateTime(1989, 4, 01)));
             Assert.AreEqual(0.03m, 消費税率検索サービス.適用消費税率(new DateTime(1997, 3, 31)));
             Assert.AreEqual(0.05m, 消費税率検索サービス.適用消費税率(new DateTime(1997, 4, 01)));
@@ -23,7 +23,7 @@ namespace UnitTest.Infrastructure
         [ExpectedException(typeof(Exception))]
         public void 消費税法施行日前()
         {
-            var 消費税率検索サービス = new AccountingSystem.Infrastructure.消費税率検索サービス();
+            var 消費税率検索サービス = new AccountingSystem.Infrastructure.RepositoryImplementation消費税率();
             Assert.AreEqual(0m, 消費税率検索サービス.適用消費税率(new DateTime(1989, 3, 31)));
         }
     }

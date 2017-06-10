@@ -1,6 +1,7 @@
 ﻿using AccountingSystem.Domain.BusinessObject.勘定科目;
 using AccountingSystem.Domain.PrimitiveObject;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace AccountingSystem.ApplicationService
 {
@@ -12,7 +13,7 @@ namespace AccountingSystem.ApplicationService
         /// <summary>
         /// 
         /// </summary>
-        public System.Collections.ObjectModel.ReadOnlyCollection<科目> すべての勘定科目リスト
+        public ReadOnlyCollection<科目> すべての勘定科目リスト
         {
             get
             {
@@ -24,7 +25,7 @@ namespace AccountingSystem.ApplicationService
         /// <summary>
         /// 
         /// </summary>
-        public System.Collections.ObjectModel.ReadOnlyCollection<科目> 取引勘定科目リスト
+        public ReadOnlyCollection<科目> 取引勘定科目リスト
         {
             get
             {
