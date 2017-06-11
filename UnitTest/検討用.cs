@@ -15,7 +15,11 @@ namespace UnitTest
             Stopwatch Stopwatch = new Stopwatch();
             Stopwatch.Start();
             //
-
+            int 最大集計区分 = 4;
+            for (int 集計区分 = 最大集計区分; 集計区分 > -1; 集計区分--)
+            {
+                Debug.WriteLine(集計区分);
+            }
 
 
 

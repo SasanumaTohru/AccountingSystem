@@ -1,5 +1,5 @@
 ﻿using AccountingSystem.Domain.PrimitiveObject;
-using System;
+using System.Collections.ObjectModel;
 
 namespace AccountingSystem.Domain.BusinessObject.会計伝票
 {
@@ -18,9 +18,19 @@ namespace AccountingSystem.Domain.BusinessObject.会計伝票
         /// <param name="計上日"></param>
         public 伝票(伝票番号 伝票番号, 日付 計上日)
         {
+            コンストラクタ共通処理(伝票番号, 計上日);
+            m_伝票情報 = new 伝票情報(伝票情報.伝票区分リスト.通常伝票);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="伝票番号"></param>
+        /// <param name="計上日"></param>
+        private void コンストラクタ共通処理(伝票番号 伝票番号, 日付 計上日)
+        {
             m_伝票番号 = 伝票番号;
             m_計上日 = 計上日;
-            m_伝票情報 = new 伝票情報(伝票情報.伝票区分リスト.通常伝票);
         }
 
         /// <summary>
@@ -32,15 +42,21 @@ namespace AccountingSystem.Domain.BusinessObject.会計伝票
         /// <param name="対応伝票番号"></param>
         public 伝票(伝票番号 伝票番号, 日付 計上日, 伝票情報.伝票区分リスト 訂正伝票, string 対応伝票番号)
         {
-            m_伝票番号 = 伝票番号;
-            m_計上日 = 計上日;
+            コンストラクタ共通処理(伝票番号, 計上日);
             m_伝票情報 = new 伝票情報(伝票情報.伝票区分リスト.訂正伝票, 対応伝票番号);
         }
 
+        /// <summary>
+        /// 再生成用コンストラクタ
+        /// </summary>
+        /// <param name="伝票番号"></param>
+        /// <param name="計上日"></param>
+        /// <param name="伝票区分"></param>
+        /// <param name="訂正有無"></param>
+        /// <param name="対応伝票番号"></param>
         public 伝票(伝票番号 伝票番号, 日付 計上日, int 伝票区分, bool 訂正有無, string 対応伝票番号)
         {
-            m_伝票番号 = 伝票番号;
-            m_計上日 = 計上日;
+            コンストラクタ共通処理(伝票番号, 計上日);
             m_伝票情報 = new 伝票情報(伝票区分, 訂正有無, 対応伝票番号);
         }
 
@@ -75,7 +91,7 @@ namespace AccountingSystem.Domain.BusinessObject.会計伝票
         /// 
         /// </summary>
         /// <param name="すべての仕訳"></param>
-        public void 追加する(System.Collections.ObjectModel.ReadOnlyCollection<仕訳> すべての仕訳)
+        public void 追加する(ReadOnlyCollection<仕訳> すべての仕訳)
         {
             foreach (var item in すべての仕訳)
             {
@@ -153,7 +169,7 @@ namespace AccountingSystem.Domain.BusinessObject.会計伝票
         {
             get
             {
-                var 帰属年度 = new 会計年度(m_計上日.値.Year, 4);
+                var 帰属年度 = new 会計年度(m_計上日.値.Year);
                 return 帰属年度.指定した日付の会計年度(m_計上日);
             }
         }
@@ -163,23 +179,5 @@ namespace AccountingSystem.Domain.BusinessObject.会計伝票
         /// </summary>
         public 伝票情報 伝票情報 => m_伝票情報;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public 伝票 訂正伝票を用意する()
-        {
-            m_伝票情報.訂正元伝票にする();
-
-            var 訂正伝票の計上日 = new 日付(DateTime.Today);
-            var 訂正伝票の仮伝票番号 = new 伝票番号(new 自然数(0), 訂正伝票の計上日);
-            var 訂正伝票 = new 伝票(訂正伝票の仮伝票番号, 訂正伝票の計上日, 伝票情報.伝票区分リスト.訂正伝票, m_伝票番号.値);
-            var 訂正伝票の仕訳列 = new 仕訳列();
-            訂正伝票の仕訳列.追加する(m_借方仕訳);
-            訂正伝票の仕訳列.追加する(m_貸方仕訳);
-            訂正伝票の仕訳列.すべての仕訳の貸借を反転する();
-            訂正伝票.追加する(訂正伝票の仕訳列.リスト);
-            return 訂正伝票;
-        }
     }
 }

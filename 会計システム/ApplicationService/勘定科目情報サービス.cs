@@ -45,7 +45,7 @@ namespace AccountingSystem.ApplicationService
             {
                 var 科目コード = new コード(レコード.勘定科目コード);
                 var 集計科目コード = new コード(レコード.集計科目コード);
-                var 勘定科目 = new 科目(科目コード, new 名称(レコード.勘定科目名), 集計科目コード);
+                var 勘定科目 = new 科目(科目コード, new 名称(レコード.勘定科目名), 集計科目コード,レコード.集計区分);
                 m_勘定科目リスト.Add(勘定科目);
             }
         }

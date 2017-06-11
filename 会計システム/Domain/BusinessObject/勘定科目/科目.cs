@@ -6,7 +6,8 @@
         private PrimitiveObject.名称 m_名称;
         private 貸借.区分 m_貸借区分;
         private コード m_集計科目コード;
-        
+        private int m_集計区分;
+
         /// <summary>
         /// 
         /// </summary>
@@ -18,15 +19,17 @@
             m_集計科目コード = m_コード;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="コード"></param>
-        /// <param name="名称"></param>
-        /// <param name="集計科目コード"></param>
-        public 科目(コード コード, PrimitiveObject.名称 名称, コード 集計科目コード)
+       /// <summary>
+       /// 
+       /// </summary>
+       /// <param name="コード"></param>
+       /// <param name="名称"></param>
+       /// <param name="集計科目コード"></param>
+       /// <param name="集計区分">テストのための仮実装</param>
+        public 科目(コード コード, PrimitiveObject.名称 名称, コード 集計科目コード, int 集計区分 = 0)
         {
             フィールド設定の共通処理(コード, 名称);
+            m_集計区分 = 集計区分; //ToDo:仮実装
             m_集計科目コード = 集計科目コード;
         }
 
@@ -78,6 +81,11 @@
         /// 
         /// </summary>
         public PrimitiveObject.必須文字列 コードと名称 => new PrimitiveObject.必須文字列($"{m_コード.値.ToString()} : {m_名称.値}");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int 集計区分 => m_集計区分;
 
         /// <summary>
         /// 

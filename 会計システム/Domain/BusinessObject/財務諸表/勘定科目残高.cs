@@ -1,4 +1,7 @@
-﻿namespace AccountingSystem.Domain.BusinessObject.財務諸表
+﻿using System;
+using AccountingSystem.Domain.PrimitiveObject;
+
+namespace AccountingSystem.Domain.BusinessObject.財務諸表
 {
     public class 勘定科目残高
     {
@@ -34,6 +37,14 @@
                     m_金額 = new PrimitiveObject.金額(貸方金額.値 - 借方金額.値);
                     break;
             }
+        }
+
+       
+
+        internal void 金額を加算する(金額 金額)
+        {
+            m_金額 = new 金額(m_金額.値 + 金額.値);
+       
         }
 
         /// <summary>

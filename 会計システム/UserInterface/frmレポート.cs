@@ -20,7 +20,7 @@ namespace AccountingSystem.UserInterface
         {
             txtビュー.Text = string.Empty;
             var 合計残高試算表ビルダー = new ApplicationService.合計残高試算表構築サービス();
-            var 会計年度 = new Domain.BusinessObject.会計年度(int.Parse(cmb年度.Text), 4);
+            var 会計年度 = new Domain.BusinessObject.会計年度(int.Parse(cmb年度.Text));
             Domain.BusinessObject.財務諸表.合計残高試算表 合計残高試算表 = 合計残高試算表ビルダー.合計残高試算表を取得する(会計年度);
             foreach(var p in 合計残高試算表.勘定科目別残高リスト)
             {

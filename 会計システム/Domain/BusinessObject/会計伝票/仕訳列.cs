@@ -6,7 +6,7 @@ namespace AccountingSystem.Domain.BusinessObject.会計伝票
 {
     public class 仕訳列
     {
-        private  List<仕訳> m_仕訳列 = new List<仕訳>();
+        private List<仕訳> m_仕訳列 = new List<仕訳>();
 
         /// <summary>
         /// 
@@ -33,7 +33,7 @@ namespace AccountingSystem.Domain.BusinessObject.会計伝票
         /// 
         /// </summary>
         public ReadOnlyCollection<仕訳> リスト => m_仕訳列.AsReadOnly();
-
+        
         /// <summary>
         /// 
         /// </summary>
@@ -83,7 +83,7 @@ namespace AccountingSystem.Domain.BusinessObject.会計伝票
         /// </summary>
         internal void すべての仕訳の貸借を反転する()
         {
-            foreach(var p in m_仕訳列)
+            foreach (var p in m_仕訳列)
             {
                 p.貸借を反転する();
             }

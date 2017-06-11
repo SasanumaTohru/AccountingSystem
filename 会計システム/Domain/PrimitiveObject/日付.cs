@@ -98,7 +98,7 @@ namespace AccountingSystem.Domain.PrimitiveObject
         }
 
         /// <summary>
-        /// 
+        /// 西暦を文字列として返します（2017）。
         /// </summary>
         public string 西暦文字列 => m_値.Year.ToString();
 
@@ -112,6 +112,9 @@ namespace AccountingSystem.Domain.PrimitiveObject
         /// </summary>
         public string 西暦年月文字列6桁 => 西暦文字列 + 月文字列2桁;
 
+        /// <summary>
+        /// 西暦年月日を文字列として返します（20170401）。
+        /// </summary>
         public string 数値文字列 => 西暦年月文字列6桁 + m_値.Day.ToString("00");
     }
 }

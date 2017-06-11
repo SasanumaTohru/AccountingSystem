@@ -11,11 +11,15 @@ namespace AccountingSystem.Domain.BusinessObject
         /// 
         /// </summary>
         /// <param name="年度開始月"></param>
-        public 会計年度(int 年度,int 年度開始月)
+        public 会計年度(int 年度, int 年度開始月 = 4)
         {
             m_年度開始月 = 年度開始月;
             var 開始日 = new PrimitiveObject.日付(年度, m_年度開始月, 1);
             int 終了年 = 開始日.値.AddYears(1).Year;
+            if (m_年度開始月 == 1)
+            {
+                --終了年;
+            }
             int 終了月 = 開始日.値.AddYears(1).AddMonths(-1).Month;
             int 終了月の月末 = DateTime.DaysInMonth(終了年, 終了月);
             var 終了日 = new PrimitiveObject.日付(終了年, 終了月, 終了月の月末);
@@ -57,20 +61,14 @@ namespace AccountingSystem.Domain.BusinessObject
         /// <summary>
         /// 
         /// </summary>
-        public string 現在の会計年度
-        {
-            get
-            {
-                return $"{帰属年度を取得する(new PrimitiveObject.日付(DateTime.Today)).ToString()}年度";
-            }
-        }
+        public string 現在の会計年度 => $"{帰属年度を取得する(new PrimitiveObject.日付(DateTime.Today)).ToString()}年度";
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="基準日"></param>
         /// <returns></returns>
-        public string 和暦で指定した日付の会計年度を取得する(PrimitiveObject.日付 基準日)
+        public string 指定した日付の会計年度を和暦で取得する(PrimitiveObject.日付 基準日)
         {
             int 西暦会計年度 = 帰属年度を取得する(基準日);
             PrimitiveObject.日付 和暦変換用日付 = new PrimitiveObject.日付(西暦会計年度, 1, 1);
@@ -80,12 +78,6 @@ namespace AccountingSystem.Domain.BusinessObject
         /// <summary>
         /// 
         /// </summary>
-        public string 現在の和暦会計年度
-        {
-            get
-            {
-                return 和暦で指定した日付の会計年度を取得する(new PrimitiveObject.日付(DateTime.Today));
-            }
-        }
+        public string 現在の和暦会計年度 => 指定した日付の会計年度を和暦で取得する(new PrimitiveObject.日付(DateTime.Today));
     }
 }

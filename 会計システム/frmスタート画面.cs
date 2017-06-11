@@ -527,7 +527,8 @@ namespace AccountingSystem
 
             var 伝票検索サービス = new ApplicationService.会計伝票検索サービス();
             Domain.BusinessObject.会計伝票.伝票 訂正元伝票 = 伝票検索サービス.伝票番号で検索する(txt伝票番号.Text);
-            Domain.BusinessObject.会計伝票.伝票 訂正伝票 = 訂正元伝票.訂正伝票を用意する();
+            var 訂正伝票ビルダー = new Domain.BusinessObject.会計伝票.訂正伝票作成サービス();
+            Domain.BusinessObject.会計伝票.伝票 訂正伝票 = 訂正伝票ビルダー.訂正伝票を作成する(訂正元伝票);
             var 伝票記帳サービス = new ApplicationService.会計伝票記帳サービス();
             伝票記帳サービス.伝票を記帳する(訂正伝票);
             指定した伝票を画面に表示する(訂正伝票);
