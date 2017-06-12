@@ -23,7 +23,8 @@ namespace AccountingSystem.Domain.BusinessObject.財務諸表
         private void 集計する()
         {
             int 最大集計区分 = m_勘定科目別残高.Select(o => o.勘定科目.集計区分).Max();
-            for (int 集計区分 = 最大集計区分; 集計区分 > 0; 集計区分--)
+            int 最小集計区分 = m_勘定科目別残高.Select(o => o.勘定科目.集計区分).Min();
+            for (int 集計区分 = 最大集計区分; 集計区分 > 最小集計区分; 集計区分--)
             {
                 var 集計元勘定 = m_勘定科目別残高.Where(o => o.勘定科目.集計区分 == 集計区分);
                 foreach (var p in 集計元勘定)
