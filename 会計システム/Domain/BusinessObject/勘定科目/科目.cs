@@ -25,11 +25,11 @@
        /// <param name="コード"></param>
        /// <param name="名称"></param>
        /// <param name="集計科目コード"></param>
-       /// <param name="集計区分">テストのための仮実装</param>
+       /// <param name="集計区分"></param>
         public 科目(コード コード, PrimitiveObject.名称 名称, コード 集計科目コード, int 集計区分 = 0)
         {
             フィールド設定の共通処理(コード, 名称);
-            m_集計区分 = 集計区分; //ToDo:仮実装
+            m_集計区分 = 集計区分;
             m_集計科目コード = 集計科目コード;
         }
 

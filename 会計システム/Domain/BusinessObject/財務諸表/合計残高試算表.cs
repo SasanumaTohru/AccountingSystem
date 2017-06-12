@@ -17,12 +17,16 @@ namespace AccountingSystem.Domain.BusinessObject.財務諸表
             m_勘定科目別残高.Add(勘定科目残高);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void 集計する()
         {
-            int 最大集計区分 = 3;
-            for (int 集計区分 = 最大集計区分; 集計区分 > -1; 集計区分--)
+            int 最大集計区分 = m_勘定科目別残高.Select(o => o.勘定科目.集計区分).Max();
+            for (int 集計区分 = 最大集計区分; 集計区分 > 0; 集計区分--)
             {
-                foreach (var p in m_勘定科目別残高.Where(o => o.勘定科目.集計区分 == 集計区分))
+                var 集計元勘定 = m_勘定科目別残高.Where(o => o.勘定科目.集計区分 == 集計区分);
+                foreach (var p in 集計元勘定)
                 {
                     var rs = m_勘定科目別残高.Where(o => o.勘定科目.コード.値 == p.勘定科目.集計科目コード.値);
                     if (rs.Count() != 0)
@@ -42,7 +46,7 @@ namespace AccountingSystem.Domain.BusinessObject.財務諸表
         {
             get
             {
-                //集計する();
+                集計する();
                 return m_勘定科目別残高.AsReadOnly();
             }
         }

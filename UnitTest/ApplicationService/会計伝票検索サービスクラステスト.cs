@@ -29,7 +29,7 @@ namespace UnitTest.ApplicationService
         [TestMethod]
         public void 勘定科目で検索する()
         {
-            ReadOnlyCollection<伝票> ヒットリスト = 伝票検索.勘定科目で検索する(113030);
+            ReadOnlyCollection<伝票> ヒットリスト = 伝票検索.勘定科目で検索する(110060);
             Assert.AreEqual(1, ヒットリスト.Count);
         }
 
