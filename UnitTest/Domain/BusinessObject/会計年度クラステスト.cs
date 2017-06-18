@@ -18,7 +18,8 @@ namespace UnitTest.Domain.BusinessObject
             Assert.AreEqual("2017年度", 会計年度.指定した日付の会計年度(new 日付(2017, 12, 31)));
             Assert.AreEqual("平成29年度", 会計年度.指定した日付の会計年度を和暦で取得する(new 日付(2017, 12, 31)));
             Assert.AreEqual("平成29年度", 会計年度.現在の和暦会計年度);
-            
+            Assert.AreEqual("2017年4月1日(土)", 会計年度.四半期.第2四半期.開始日.西暦年月日(日付.曜日表示.あり));
+
             会計年度 = new 会計年度(2017, 2);
             Assert.AreEqual("2017年度", 会計年度.現在の会計年度);
             会計年度 = new 会計年度(2017, 3);

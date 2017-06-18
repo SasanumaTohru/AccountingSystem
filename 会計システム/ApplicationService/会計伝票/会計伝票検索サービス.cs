@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace AccountingSystem.ApplicationService
+namespace AccountingSystem.ApplicationService.会計伝票
 {
     public class 会計伝票検索サービス
     {

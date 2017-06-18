@@ -1,6 +1,6 @@
 ﻿using AccountingSystem.Domain.BusinessObject.会計伝票;
 
-namespace AccountingSystem.ApplicationService
+namespace AccountingSystem.ApplicationService.会計伝票
 {
     public class 会計伝票記帳サービス
     {

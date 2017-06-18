@@ -9,7 +9,7 @@ namespace UnitTest.ApplicationService
     [TestClass]
     public class 会計伝票検索サービスクラステスト
     {
-        AccountingSystem.ApplicationService.会計伝票検索サービス 伝票検索 = new AccountingSystem.ApplicationService.会計伝票検索サービス();
+        AccountingSystem.ApplicationService.会計伝票.会計伝票検索サービス 伝票検索 = new AccountingSystem.ApplicationService.会計伝票.会計伝票検索サービス();
 
         [TestMethod]
         public void 伝票番号で検索する()

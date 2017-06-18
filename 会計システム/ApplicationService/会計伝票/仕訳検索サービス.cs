@@ -3,7 +3,7 @@ using AccountingSystem.Domain.BusinessObject.勘定科目;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace AccountingSystem.ApplicationService
+namespace AccountingSystem.ApplicationService.会計伝票
 {
     public class 仕訳検索サービス
     {

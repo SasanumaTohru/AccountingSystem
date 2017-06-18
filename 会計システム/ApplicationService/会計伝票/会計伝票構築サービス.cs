@@ -3,7 +3,7 @@ using AccountingSystem.Domain.PrimitiveObject;
 using System;
 using System.Collections.Generic;
 
-namespace AccountingSystem.ApplicationService
+namespace AccountingSystem.ApplicationService.会計伝票
 {
     class 会計伝票構築サービス
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AccountingSystem.ApplicationService
+namespace AccountingSystem.ApplicationService.共通
 {
     /// <summary>
     /// UIからの入力された値を型変換もしくは検査します。

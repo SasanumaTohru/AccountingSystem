@@ -72,16 +72,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationService\仕訳検索サービス.cs" />
-    <Compile Include="ApplicationService\仕訳構築サービス.cs" />
-    <Compile Include="ApplicationService\会計伝票検索サービス.cs" />
-    <Compile Include="ApplicationService\会計伝票構築サービス.cs" />
-    <Compile Include="ApplicationService\会計伝票記帳サービス.cs" />
-    <Compile Include="ApplicationService\動作記録サービス.cs" />
-    <Compile Include="ApplicationService\合計残高試算表構築サービス.cs" />
-    <Compile Include="ApplicationService\型変換サービス.cs" />
-    <Compile Include="ApplicationService\勘定科目情報サービス.cs" />
-    <Compile Include="ApplicationService\識別子作成サービス.cs" />
+    <Compile Include="ApplicationService\会計伝票\仕訳検索サービス.cs" />
+    <Compile Include="ApplicationService\会計伝票\仕訳構築サービス.cs" />
+    <Compile Include="ApplicationService\会計伝票\会計伝票検索サービス.cs" />
+    <Compile Include="ApplicationService\会計伝票\会計伝票構築サービス.cs" />
+    <Compile Include="ApplicationService\会計伝票\会計伝票記帳サービス.cs" />
+    <Compile Include="ApplicationService\運用\動作記録サービス.cs" />
+    <Compile Include="ApplicationService\財務諸表\合計残高試算表構築サービス.cs" />
+    <Compile Include="ApplicationService\共通\型変換サービス.cs" />
+    <Compile Include="ApplicationService\勘定科目\勘定科目情報サービス.cs" />
+    <Compile Include="ApplicationService\共通\識別子作成サービス.cs" />
     <Compile Include="Domain\BusinessObject\会計伝票\仕訳.cs" />
     <Compile Include="Domain\BusinessObject\会計伝票\仕訳列.cs" />
     <Compile Include="Domain\BusinessObject\会計伝票\伝票.cs" />
@@ -219,5 +219,6 @@
       <Name>WindowsFormsControlLibrary</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

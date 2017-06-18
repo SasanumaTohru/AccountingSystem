@@ -3,7 +3,7 @@ using AccountingSystem.Domain.PrimitiveObject;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace AccountingSystem.ApplicationService
+namespace AccountingSystem.ApplicationService.勘定科目
 {
     public class 勘定科目情報サービス
     {

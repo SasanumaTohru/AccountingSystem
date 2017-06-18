@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AccountingSystem.ApplicationService
+namespace AccountingSystem.ApplicationService.共通
 {
     public class 識別子作成サービス
     {

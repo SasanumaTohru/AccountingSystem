@@ -27,7 +27,7 @@ namespace UnitTest.Domain.BusinessObject.勘定科目
             Assert.AreEqual(伝票情報.伝票区分リスト.通常伝票, 元伝票.伝票情報.伝票区分);
             Assert.AreEqual(伝票情報.訂正リスト.なし, 元伝票.伝票情報.訂正有無);
 
-            var 伝票記帳サービス = new AccountingSystem.ApplicationService.会計伝票記帳サービス();
+            var 伝票記帳サービス = new AccountingSystem.ApplicationService.会計伝票.会計伝票記帳サービス();
             伝票 保存した元伝票 = 伝票記帳サービス.伝票を記帳する(元伝票);
             var 訂正伝票ビルダー = new 訂正伝票作成サービス();
             var 訂正伝票 = 訂正伝票ビルダー.訂正伝票を作成する(元伝票);

@@ -3,12 +3,12 @@ using AccountingSystem.Domain.BusinessObject.勘定科目;
 using AccountingSystem.Domain.PrimitiveObject;
 using System.Collections.ObjectModel;
 
-namespace AccountingSystem.ApplicationService
+namespace AccountingSystem.ApplicationService.会計伝票
 {
     public class 仕訳構築サービス
     {
         private 仕訳列 m_仕訳列 = new 仕訳列();
-        private 勘定科目情報サービス 勘定科目情報 = new 勘定科目情報サービス();
+        private 勘定科目.勘定科目情報サービス 勘定科目情報 = new 勘定科目.勘定科目情報サービス();
 
         /// <summary>
         /// 
