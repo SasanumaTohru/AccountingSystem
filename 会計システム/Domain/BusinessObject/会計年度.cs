@@ -4,7 +4,6 @@ namespace AccountingSystem.Domain.BusinessObject
 {
     public class 会計年度
     {
-        private FoundationObject.期間 m_会計期間;
         private 四半期 m_四半期;
 
         /// <summary>
@@ -13,23 +12,14 @@ namespace AccountingSystem.Domain.BusinessObject
         /// <param name="年度開始月"></param>
         public 会計年度(int 年度, int 年度開始月 = 4)
         {
-            m_四半期 = new 四半期(年度開始月);
-            var 開始日 = new PrimitiveObject.日付(年度, m_四半期.第1四半期の開始月, 1);
-            int 終了年 = 開始日.値.AddYears(1).Year;
-            if (m_四半期.第1四半期の開始月 == 1)
-            {
-                --終了年;
-            }
-            int 終了月 = 開始日.値.AddYears(1).AddMonths(-1).Month;
-            int 終了月の月末 = DateTime.DaysInMonth(終了年, 終了月);
-            var 終了日 = new PrimitiveObject.日付(終了年, 終了月, 終了月の月末);
-            m_会計期間 = new FoundationObject.期間(開始日, 終了日);
+            var 開始日 = new PrimitiveObject.日付(年度, 年度開始月, 1);
+            m_四半期 = new 四半期(開始日);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public FoundationObject.期間 期間 => m_会計期間;
+        public FoundationObject.期間 期間 => new FoundationObject.期間(m_四半期.第1四半期.開始日,m_四半期.第4四半期.終了日);
 
         /// <summary>
         /// 
@@ -48,10 +38,8 @@ namespace AccountingSystem.Domain.BusinessObject
         /// <returns></returns>
         private int 帰属年度を取得する(PrimitiveObject.日付 基準日)
         {
-            int 年度終了月 = m_四半期.第1四半期の開始月 - 1;
             int 帰属年 = 基準日.値.Year;
-            int 基準月 = 基準日.値.Month;
-            if (1 <= 基準月 & 基準月 <= 年度終了月)
+            if(基準日.値.Month < m_四半期.第1四半期の開始月)
             {
                 --帰属年;
             }
