@@ -48,8 +48,28 @@ namespace AccountingSystem.Domain.BusinessObject.財務諸表
             get
             {
                 集計する();
+                利益を計算する();
                 return m_勘定科目別残高.AsReadOnly();
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private void 利益を計算する()
+        {
+            // ToDo:利益計算
+            // コレクションにして
+            const int 利益科目コード = 599999;
+            const string 利益科目名 = "純利益";
+            const int 計算対象収益科目コード = 500000;
+            const int 計算対象費用科目コード = 400000;
+
+            // foreach にする
+            勘定科目.科目 純利益 = new 勘定科目.科目(new 勘定科目.コード(利益科目コード), new PrimitiveObject.名称(利益科目名));
+            勘定科目残高 収益 = m_勘定科目別残高.Where(o => o.勘定科目.コード.値 == 計算対象収益科目コード).First();
+            勘定科目残高 費用 = m_勘定科目別残高.Where(o => o.勘定科目.コード.値 == 計算対象費用科目コード).First();
+            m_勘定科目別残高.Add(new 勘定科目残高(純利益, new PrimitiveObject.金額(収益.金額.値 - 費用.金額.値)));
         }
     }
 }
