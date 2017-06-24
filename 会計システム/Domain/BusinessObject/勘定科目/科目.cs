@@ -7,6 +7,7 @@
         private 貸借.区分 m_貸借区分;
         private コード m_集計科目コード;
         private int m_集計区分;
+        private string m_勘定区分;
 
         /// <summary>
         /// 
@@ -45,18 +46,27 @@
             {
                 case 1:
                     m_貸借区分 = 貸借.区分.借方;
+                    m_勘定区分 = "資産";
                     break;
                 case 2:
                     m_貸借区分 = 貸借.区分.貸方;
+                    m_勘定区分 = "負債";
                     break;
                 case 3:
                     m_貸借区分 = 貸借.区分.貸方;
+                    m_勘定区分 = "資本";
                     break;
                 case 4:
                     m_貸借区分 = 貸借.区分.借方;
+                    m_勘定区分 = "費用";
                     break;
                 case 5:
                     m_貸借区分 = 貸借.区分.貸方;
+                    m_勘定区分 = "収益";
+                    break;
+                case 6:
+                    m_貸借区分 = 貸借.区分.貸方;
+                    m_勘定区分 = "利益";
                     break;
             }
             m_名称 = 名称;

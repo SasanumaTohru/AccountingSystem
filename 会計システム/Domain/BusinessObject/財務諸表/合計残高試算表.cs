@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 namespace AccountingSystem.Domain.BusinessObject.財務諸表
@@ -7,6 +6,16 @@ namespace AccountingSystem.Domain.BusinessObject.財務諸表
     public class 合計残高試算表
     {
         private List<勘定科目残高> m_勘定科目別残高 = new List<勘定科目残高>();
+        private 勘定科目.利益計算情報 m_利益計算情報;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="利益計算情報"></param>
+        public 合計残高試算表(勘定科目.利益計算情報 利益計算情報)
+        {
+            m_利益計算情報 = 利益計算情報;
+        }
 
         /// <summary>
         /// 
@@ -38,8 +47,7 @@ namespace AccountingSystem.Domain.BusinessObject.財務諸表
                 }
             }
         }
-
-
+        
         /// <summary>
         /// 
         /// </summary>
@@ -58,18 +66,24 @@ namespace AccountingSystem.Domain.BusinessObject.財務諸表
         /// </summary>
         private void 利益を計算する()
         {
-            // ToDo:利益計算
-            // コレクションにして
-            const int 利益科目コード = 599999;
-            const string 利益科目名 = "純利益";
-            const int 計算対象収益科目コード = 500000;
-            const int 計算対象費用科目コード = 400000;
+            var 売上総利益 = m_勘定科目別残高.Where(o => o.勘定科目.コード.値 == m_利益計算情報.売上総利益.コード.値).First();
+            var 売上 = m_勘定科目別残高.Where(o => o.勘定科目.コード.値 == m_利益計算情報.売上.コード.値).First();
+            var 売上原価 = m_勘定科目別残高.Where(o => o.勘定科目.コード.値 == m_利益計算情報.売上原価.コード.値).First();
+            売上総利益.金額を加算する(new PrimitiveObject.金額(売上.金額.値 - 売上原価.金額.値));
 
-            // foreach にする
-            勘定科目.科目 純利益 = new 勘定科目.科目(new 勘定科目.コード(利益科目コード), new PrimitiveObject.名称(利益科目名));
-            勘定科目残高 収益 = m_勘定科目別残高.Where(o => o.勘定科目.コード.値 == 計算対象収益科目コード).First();
-            勘定科目残高 費用 = m_勘定科目別残高.Where(o => o.勘定科目.コード.値 == 計算対象費用科目コード).First();
-            m_勘定科目別残高.Add(new 勘定科目残高(純利益, new PrimitiveObject.金額(収益.金額.値 - 費用.金額.値)));
+            var 営業利益 = m_勘定科目別残高.Where(o => o.勘定科目.コード.値 == m_利益計算情報.営業利益.コード.値).First();
+            var 販売費及び一般管理費 = m_勘定科目別残高.Where(o => o.勘定科目.コード.値 == m_利益計算情報.販売費及び一般管理費.コード.値).First();
+            営業利益.金額を加算する(new PrimitiveObject.金額(売上総利益.金額.値 - 販売費及び一般管理費.金額.値));
+
+            var 経常利益 = m_勘定科目別残高.Where(o => o.勘定科目.コード.値 == m_利益計算情報.経常利益.コード.値).First();
+            var 営業外収益 = m_勘定科目別残高.Where(o => o.勘定科目.コード.値 == m_利益計算情報.営業外収益.コード.値).First();
+            var 営業外費用 = m_勘定科目別残高.Where(o => o.勘定科目.コード.値 == m_利益計算情報.営業外費用.コード.値).First();
+            経常利益.金額を加算する(new PrimitiveObject.金額(営業利益.金額.値 + 営業外収益.金額.値 - 営業外費用.金額.値));
+
+            var 純利益 = m_勘定科目別残高.Where(o => o.勘定科目.コード.値 == m_利益計算情報.純利益.コード.値).First();
+            var 特別利益 = m_勘定科目別残高.Where(o => o.勘定科目.コード.値 == m_利益計算情報.特別利益.コード.値).First();
+            var 特別損失 = m_勘定科目別残高.Where(o => o.勘定科目.コード.値 == m_利益計算情報.特別損失.コード.値).First();
+            純利益.金額を加算する(new PrimitiveObject.金額(経常利益.金額.値 + 特別利益.金額.値 - 特別損失.金額.値));
         }
     }
 }

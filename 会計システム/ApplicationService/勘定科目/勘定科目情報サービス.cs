@@ -37,6 +37,17 @@ namespace AccountingSystem.ApplicationService.勘定科目
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="勘定科目コード"></param>
+        /// <returns></returns>
+        public 科目 科目を検索する(int 勘定科目コード)
+        {
+            Infrastructure.M_勘定科目 検索した勘定科目= 勘定科目RI.科目を検索する(勘定科目コード);
+            return new 科目(new コード(検索した勘定科目.勘定科目コード),new 名称(検索した勘定科目.勘定科目名));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="クエリー結果"></param>
         private void クエリー結果をリストに格納する(List<Infrastructure.M_勘定科目> クエリー結果)
         {
@@ -45,7 +56,7 @@ namespace AccountingSystem.ApplicationService.勘定科目
             {
                 var 科目コード = new コード(レコード.勘定科目コード);
                 var 集計科目コード = new コード(レコード.集計科目コード);
-                var 勘定科目 = new 科目(科目コード, new 名称(レコード.勘定科目名), 集計科目コード,レコード.集計区分);
+                var 勘定科目 = new 科目(科目コード, new 名称(レコード.勘定科目名), 集計科目コード, レコード.集計区分);
                 m_勘定科目リスト.Add(勘定科目);
             }
         }

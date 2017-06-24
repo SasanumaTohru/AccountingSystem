@@ -89,6 +89,7 @@
     <Compile Include="Domain\BusinessObject\会計伝票\伝票情報.cs" />
     <Compile Include="Domain\BusinessObject\会計伝票\訂正伝票作成サービス.cs" />
     <Compile Include="Domain\BusinessObject\会計年度.cs" />
+    <Compile Include="Domain\BusinessObject\勘定科目\利益計算情報.cs" />
     <Compile Include="Domain\BusinessObject\勘定科目\科目.cs" />
     <Compile Include="Domain\BusinessObject\勘定科目\コード.cs" />
     <Compile Include="Domain\BusinessObject\四半期.cs" />
