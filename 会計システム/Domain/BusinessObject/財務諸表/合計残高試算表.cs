@@ -23,6 +23,7 @@ namespace AccountingSystem.Domain.BusinessObject.財務諸表
         /// <param name="勘定科目残高"></param>
         public void 追加する(勘定科目残高 勘定科目残高)
         {
+            //ToDo:同じ科目の追加は例外
             m_勘定科目別残高.Add(勘定科目残高);
         }
 

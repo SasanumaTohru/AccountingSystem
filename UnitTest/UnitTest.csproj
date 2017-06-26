@@ -80,6 +80,7 @@
     <Compile Include="ApplicationService\勘定科目情報サービスクラステスト.cs" />
     <Compile Include="ApplicationService\会計伝票検索サービスクラステスト.cs" />
     <Compile Include="ApplicationService\型変換サービスクラステスト.cs" />
+    <Compile Include="Domain\BusinessObject\四半期期末残高クラステスト.cs" />
     <Compile Include="Domain\BusinessObject\四半期クラステスト.cs" />
     <Compile Include="Domain\BusinessObject\会計年度クラステスト.cs" />
     <Compile Include="Domain\BusinessObject\勘定科目\仕訳列クラステスト.cs" />

@@ -90,6 +90,11 @@
         /// <summary>
         /// 
         /// </summary>
+        public string 勘定区分 => m_勘定区分; 
+
+        /// <summary>
+        /// 
+        /// </summary>
         public PrimitiveObject.必須文字列 コードと名称 => new PrimitiveObject.必須文字列($"{m_コード.値.ToString()} : {m_名称.値}");
 
         /// <summary>

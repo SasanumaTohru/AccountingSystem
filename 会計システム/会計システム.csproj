@@ -95,6 +95,8 @@
     <Compile Include="Domain\BusinessObject\四半期.cs" />
     <Compile Include="Domain\BusinessObject\財務諸表\勘定科目残高.cs" />
     <Compile Include="Domain\BusinessObject\財務諸表\合計残高試算表.cs" />
+    <Compile Include="Domain\BusinessObject\財務諸表\四半期末勘定科目残高.cs" />
+    <Compile Include="Domain\BusinessObject\財務諸表\四半期決算.cs" />
     <Compile Include="Domain\BusinessObject\貸借.cs" />
     <Compile Include="Domain\FoundationObject\期間.cs" />
     <Compile Include="Domain\FoundationObject\消費税率.cs" />

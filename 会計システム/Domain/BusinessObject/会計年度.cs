@@ -19,6 +19,11 @@ namespace AccountingSystem.Domain.BusinessObject
         /// <summary>
         /// 
         /// </summary>
+        public int 値 => m_四半期.第1四半期.開始日.値.Year;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public FoundationObject.期間 期間 => new FoundationObject.期間(m_四半期.第1四半期.開始日,m_四半期.第4四半期.終了日);
 
         /// <summary>
